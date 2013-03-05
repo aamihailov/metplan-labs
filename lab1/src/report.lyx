@@ -1,0 +1,1926 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{cmap}	         % русские буквы при копировании 
+\usepackage{indentfirst}      % отступ после первого абзаца
+\usepackage{misccorr}	         % точки после номеров заголовков
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{lscape}	         % поворот страницы с сохранением нумерации
+\usepackage{multirow}
+
+\sloppy
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language russian
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Предметный указатель
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 1cm
+\rightmargin 1cm
+\bottommargin 2cm
+\footskip 1cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large Министерство образования и науки РФ
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large Новосибирский Государственный Технический Университет
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large Кафедра ПМт
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[8.5cm]  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+huge Лабораторная работа 
+\backslash
+No1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[0.5cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large <<Прямая градиентная процедура планирования>>
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[0.5cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large по~курсу <<Математические методы планирования эксперимента>>
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[4.0cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+vfill % заполнить все доступное ниже пространство
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newbox{
+\backslash
+lbox}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+savebox{
+\backslash
+lbox}{
+\backslash
+hbox{Пупкин Иван Иванович}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newlength{
+\backslash
+maxl}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setlength{
+\backslash
+maxl}{
+\backslash
+wd
+\backslash
+lbox}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\backslash
+parbox{8cm}{
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Факультет:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{ПМИ
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Группа:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{ПММ-81
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Студенты:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Михайлов А.А.,
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace*{5cm}
+\backslash
+hspace*{-5cm}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Санина А.А.
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Преподаватели:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Черникова  О.С.,
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace*{5cm}
+\backslash
+hspace*{-5cm}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Чубич В.М.
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[3.0cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\backslash
+large Новосибирск 2013}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty} % не нумеровать страницу
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Условие задачи 
+\end_layout
+
+\begin_layout Standard
+Исследовать метод 
+\begin_inset Formula $D$
+\end_inset
+
+–оптимального планирования непрерывных оптимальных планов с помощью прямой
+ градиентной процедуры.
+\end_layout
+
+\begin_layout Section
+Ход работы:
+\end_layout
+
+\begin_layout Subsection
+Постановка задачи
+\end_layout
+
+\begin_layout Standard
+Пусть 
+\begin_inset Formula $\nu$
+\end_inset
+
+ --- возможное количество запусков системы, причём сигнал 
+\begin_inset Formula $\alpha_{1}$
+\end_inset
+
+ подаётся на вход системы 
+\begin_inset Formula $k_{1}$
+\end_inset
+
+ раз, сигнал 
+\begin_inset Formula $\alpha_{2}$
+\end_inset
+
+ --- 
+\begin_inset Formula $k_{2}$
+\end_inset
+
+ раз и т.д., сигнал 
+\begin_inset Formula $\alpha_{q}$
+\end_inset
+
+ --- 
+\begin_inset Formula $q$
+\end_inset
+
+ раз.
+\end_layout
+
+\begin_layout Standard
+Под 
+\emph on
+непрерывным нормированным планом 
+\begin_inset Formula $\xi$
+\end_inset
+
+
+\emph default
+ условимся понимать совокупность величин
+\begin_inset Formula 
+\begin{equation}
+\xi=\left(\begin{array}{cccc}
+\alpha_{1}, & \alpha_{2}, & \ldots, & \alpha_{q}\\
+p_{1}, & p_{2}, & \ldots, & p_{q}
+\end{array}\right),\ p_{i}\geq0,\ \sum_{i=1}^{q}p_{i}=1,\ \alpha_{i}\in\Omega_{\alpha},\ i=\overline{1,\, q}.\label{eq:xi}
+\end{equation}
+
+\end_inset
+
+ В общем случае непрерывный нормированный план 
+\begin_inset Formula $\xi$
+\end_inset
+
+ соответствует вероятностной мере 
+\begin_inset Formula $\xi\left(d\alpha\right)$
+\end_inset
+
+, заданной на области 
+\begin_inset Formula $\Omega_{\alpha}$
+\end_inset
+
+ и удовлетворяющей условиям неотрицательности и нормировки:
+\begin_inset Formula 
+\begin{equation}
+\intop_{\Omega_{\alpha}}\xi\left(d\alpha\right)=1,\ \xi\left(d\alpha\right)\geq0,\ \alpha\in\Omega_{\alpha}.\label{eq:int_xi}
+\end{equation}
+
+\end_inset
+
+ При этом 
+\emph on
+нормированная информационная матрица
+\emph default
+ плана определяется соотношением
+\begin_inset Formula 
+\begin{equation}
+M\left(\xi\right)=\intop_{\Omega_{\alpha}}M\left(\alpha\right)\xi\left(d\alpha\right).\label{eq:M(xi)}
+\end{equation}
+
+\end_inset
+
+Для плана 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:xi"
+
+\end_inset
+
+ интеграл в 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:M(xi)"
+
+\end_inset
+
+ переходит в сумму, т.е.
+\begin_inset Formula 
+\begin{equation}
+M\left(\xi\right)=\sum_{i=1}^{q}p_{i}\, M\left(\alpha_{i}\right),\label{eq:sum_M(xi)}
+\end{equation}
+
+\end_inset
+
+ где 
+\begin_inset Formula $M\left(\alpha_{i}\right)$
+\end_inset
+
+ --- информационные матрицы точек спектра плана.
+ Планирование оптимальных экспериментов опирается на критерии оптимальности
+ планов.
+ 
+\end_layout
+
+\begin_layout Subsection
+Алгоритм метода 
+\begin_inset Formula $D$
+\end_inset
+
+–оптимального планирования непрерывных оптимальных планов с помощью прямой
+ градиентной процедуры
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Критерий 
+\begin_inset Formula $D$
+\end_inset
+
+ -оптимальности.
+
+\emph default
+ План называется 
+\begin_inset Formula $D$
+\end_inset
+
+-оптимальным, если
+\begin_inset Formula 
+\begin{equation}
+\xi^{*}=\arg\underset{\xi\in\Omega_{\xi}}{\max}\det\left(M\left(\xi\right)\right)=\arg\underset{\xi\in\Omega_{\xi}}{\min}\det\left(D\left(\xi\right)\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+где 
+\begin_inset Formula $D\left(\xi\right)=M^{-1}\left(\xi\right)$
+\end_inset
+
+ --- 
+\emph on
+дисперсионная матрица плана.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Прямая градиентная процедура синтеза непрерывных оптимальных планов.
+\end_layout
+
+\begin_layout Standard
+Оптимизационная задача
+\begin_inset Formula 
+\begin{equation}
+\xi^{*}=\arg\underset{\xi\in\Omega_{\xi}}{\min}X\left[M\left(\xi\right)\right].
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:Step1"
+
+\end_inset
+
+Зададим начальный невырожденный план
+\begin_inset Formula 
+\begin{equation}
+\xi=\left(\begin{array}{cccc}
+\alpha_{1}^{0}, & \alpha_{2}^{0}, & \ldots, & \alpha_{q}^{0}\\
+p_{1}^{0}, & p_{2}^{0}, & \ldots, & p_{q}^{0}
+\end{array}\right),\ p_{i}^{0}=\frac{1}{q},\ \alpha_{i}\in\Omega_{\alpha},\ i=\overline{1,\, q}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+в котором 
+\begin_inset Formula $q=\frac{s\left(s+1\right)}{2}+1$
+\end_inset
+
+.
+ Вычислим информационные матрицы 
+\begin_inset Formula $M\left(\alpha_{i}^{0}\right)$
+\end_inset
+
+ одноточечных планов для 
+\begin_inset Formula $i=\overline{1,\, q}$
+\end_inset
+
+ и по формуле 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:sum_M(xi)"
+
+\end_inset
+
+ информационную матрицу всего плана 
+\begin_inset Formula $\xi_{0}$
+\end_inset
+
+.
+ Положим 
+\begin_inset Formula $l=0$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:Step2"
+
+\end_inset
+
+Считая веса 
+\begin_inset Formula $p_{1}^{l},\, p_{2}^{l},\,\ldots,\, p_{q}^{l}$
+\end_inset
+
+ фиксированными, для задачи
+\begin_inset Formula 
+\begin{equation}
+X\left[M\left(\xi\right)\right]\rightarrow\underset{\alpha_{1}^{l},\,\ldots,\,\alpha_{q}^{l}}{\min},\ \alpha_{i}^{l}\in\Omega_{\alpha},\ i=\overline{1,\, q},
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+выполним одну итерацию метода проекции градиента:
+\begin_inset Formula 
+\begin{equation}
+\breve{A}^{l+1}=\pi_{\Omega_{\breve{A}}}\left\{ \breve{A}^{l}-\rho_{l}^{'}\nabla_{\breve{A}}X\left[M\left(\xi_{l}\right)\right]\right\} ,
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+где
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\breve{A}^{T}=\left(\alpha_{1}^{T},\,\alpha_{2}^{T},\,\ldots,\,\alpha_{q}^{T}\right)$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\pi_{\Omega_{\breve{A}}}\left(z\right)$
+\end_inset
+
+ --- проекция точки на множество 
+\begin_inset Formula $\Omega_{\breve{A}}$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\rho_{l}^{'}\geq0$
+\end_inset
+
+ --- длина шага.
+\end_layout
+
+\begin_layout Standard
+Для сигналов, ограниченных по мощности или по амплитуде, когда 
+\begin_inset Formula $\Omega_{\breve{A}}$
+\end_inset
+
+ --- соответственно координатный шар или параллелепипед, известны явные
+ выражения для проекции:
+\end_layout
+
+\begin_layout Itemize
+если 
+\begin_inset Formula $\Omega_{\breve{A}}=\left\{ \breve{A}\in R^{k}\,|\,\left\Vert \breve{A}\right\Vert \leq C\right\} $
+\end_inset
+
+, то 
+\begin_inset Formula $\pi_{\Omega_{\breve{A}}}\left(z\right)=\frac{z}{\left\Vert z\right\Vert }C$
+\end_inset
+
+ ;
+\end_layout
+
+\begin_layout Itemize
+если 
+\begin_inset Formula $\Omega_{\breve{A}}=\left\{ \breve{A}\in R^{k}\,|\,\beta_{j}\leq\breve{A}_{j}\leq\gamma_{j},\ j=\overline{1,\, k}\right\} $
+\end_inset
+
+, то
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\left[\pi_{\Omega_{\breve{A}}}\left(z\right)\right]=\begin{cases}
+\beta_{j}, & z_{j}<\beta_{j};\\
+z_{j}, & \beta_{j}\leq z_{j}\leq\gamma_{j};\\
+\gamma_{j}, & z_{j}>\gamma_{j}.
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Далее составим план
+\begin_inset Formula 
+\[
+\xi=\left(\begin{array}{cccc}
+\alpha_{1}^{l+1}, & \alpha_{2}^{l+1}, & \ldots, & \alpha_{q}^{l+1}\\
+p_{1}^{l}, & p_{2}^{l}, & \ldots, & p_{q}^{l}
+\end{array}\right),
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+где 
+\begin_inset Formula $\alpha_{i}^{l+1}$
+\end_inset
+
+ --- точки найденные на шаге 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:Step2"
+
+\end_inset
+
+.
+ Вычислим 
+\begin_inset Formula $M\left(\alpha_{i}^{l+1}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $i=\overline{1,\, q}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:Step3"
+
+\end_inset
+
+Зафиксируем точки спектра полученного плана и для задачи
+\begin_inset Formula 
+\[
+X\left[M\left(\breve{\xi}_{l}\right)\right]\rightarrow\underset{p_{1}^{l},\,\ldots,\, p_{q}^{l}}{\min},\ p_{i}^{l}\geq0,\ \sum_{i=1}^{q}p_{i}^{l}=1,\ i=\overline{1,\, q},
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+выполним одну итерацию метода проекции градиента Розена:
+\begin_inset Formula 
+\[
+\tilde{p}^{l+1}=\tilde{p}^{l}-\rho_{l}^{''}\nabla_{\tilde{p}}X\left[M\left(\tilde{\xi}_{l}\right)\right],
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+где 
+\begin_inset Formula $\widetilde{p}=\left(p_{1},\, p_{2},\,\ldots,\, p_{q}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\rho_{l}^{''}$
+\end_inset
+
+ --- длина шага, 
+\begin_inset Formula $Р$
+\end_inset
+
+ --- матрица оператора проектирования.
+ Составим план
+\begin_inset Formula 
+\[
+\xi_{l+1}=\left(\begin{array}{cccc}
+\alpha_{1}^{l+1}, & \alpha_{2}^{l+1}, & \ldots, & \alpha_{q}^{l+1}\\
+p_{1}^{l+1}, & p_{2}^{l+1}, & \ldots, & p_{q}^{l+1}
+\end{array}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:Step4"
+
+\end_inset
+
+Если выполняется неравенство
+\begin_inset Formula 
+\[
+\sum_{i=1}^{q}\left[\left\Vert \alpha_{i}^{l+1}-\alpha_{i}^{l}\right\Vert ^{2}+\left(p_{i}^{l+1}-p_{i}^{l}\right)^{2}\right]\leq\delta,
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+где 
+\begin_inset Formula $\delta$
+\end_inset
+
+ --- малое положительное число, перейдём на шаг 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:Step5"
+
+\end_inset
+
+.
+ В противном случае для повторим шаги 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:Step2"
+
+\end_inset
+
+ и 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:Step3"
+
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:Step5"
+
+\end_inset
+
+Проверим необходимое условие оптимальности плана.
+ 
+\begin_inset Formula 
+\[
+\left|\mu\left(\alpha_{i}^{l+1},\,\xi_{l+1}\right)-\eta\right|\leq\delta,\ i=\overline{1,\, q}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Соответствие значений параметров 
+\begin_inset Formula $X\left[M\left(\xi\right)\right]$
+\end_inset
+
+, 
+\begin_inset Formula $\mu\left(\alpha,\,\xi\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\eta$
+\end_inset
+
+ прямой процедуры критерию 
+\begin_inset Formula $D$
+\end_inset
+
+-оптимальности указано в табл.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Парметры-критерий--оптимального"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Если необходимое условие оптимальности выполняется, закончим процесс.
+ В противном случае повторим всё сначала, скорректировав начальное приближение
+ 
+\begin_inset Formula $\xi_{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Парметры-критерий--оптимального"
+
+\end_inset
+
+Парметры критерий 
+\begin_inset Formula $D$
+\end_inset
+
+-оптимального плана
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $X\left[M\left(\xi\right)\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mu\left(\alpha,\,\xi\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\eta$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $-\ln\det\left(M\left(\xi\right)\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $Sp\left[M^{-1}\left(\xi\right)\, M\left(\alpha\right)\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $s$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Текст программы на языке Python
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize},breaklines=true,language=Python,numbers=left,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# -*- coding: utf-8 -*-
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+from numpy import linalg as la
+\end_layout
+
+\begin_layout Plain Layout
+
+from scipy.optimize import minimize
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+class Plan(object):
+\end_layout
+
+\begin_layout Plain Layout
+
+    def __init__(self, s):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.s = s                                          # Число регрессоров
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.q = int(0.5 * s * (s + 1) + 1)                 # Число точек
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.A = np.matrix(np.ndarray((self.s, self.q)))    # Матрица плана:
+ [s,q]
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.p = np.matrix(np.ndarray((self.q, 1)))
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.p[:, :] = 1.0 / self.q                         # Веса точек: вектор,
+ или матрица [q,1]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def inf_matrix(self, f, A=None, p=None):
+\end_layout
+
+\begin_layout Plain Layout
+
+        if A is None:
+\end_layout
+
+\begin_layout Plain Layout
+
+            A = self.A
+\end_layout
+
+\begin_layout Plain Layout
+
+        if p is None:
+\end_layout
+
+\begin_layout Plain Layout
+
+            p = self.p
+\end_layout
+
+\begin_layout Plain Layout
+
+        q = self.q
+\end_layout
+
+\begin_layout Plain Layout
+
+        return sum(f(A[:, i]) * f(A[:, i]).transpose() * p[i, 0] for i in
+ xrange(q))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def X(self, f, A=None, p=None):
+\end_layout
+
+\begin_layout Plain Layout
+
+        log = np.log
+\end_layout
+
+\begin_layout Plain Layout
+
+        det = la.det
+\end_layout
+
+\begin_layout Plain Layout
+
+        M   = self.inf_matrix(f, A, p)
+\end_layout
+
+\begin_layout Plain Layout
+
+        return -log(det(M))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def mu(self, f):
+\end_layout
+
+\begin_layout Plain Layout
+
+        M = self.inf_matrix(f)
+\end_layout
+
+\begin_layout Plain Layout
+
+        return np.asscalar((M**(-1) * M).trace())
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def eta(self, f):
+\end_layout
+
+\begin_layout Plain Layout
+
+        return self.s
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def build_plan_dirgrad(f, xi, epsilon=1.0e-3):
+\end_layout
+
+\begin_layout Plain Layout
+
+    """Синтез оптимального плана с помощью прямой градиентной процедуры.
+ D критерий.
+\end_layout
+
+\begin_layout Plain Layout
+
+    """
+\end_layout
+
+\begin_layout Plain Layout
+
+    exit_cond = np.inf
+\end_layout
+
+\begin_layout Plain Layout
+
+    iter = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+    while exit_cond > epsilon:
+\end_layout
+
+\begin_layout Plain Layout
+
+        iter += 1
+\end_layout
+
+\begin_layout Plain Layout
+
+        detM = la.det(xi.inf_matrix(f))
+\end_layout
+
+\begin_layout Plain Layout
+
+        mu   = xi.mu(f)
+\end_layout
+
+\begin_layout Plain Layout
+
+        print 'On iter %d:
+\backslash
+n%s
+\backslash
+n%s
+\backslash
+n
+\backslash
+ndet(M(xi)) = %.3lf
+\backslash
+nmu(alpha,xi) = %.3lf
+\backslash
+n==================' % (
+\end_layout
+
+\begin_layout Plain Layout
+
+            iter, xi.A, xi.p, detM, mu)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        bnds = ((0.0, 1.0), ) * xi.q                            # Границы для
+ весов p: [0.0 ..
+ 1.0]
+\end_layout
+
+\begin_layout Plain Layout
+
+        cons = ({'type': 'eq', 'fun': lambda p: sum(p) - 1},)   # Нормированност
+ь суммы весов
+\end_layout
+
+\begin_layout Plain Layout
+
+        res = minimize(lambda p: xi.X(f, p=np.asmatrix(p).reshape((xi.q, 1))),
+\end_layout
+
+\begin_layout Plain Layout
+
+                       x0=np.squeeze(np.asarray(xi.p)),
+\end_layout
+
+\begin_layout Plain Layout
+
+                       method='SLSQP',
+\end_layout
+
+\begin_layout Plain Layout
+
+                       bounds=bnds,
+\end_layout
+
+\begin_layout Plain Layout
+
+                       constraints=cons)
+\end_layout
+
+\begin_layout Plain Layout
+
+        p_new = np.matrix(res['x']).reshape((xi.q, 1))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        bnds = ((-5.0, 5.0), ) * xi.s * xi.q                    # Границы для
+ точек плана A: [-5.0 ..
+ 5.0]
+\end_layout
+
+\begin_layout Plain Layout
+
+        res = minimize(lambda A: xi.X(f, A=np.asmatrix(A).reshape((xi.s, xi.q))),
+\end_layout
+
+\begin_layout Plain Layout
+
+                       x0=np.squeeze(np.asarray(xi.A)),
+\end_layout
+
+\begin_layout Plain Layout
+
+                       method='SLSQP',
+\end_layout
+
+\begin_layout Plain Layout
+
+                       bounds=bnds)
+\end_layout
+
+\begin_layout Plain Layout
+
+        A_new = np.matrix(res['x']).reshape((xi.s, xi.q))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        exit_cond = sum(np.linalg.norm(A_new[:,i] - xi.A[:,i])**2 + (p_new[i,0]
+ - xi.p[i,0])**2 for i in xrange(xi.q))
+\end_layout
+
+\begin_layout Plain Layout
+
+        xi.A[:,:] = A_new
+\end_layout
+
+\begin_layout Plain Layout
+
+        xi.p[:,:] = p_new
+\end_layout
+
+\begin_layout Plain Layout
+
+    detM = la.det(xi.inf_matrix(f))
+\end_layout
+
+\begin_layout Plain Layout
+
+    mu   = xi.mu(f)
+\end_layout
+
+\begin_layout Plain Layout
+
+    print 'Finally:
+\backslash
+n%s
+\backslash
+n%s
+\backslash
+n
+\backslash
+ndet(M(xi)) = %.3lf
+\backslash
+nmu(alpha,xi) = %.3lf
+\backslash
+n==================' % (
+\end_layout
+
+\begin_layout Plain Layout
+
+            xi.A, xi.p, detM, mu)
+\end_layout
+
+\begin_layout Plain Layout
+
+    return xi
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def main():
+\end_layout
+
+\begin_layout Plain Layout
+
+    s  = 2
+\end_layout
+
+\begin_layout Plain Layout
+
+    f  = lambda alpha: np.matrix([[alpha[0, 0]   ],
+\end_layout
+
+\begin_layout Plain Layout
+
+                                  [alpha[1 ,0]**2]])
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi = Plan(s)
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi.A[:, :] = [[1, -1,  1,  3],
+\end_layout
+
+\begin_layout Plain Layout
+
+                  [1,  2, -2,  0]]
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi = build_plan_dirgrad(f, xi)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    print 'Checking solution for being optimal (less is better): [%.2lf]'
+ % np.abs(xi.mu(f) - xi.eta(f))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+if __name__ == '__main__':
+\end_layout
+
+\begin_layout Plain Layout
+
+    main()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Результат работы программы
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,tabsize=0"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+"H:
+\backslash
+Portable
+\backslash
+Portable Python 2.7.3.2
+\backslash
+App
+\backslash
+python.exe" H:/Study/metplan/main.py
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 1:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 1.
+ -1.
+  1.
+  3.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 1.
+  2.
+ -2.
+  0.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+det(M(xi)) = 24.687
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 2:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+ -5.
+  5.
+  5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 5.
+  5.
+ -5.
+  0.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[  6.80336863e-17]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  2.81302931e-01]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  2.81273316e-01]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  4.37423753e-01]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+det(M(xi)) = 8790.254
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 3:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+ -5.
+  5.
+  5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 5.
+  5.
+ -5.
+  0.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[  1.09379453e-01]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  4.99967779e-01]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  3.90652768e-01]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  6.18120109e-16]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+det(M(xi)) = 15625.000
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Finally:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+ -5.
+  5.
+  5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 5.
+  5.
+ -5.
+  0.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[  1.09379453e-01]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  4.99967779e-01]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  3.90652768e-01]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  6.18120109e-16]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+det(M(xi)) = 15625.000
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Checking solution for being optimal (less is better): [0.00]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
+Вывод
+\end_layout
+
+\begin_layout Standard
+В ходе лабораторной работы была проведено исследование метода 
+\begin_inset Formula $D$
+\end_inset
+
+–оптимального планирования непрерывных оптимальных планов с помощью прямой
+ градиентной процедуры.
+\end_layout
+
+\end_body
+\end_document
