@@ -34,6 +34,15 @@ class Plan(object):
                 self._remove_ith_point(i)
             else:
                 i += 1
+        i = 0
+        while i < self.q:
+            j = i + 1
+            while j < self.q:
+                if la.norm( self.A[:, i] - self.A[:, j] ) < epsilon:
+                    self.p[i, 0] += self.p[j, 0]
+                    self._remove_ith_point(j)
+                j += 1
+            i += 1
 
     def partial_inf_matrix(self, i, f, A=None):
         if A is None:
@@ -150,9 +159,9 @@ def build_plan_dirscan(f, xi0):
 
 def main():
     s = 2
-    q = 2
-    f = lambda alpha: np.matrix([[np.cos(alpha[0,0])],
-                                 [np.sin(alpha[1,0])]])
+    q = 8
+    f = lambda alpha: np.matrix([[(alpha[0,0])],
+                                 [(alpha[1,0])]])
     x0 = -5; x1 = 5
     A = (x1 - x0) * np.random.random((s, q)) + x0      # starting with random plan
     # A = [[-5, 5], [-5, 5]]
