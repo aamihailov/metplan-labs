@@ -1190,6 +1190,15 @@ from scipy.optimize import minimize
 
 \begin_layout Plain Layout
 
+import pylab as pl
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -1199,7 +1208,7 @@ class Plan(object):
 
 \begin_layout Plain Layout
 
-    def __init__(self, s):
+    def __init__(self, s, q=None):
 \end_layout
 
 \begin_layout Plain Layout
@@ -1209,7 +1218,22 @@ class Plan(object):
 
 \begin_layout Plain Layout
 
-        self.q = int(0.5 * s * (s + 1) + 1)                 # Число точек
+        if q is None:
+\end_layout
+
+\begin_layout Plain Layout
+
+            self.q = int(0.5 * s * (s + 1) + 1)             # Число точек
+\end_layout
+
+\begin_layout Plain Layout
+
+        else:
+\end_layout
+
+\begin_layout Plain Layout
+
+            self.q = q
 \end_layout
 
 \begin_layout Plain Layout
@@ -1227,6 +1251,112 @@ class Plan(object):
 
         self.p[:, :] = 1.0 / self.q                         # Веса точек: вектор,
  или матрица [q,1]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_bounds(self, bounds):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.bnds = bounds
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def _remove_ith_point(self, i):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.p = np.delete(self.p, i, 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.A = np.delete(self.A, i, 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.q -= 1
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def reduce_plan(self):
+\end_layout
+
+\begin_layout Plain Layout
+
+        epsilon = 1.0e-5
+\end_layout
+
+\begin_layout Plain Layout
+
+        i = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+        while i < self.q:
+\end_layout
+
+\begin_layout Plain Layout
+
+            if self.p[i, 0] < epsilon:
+\end_layout
+
+\begin_layout Plain Layout
+
+                self._remove_ith_point(i)
+\end_layout
+
+\begin_layout Plain Layout
+
+            else:
+\end_layout
+
+\begin_layout Plain Layout
+
+                i += 1
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def partial_inf_matrix(self, i, f, A=None):
+\end_layout
+
+\begin_layout Plain Layout
+
+        if A is None:
+\end_layout
+
+\begin_layout Plain Layout
+
+            A = self.A
+\end_layout
+
+\begin_layout Plain Layout
+
+        return f(A[:, i]) * f(A[:, i]).transpose()
 \end_layout
 
 \begin_layout Plain Layout
@@ -1265,8 +1395,7 @@ class Plan(object):
 
 \begin_layout Plain Layout
 
-        return sum(f(A[:, i]) * f(A[:, i]).transpose() * p[i, 0] for i in
- xrange(q))
+        return sum(self.partial_inf_matrix(i, f, A) * p[i, 0] for i in xrange(q))
 \end_layout
 
 \begin_layout Plain Layout
@@ -1314,7 +1443,8 @@ class Plan(object):
 
 \begin_layout Plain Layout
 
-        return np.asscalar((M**(-1) * M).trace())
+        return max(np.asscalar((M**(-1) * self.partial_inf_matrix(i, f)).trace())
+ for i in xrange(self.q))
 \end_layout
 
 \begin_layout Plain Layout
@@ -1337,11 +1467,27 @@ class Plan(object):
 
 \begin_layout Plain Layout
 
+    def __str__(self):
 \end_layout
 
 \begin_layout Plain Layout
 
-def build_plan_dirgrad(f, xi, epsilon=1.0e-3):
+        return '%s
+\backslash
+n%s' % (self.A, self.p)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def build_plan_dirgrad(f, xi, epsilon=1.0e-6):
 \end_layout
 
 \begin_layout Plain Layout
@@ -1377,7 +1523,7 @@ def build_plan_dirgrad(f, xi, epsilon=1.0e-3):
 
 \begin_layout Plain Layout
 
-        detM = la.det(xi.inf_matrix(f))
+        detM = np.log(la.det(xi.inf_matrix(f)))
 \end_layout
 
 \begin_layout Plain Layout
@@ -1391,11 +1537,9 @@ def build_plan_dirgrad(f, xi, epsilon=1.0e-3):
 \backslash
 n%s
 \backslash
-n%s
-\backslash
 n
 \backslash
-ndet(M(xi)) = %.3lf
+nlog(det(M(xi))) = %.3lf
 \backslash
 nmu(alpha,xi) = %.3lf
 \backslash
@@ -1404,7 +1548,47 @@ n==================' % (
 
 \begin_layout Plain Layout
 
-            iter, xi.A, xi.p, detM, mu)
+            iter, xi, detM, mu)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        bnds = reduce(lambda a, b: a + b, [(xi.bnds[i], ) * xi.q for i in
+ xrange(xi.s)])     # Границы для точек плана
+\end_layout
+
+\begin_layout Plain Layout
+
+        res = minimize(lambda A: xi.X(f, A=np.asmatrix(A).reshape((xi.s, xi.q))),
+\end_layout
+
+\begin_layout Plain Layout
+
+                       x0=np.squeeze(np.asarray(xi.A.reshape((1, xi.s * xi.q)))),
+\end_layout
+
+\begin_layout Plain Layout
+
+                       method='L-BFGS-B',
+\end_layout
+
+\begin_layout Plain Layout
+
+                       bounds=bnds)
+\end_layout
+
+\begin_layout Plain Layout
+
+        A_new = np.matrix(res['x']).reshape((xi.s, xi.q))
+\end_layout
+
+\begin_layout Plain Layout
+
+        xi.A[:, :] = A_new
 \end_layout
 
 \begin_layout Plain Layout
@@ -1460,59 +1644,18 @@ n==================' % (
 
 \begin_layout Plain Layout
 
-        bnds = ((-5.0, 5.0), ) * xi.s * xi.q                    # Границы для
- точек плана A: [-5.0 ..
- 5.0]
+        exit_cond = sum(np.linalg.norm(A_new[:, i] - xi.A[:, i])**2 + (p_new[i,
+ 0] - xi.p[i, 0])**2 for i in xrange(xi.q))
 \end_layout
 
 \begin_layout Plain Layout
 
-        res = minimize(lambda A: xi.X(f, A=np.asmatrix(A).reshape((xi.s, xi.q))),
+        xi.p[:, :] = p_new
 \end_layout
 
 \begin_layout Plain Layout
 
-                       x0=np.squeeze(np.asarray(xi.A)),
-\end_layout
-
-\begin_layout Plain Layout
-
-                       method='SLSQP',
-\end_layout
-
-\begin_layout Plain Layout
-
-                       bounds=bnds)
-\end_layout
-
-\begin_layout Plain Layout
-
-        A_new = np.matrix(res['x']).reshape((xi.s, xi.q))
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-        exit_cond = sum(np.linalg.norm(A_new[:,i] - xi.A[:,i])**2 + (p_new[i,0]
- - xi.p[i,0])**2 for i in xrange(xi.q))
-\end_layout
-
-\begin_layout Plain Layout
-
-        xi.A[:,:] = A_new
-\end_layout
-
-\begin_layout Plain Layout
-
-        xi.p[:,:] = p_new
-\end_layout
-
-\begin_layout Plain Layout
-
-    detM = la.det(xi.inf_matrix(f))
+    detM = np.log(la.det(xi.inf_matrix(f)))
 \end_layout
 
 \begin_layout Plain Layout
@@ -1526,11 +1669,9 @@ n==================' % (
 \backslash
 n%s
 \backslash
-n%s
-\backslash
 n
 \backslash
-ndet(M(xi)) = %.3lf
+nlog(det(M(xi))) = %.3lf
 \backslash
 nmu(alpha,xi) = %.3lf
 \backslash
@@ -1539,7 +1680,254 @@ n==================' % (
 
 \begin_layout Plain Layout
 
-            xi.A, xi.p, detM, mu)
+        xi, detM, mu)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi.reduce_plan()
+\end_layout
+
+\begin_layout Plain Layout
+
+    detM = np.log(la.det(xi.inf_matrix(f)))
+\end_layout
+
+\begin_layout Plain Layout
+
+    mu   = xi.mu(f)
+\end_layout
+
+\begin_layout Plain Layout
+
+    print 'After reduction:
+\backslash
+n%s
+\backslash
+n
+\backslash
+nlog(det(M(xi))) = %.3lf
+\backslash
+nmu(alpha,xi) = %.3lf
+\backslash
+n==================' % (
+\end_layout
+
+\begin_layout Plain Layout
+
+        xi, detM, mu)
+\end_layout
+
+\begin_layout Plain Layout
+
+    return xi
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def build_plan_dirscan(f, xi0):
+\end_layout
+
+\begin_layout Plain Layout
+
+    base = np.log(la.det(xi0.inf_matrix(f)))
+\end_layout
+
+\begin_layout Plain Layout
+
+    print 'Base plan: 
+\backslash
+n%s
+\backslash
+nlog(det(M))=%.3lf
+\backslash
+n=================
+\backslash
+n' % (xi0, base)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi = Plan(xi0.s, xi0.q + 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi.set_bounds(xi0.bnds)
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi.A[:, :-1] = xi0.A[:, :]
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi.A[:,  -1] = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi.p[:-1, :] = xi0.p * (float(xi0.q) / (xi0.q + 1))
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi.p[ -1, :] = 1.0 / (xi0.q + 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def variate_point(f, xi, i, x, y):
+\end_layout
+
+\begin_layout Plain Layout
+
+        xi.A[0, i] = x
+\end_layout
+
+\begin_layout Plain Layout
+
+        xi.A[1, i] = y
+\end_layout
+
+\begin_layout Plain Layout
+
+        return la.det(xi.inf_matrix(f))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    func = lambda x, y: variate_point(f, xi, -1, x, y) - base
+\end_layout
+
+\begin_layout Plain Layout
+
+    dx = (xi.bnds[0][1] - xi.bnds[1][0]) / 100
+\end_layout
+
+\begin_layout Plain Layout
+
+    dy = (xi.bnds[1][1] - xi.bnds[1][0]) / 100
+\end_layout
+
+\begin_layout Plain Layout
+
+    x = np.arange(xi.bnds[0][0], xi.bnds[0][1] + dx, dx)
+\end_layout
+
+\begin_layout Plain Layout
+
+    y = np.arange(xi.bnds[1][0], xi.bnds[1][1] + dy, dy)
+\end_layout
+
+\begin_layout Plain Layout
+
+    X, Y = pl.meshgrid(x, y)
+\end_layout
+
+\begin_layout Plain Layout
+
+    Z = np.array([[func(xv, yv) for xv in x] for yv in y])
+\end_layout
+
+\begin_layout Plain Layout
+
+    pl.pcolor(X, Y, Z, cmap = pl.cm.PuBu)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    pl.xlim(xi.bnds[0])
+\end_layout
+
+\begin_layout Plain Layout
+
+    pl.ylim(xi.bnds[1])
+\end_layout
+
+\begin_layout Plain Layout
+
+#    pl.colorbar()
+\end_layout
+
+\begin_layout Plain Layout
+
+#    pl.title("Влияние положения точек плана на величину потерь информации
+ det(M) = %.3lf by adding a point" % base)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    ij = np.unravel_index(Z.argmax(), Z.shape)
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi.A[0, -1] = X.item(ij)
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi.A[1, -1] = Y.item(ij)
+\end_layout
+
+\begin_layout Plain Layout
+
+    print 'Found plan: 
+\backslash
+n%s
+\backslash
+nlog(det(M))=%.3lf
+\backslash
+n=================
+\backslash
+n' % (xi, np.log(la.det(xi.inf_matrix(f))))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    pl.show()
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -1562,47 +1950,73 @@ def main():
 
 \begin_layout Plain Layout
 
-    s  = 2
+    s = 2
 \end_layout
 
 \begin_layout Plain Layout
 
-    f  = lambda alpha: np.matrix([[alpha[0, 0]   ],
+    q = 2
 \end_layout
 
 \begin_layout Plain Layout
 
-                                  [alpha[1 ,0]**2]])
+    f = lambda alpha: np.matrix([[np.cos(alpha[0,0])],
 \end_layout
 
 \begin_layout Plain Layout
 
-    xi = Plan(s)
+                                 [np.sin(alpha[1,0])]])
 \end_layout
 
 \begin_layout Plain Layout
 
-    xi.A[:, :] = [[1, -1,  1,  3],
+    x0 = -5; x1 = 5
 \end_layout
 
 \begin_layout Plain Layout
 
-                  [1,  2, -2,  0]]
+    A = (x1 - x0) * np.random.random((s, q)) + x0      # starting with random
+ plan
 \end_layout
 
 \begin_layout Plain Layout
 
-    xi = build_plan_dirgrad(f, xi)
+    # A = [[-5, 5], [-5, 5]]
 \end_layout
 
 \begin_layout Plain Layout
 
+    xi = Plan(s, q)
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi.A[:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+    xi.set_bounds(((-5.0, 5.0), (-5.0, 5.0)))
+\end_layout
+
+\begin_layout Plain Layout
+
+    build_plan_dirgrad(f, xi)
 \end_layout
 
 \begin_layout Plain Layout
 
     print 'Checking solution for being optimal (less is better): [%.2lf]'
  % np.abs(xi.mu(f) - xi.eta(f))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    build_plan_dirscan(f, xi)
 \end_layout
 
 \begin_layout Plain Layout
@@ -1620,6 +2034,11 @@ if __name__ == '__main__':
 
 \begin_layout Plain Layout
 
+    np.set_printoptions(precision=3)
+\end_layout
+
+\begin_layout Plain Layout
+
     main()
 \end_layout
 
@@ -1632,27 +2051,42 @@ if __name__ == '__main__':
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Результат работы программы
 \end_layout
 
+\begin_layout Subsubsection
+\begin_inset Formula $f\left(a,\, b,\, x,\, y\right)=ax+by$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+2-х точечный исходный план
+\end_layout
+
+\begin_deeper
 \begin_layout Standard
 \begin_inset listings
-lstparams "breaklines=true,tabsize=0"
+lstparams "basicstyle={\tiny},breaklines=true,tabsize=4"
 inline false
 status open
 
 \begin_layout Plain Layout
 
-"H:
+C:
 \backslash
-Portable
+Python27
 \backslash
-Portable Python 2.7.3.2
-\backslash
-App
-\backslash
-python.exe" H:/Study/metplan/main.py
+python.exe "F:/Documents/PyCharm projects/Test/main.py"
 \end_layout
 
 \begin_layout Plain Layout
@@ -1662,18 +2096,609 @@ On iter 1:
 
 \begin_layout Plain Layout
 
-[[ 1.
- -1.
-  1.
-  3.]
+[[-0.737  0.439]
 \end_layout
 
 \begin_layout Plain Layout
 
- [ 1.
-  2.
- -2.
-  0.]]
+ [-3.672  1.339]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = -2.329
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Finally:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+  5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-5.
+  5.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 6.438
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+After reduction:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+  5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-5.
+  5.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 6.438
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Checking solution for being optimal (less is better): [0.00]
+\end_layout
+
+\begin_layout Plain Layout
+
+Base plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+  5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-5.
+  5.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=6.438
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Found plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+  5.
+ -5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-5.
+  5.
+ -5.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.333]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.333]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.333]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=6.320
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+3-х точечный исходный план
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\tiny},breaklines=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+C:
+\backslash
+Python27
+\backslash
+python.exe "F:/Documents/PyCharm projects/Test/main.py"
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 1:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 2.057 -2.942  2.181]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 3.438  3.69   3.34 ]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.333]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.333]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.333]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 4.254
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.998
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 2:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+ -5.
+  5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 5.
+  5.
+  5.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 6.438
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Finally:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+ -5.
+  5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 5.
+  5.
+  5.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 6.438
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+After reduction:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+ -5.
+  5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 5.
+  5.
+  5.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 6.438
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Checking solution for being optimal (less is better): [0.00]
+\end_layout
+
+\begin_layout Plain Layout
+
+Base plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+ -5.
+  5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 5.
+  5.
+  5.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=6.438
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Found plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+ -5.
+  5.
+  5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 5.
+  5.
+  5.
+ -5.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.188]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.375]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.188]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25 ]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=6.373
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+4-х точечный исходный план
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\tiny},breaklines=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+C:
+\backslash
+Python27
+\backslash
+python.exe "F:/Documents/PyCharm projects/Test/main.py"
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 1:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 3.216 -3.381 -4.342  0.061]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-1.973 -2.626 -1.501 -1.705]]
 \end_layout
 
 \begin_layout Plain Layout
@@ -1702,7 +2727,67 @@ On iter 1:
 
 \begin_layout Plain Layout
 
-det(M(xi)) = 24.687
+log(det(M(xi))) = 3.569
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 3.075
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Finally:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+ -5.
+ -5.
+  5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-5.
+ -5.
+ -5.
+ -5.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 6.438
 \end_layout
 
 \begin_layout Plain Layout
@@ -1717,43 +2802,43 @@ mu(alpha,xi) = 2.000
 
 \begin_layout Plain Layout
 
-On iter 2:
+After reduction:
 \end_layout
 
 \begin_layout Plain Layout
 
 [[ 5.
  -5.
-  5.
+ -5.
   5.]
 \end_layout
 
 \begin_layout Plain Layout
 
- [ 5.
-  5.
+ [-5.
  -5.
-  0.]]
+ -5.
+ -5.]]
 \end_layout
 
 \begin_layout Plain Layout
 
-[[  6.80336863e-17]
+[[ 0.25]
 \end_layout
 
 \begin_layout Plain Layout
 
- [  2.81302931e-01]
+ [ 0.25]
 \end_layout
 
 \begin_layout Plain Layout
 
- [  2.81273316e-01]
+ [ 0.25]
 \end_layout
 
 \begin_layout Plain Layout
 
- [  4.37423753e-01]]
+ [ 0.25]]
 \end_layout
 
 \begin_layout Plain Layout
@@ -1762,7 +2847,7 @@ On iter 2:
 
 \begin_layout Plain Layout
 
-det(M(xi)) = 8790.254
+log(det(M(xi))) = 6.438
 \end_layout
 
 \begin_layout Plain Layout
@@ -1777,43 +2862,58 @@ mu(alpha,xi) = 2.000
 
 \begin_layout Plain Layout
 
-On iter 3:
+Checking solution for being optimal (less is better): [0.00]
+\end_layout
+
+\begin_layout Plain Layout
+
+Base plan: 
 \end_layout
 
 \begin_layout Plain Layout
 
 [[ 5.
  -5.
-  5.
+ -5.
   5.]
 \end_layout
 
 \begin_layout Plain Layout
 
- [ 5.
-  5.
+ [-5.
  -5.
-  0.]]
+ -5.
+ -5.]]
 \end_layout
 
 \begin_layout Plain Layout
 
-[[  1.09379453e-01]
+[[ 0.25]
 \end_layout
 
 \begin_layout Plain Layout
 
- [  4.99967779e-01]
+ [ 0.25]
 \end_layout
 
 \begin_layout Plain Layout
 
- [  3.90652768e-01]
+ [ 0.25]
 \end_layout
 
 \begin_layout Plain Layout
 
- [  6.18120109e-16]]
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=6.438
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
 \end_layout
 
 \begin_layout Plain Layout
@@ -1822,7 +2922,167 @@ On iter 3:
 
 \begin_layout Plain Layout
 
-det(M(xi)) = 15625.000
+Found plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 5.
+ -5.
+ -5.
+  5.
+ -5.]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-5.
+ -5.
+ -5.
+ -5.
+ -5.]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.2]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.2]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.2]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.2]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.2]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=6.397
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Picture/ax_plus_by_4.png
+	lyxscale 50
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Влияние положения точек плана на величину потерь информации
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $f\left(a,\, b,\, x,\, y\right)=a\left(25-x^{2}\right)+b\left(25-y^{2}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+2-х точечный исходный план
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\tiny},breaklines=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+C:
+\backslash
+Python27
+\backslash
+python.exe "F:/Documents/PyCharm projects/Test/main.py"
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 1:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 4.026  3.563]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 1.152  0.392]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 13.458
 \end_layout
 
 \begin_layout Plain Layout
@@ -1842,38 +3102,22 @@ Finally:
 
 \begin_layout Plain Layout
 
-[[ 5.
- -5.
-  5.
-  5.]
+[[  5.000e+00   1.931e-05]
 \end_layout
 
 \begin_layout Plain Layout
 
- [ 5.
-  5.
- -5.
-  0.]]
+ [ -5.000e+00   6.833e-01]]
 \end_layout
 
 \begin_layout Plain Layout
 
-[[  1.09379453e-01]
+[[ 0.5]
 \end_layout
 
 \begin_layout Plain Layout
 
- [  4.99967779e-01]
-\end_layout
-
-\begin_layout Plain Layout
-
- [  3.90652768e-01]
-\end_layout
-
-\begin_layout Plain Layout
-
- [  6.18120109e-16]]
+ [ 0.5]]
 \end_layout
 
 \begin_layout Plain Layout
@@ -1882,7 +3126,51 @@ Finally:
 
 \begin_layout Plain Layout
 
-det(M(xi)) = 15625.000
+log(det(M(xi))) = 18.656
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+After reduction:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[  5.000e+00   1.931e-05]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00   6.833e-01]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 18.656
 \end_layout
 
 \begin_layout Plain Layout
@@ -1900,12 +3188,1780 @@ mu(alpha,xi) = 2.000
 Checking solution for being optimal (less is better): [0.00]
 \end_layout
 
+\begin_layout Plain Layout
+
+Base plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[  5.000e+00   1.931e-05]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00   6.833e-01]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=18.656
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Found plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[  5.000e+00   1.931e-05  -1.776e-14]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00   6.833e-01  -5.000e+00]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.333]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.333]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.333]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=18.596
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
+\end_deeper
+\begin_layout Enumerate
+3-х точечный исходный план
+\end_layout
+
+\begin_deeper
 \begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\tiny},breaklines=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+C:
+\backslash
+Python27
+\backslash
+python.exe "F:/Documents/PyCharm projects/Test/main.py"
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 1:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[-4.667 -2.21   4.196]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-4.045  0.462 -0.119]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.333]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.333]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.333]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 17.360
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.829
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 2:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -5.000e+00   7.874e-08   5.000e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00   6.376e-01  -5.000e+00]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 18.656
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Finally:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -5.000e+00   7.874e-08   5.000e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00   6.376e-01  -5.000e+00]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 18.656
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+After reduction:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -5.000e+00   7.874e-08   5.000e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00   6.376e-01  -5.000e+00]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 18.656
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Checking solution for being optimal (less is better): [0.00]
+\end_layout
+
+\begin_layout Plain Layout
+
+Base plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -5.000e+00   7.874e-08   5.000e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00   6.376e-01  -5.000e+00]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=18.656
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Found plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -5.000e+00   7.874e-08   5.000e+00  -1.776e-14]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00   6.376e-01  -5.000e+00  -5.000e+00]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.188]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.375]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.188]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25 ]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=18.637
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+4-х точечный исходный план
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\tiny},breaklines=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+C:
+\backslash
+Python27
+\backslash
+python.exe "F:/Documents/PyCharm projects/Test/main.py"
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 1:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[-0.361  3.514 -4.451  3.275]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-1.557 -3.027  4.628  4.227]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 16.368
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 3.064
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 2:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -9.320e-06   5.000e+00  -5.000e+00  -1.473e-06]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00  -5.000e+00  -5.000e+00   5.000e+00]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.271]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.229]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.229]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.271]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 18.737
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Finally:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -9.320e-06   5.000e+00  -5.000e+00  -1.473e-06]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00  -5.000e+00  -5.000e+00   5.000e+00]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.271]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.229]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.229]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.271]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 18.737
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+After reduction:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -9.320e-06   5.000e+00  -5.000e+00  -1.473e-06]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00  -5.000e+00  -5.000e+00   5.000e+00]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.271]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.229]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.229]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.271]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = 18.737
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Checking solution for being optimal (less is better): [0.00]
+\end_layout
+
+\begin_layout Plain Layout
+
+Base plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -9.320e-06   5.000e+00  -5.000e+00  -1.473e-06]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00  -5.000e+00  -5.000e+00   5.000e+00]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.271]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.229]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.229]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.271]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=18.737
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Found plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -9.320e-06   5.000e+00  -5.000e+00  -1.473e-06  -1.776e-14]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -5.000e+00  -5.000e+00  -5.000e+00   5.000e+00   5.000e+00]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.217]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.183]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.183]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.217]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.2  ]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=18.696
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Picture/a(25-x_in2)_plus_b(25-y_in2)_4.png
+	lyxscale 50
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Влияние положения точек плана на величину потерь информации
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $f\left(a,\, b,\, x,\, y\right)=a\sin\left(x\right)+b\sin\left(y\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+2-х точечный исходный план
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\tiny},breaklines=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+C:
+\backslash
+Python27
+\backslash
+python.exe "F:/Documents/PyCharm projects/Test/main.py"
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 1:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[-4.934  4.679]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-0.074 -2.263]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = -3.354
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Finally:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -4.712e+00   4.712e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -6.798e-06   1.834e-06]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = -0.000
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+After reduction:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -4.712e+00   4.712e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -6.798e-06   1.834e-06]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = -0.000
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Checking solution for being optimal (less is better): [0.00]
+\end_layout
+
+\begin_layout Plain Layout
+
+Base plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -4.712e+00   4.712e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -6.798e-06   1.834e-06]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=-0.000
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Found plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -4.712e+00   4.712e+00  -4.700e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -6.798e-06   1.834e-06  -1.776e-14]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.333]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.333]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.333]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=-0.118
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+3-х точечный исходный план
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\tiny},breaklines=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+C:
+\backslash
+Python27
+\backslash
+python.exe "F:/Documents/PyCharm projects/Test/main.py"
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 1:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[-2.233  4.14   4.19 ]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-4.719  4.182  0.667]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.333]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.333]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.333]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = -1.639
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.719
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 2:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -1.571e+00   4.712e+00   4.712e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -3.142e+00   3.142e+00   2.256e-06]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = -0.000
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Finally:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -1.571e+00   4.712e+00   4.712e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -3.142e+00   3.142e+00   2.256e-06]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = -0.000
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+After reduction:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -1.571e+00   4.712e+00   4.712e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -3.142e+00   3.142e+00   2.256e-06]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = -0.000
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Checking solution for being optimal (less is better): [0.00]
+\end_layout
+
+\begin_layout Plain Layout
+
+Base plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -1.571e+00   4.712e+00   4.712e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -3.142e+00   3.142e+00   2.256e-06]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=-0.000
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Found plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -1.571e+00   4.712e+00   4.712e+00   4.700e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -3.142e+00   3.142e+00   2.256e-06  -1.776e-14]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.188]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.188]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.375]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25 ]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=-0.065
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+4-х точечный исходный план
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\tiny},breaklines=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+C:
+\backslash
+Python27
+\backslash
+python.exe "F:/Documents/PyCharm projects/Test/main.py"
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 1:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[-4.28  -2.315  0.308  1.677]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-3.502  2.456  4.709 -3.274]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = -1.290
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 3.848
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+On iter 2:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[-4.712 -1.571  1.571  1.571]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-3.142  3.142  5.
+    -3.142]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[  2.500e-01]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  5.000e-01]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  1.950e-16]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  2.500e-01]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = -0.000
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Finally:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[-4.712 -1.571  1.571  1.571]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-3.142  3.142  5.
+    -3.142]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[  2.500e-01]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  5.000e-01]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  1.950e-16]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [  2.500e-01]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = -0.000
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+After reduction:
+\end_layout
+
+\begin_layout Plain Layout
+
+[[-4.712 -1.571  1.571]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-3.142  3.142 -3.142]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M(xi))) = -0.000
+\end_layout
+
+\begin_layout Plain Layout
+
+mu(alpha,xi) = 2.000
+\end_layout
+
+\begin_layout Plain Layout
+
+==================
+\end_layout
+
+\begin_layout Plain Layout
+
+Checking solution for being optimal (less is better): [0.00]
+\end_layout
+
+\begin_layout Plain Layout
+
+Base plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[-4.712 -1.571  1.571]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [-3.142  3.142 -3.142]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.25]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.5 ]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=-0.000
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Found plan: 
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ -4.712e+00  -1.571e+00   1.571e+00  -4.700e+00]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ -3.142e+00   3.142e+00  -3.142e+00  -1.776e-14]]
+\end_layout
+
+\begin_layout Plain Layout
+
+[[ 0.188]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.375]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.188]
+\end_layout
+
+\begin_layout Plain Layout
+
+ [ 0.25 ]]
+\end_layout
+
+\begin_layout Plain Layout
+
+log(det(M))=-0.065
+\end_layout
+
+\begin_layout Plain Layout
+
+=================
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Picture/asinx_plus_bcsy_4.png
+	lyxscale 50
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Влияние положения точек плана на величину потерь информации
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
