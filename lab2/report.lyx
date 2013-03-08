@@ -1,0 +1,1367 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{cmap}	         % русские буквы при копировании 
+\usepackage{indentfirst}      % отступ после первого абзаца
+\usepackage{misccorr}	         % точки после номеров заголовков
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{lscape}	         % поворот страницы с сохранением нумерации
+\usepackage{multirow}
+
+\sloppy
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language russian
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Предметный указатель
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 1cm
+\rightmargin 1cm
+\bottommargin 2cm
+\footskip 1cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large Министерство образования и науки РФ
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large Новосибирский Государственный Технический Университет
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large Кафедра ПМт
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[8.5cm]  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+huge Лабораторная работа 
+\backslash
+No2
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[0.5cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large <<Двойственная процедура планирования>>
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[0.5cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large по~курсу <<Математические методы планирования эксперимента>>
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[4.0cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+vfill % заполнить все доступное ниже пространство
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newbox{
+\backslash
+lbox}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+savebox{
+\backslash
+lbox}{
+\backslash
+hbox{Пупкин Иван Иванович}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newlength{
+\backslash
+maxl}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setlength{
+\backslash
+maxl}{
+\backslash
+wd
+\backslash
+lbox}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\backslash
+parbox{8cm}{
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Факультет:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{ПМИ
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Группа:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{ПММ-81
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Студенты:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Михайлов А.А.,
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace*{5cm}
+\backslash
+hspace*{-5cm}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Санина А.А.
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Преподаватели:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Черникова  О.С.,
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace*{5cm}
+\backslash
+hspace*{-5cm}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Чубич В.М.
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[3.0cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\backslash
+large Новосибирск 2013}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty} % не нумеровать страницу
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Условие задачи 
+\end_layout
+
+\begin_layout Standard
+Построить и исследовать метод двойственной процедуры планирования для непрерывно
+го 
+\begin_inset Formula $D$
+\end_inset
+
+-оптимального плана.
+\end_layout
+
+\begin_layout Section
+Ход работы:
+\end_layout
+
+\begin_layout Subsection
+Постановка задачи
+\end_layout
+
+\begin_layout Standard
+Пусть 
+\begin_inset Formula $\nu$
+\end_inset
+
+ --- возможное количество запусков системы, причём сигнал 
+\begin_inset Formula $\alpha_{1}$
+\end_inset
+
+ подаётся на вход системы 
+\begin_inset Formula $k_{1}$
+\end_inset
+
+ раз, сигнал 
+\begin_inset Formula $\alpha_{2}$
+\end_inset
+
+ --- 
+\begin_inset Formula $k_{2}$
+\end_inset
+
+ раз и т.д., сигнал 
+\begin_inset Formula $\alpha_{q}$
+\end_inset
+
+ --- 
+\begin_inset Formula $q$
+\end_inset
+
+ раз.
+\end_layout
+
+\begin_layout Standard
+Под 
+\emph on
+непрерывным нормированным планом 
+\begin_inset Formula $\xi$
+\end_inset
+
+
+\emph default
+ условимся понимать совокупность величин
+\begin_inset Formula 
+\begin{equation}
+\xi=\left(\begin{array}{cccc}
+\alpha_{1}, & \alpha_{2}, & \ldots, & \alpha_{q}\\
+p_{1}, & p_{2}, & \ldots, & p_{q}
+\end{array}\right),\ p_{i}\geq0,\ \sum_{i=1}^{q}p_{i}=1,\ \alpha_{i}\in\Omega_{\alpha},\ i=\overline{1,\, q}.\label{eq:xi}
+\end{equation}
+
+\end_inset
+
+ В общем случае непрерывный нормированный план 
+\begin_inset Formula $\xi$
+\end_inset
+
+ соответствует вероятностной мере 
+\begin_inset Formula $\xi\left(d\alpha\right)$
+\end_inset
+
+, заданной на области 
+\begin_inset Formula $\Omega_{\alpha}$
+\end_inset
+
+ и удовлетворяющей условиям неотрицательности и нормировки:
+\begin_inset Formula 
+\begin{equation}
+\intop_{\Omega_{\alpha}}\xi\left(d\alpha\right)=1,\ \xi\left(d\alpha\right)\geq0,\ \alpha\in\Omega_{\alpha}.\label{eq:int_xi}
+\end{equation}
+
+\end_inset
+
+ При этом 
+\emph on
+нормированная информационная матрица
+\emph default
+ плана определяется соотношением
+\begin_inset Formula 
+\begin{equation}
+M\left(\xi\right)=\intop_{\Omega_{\alpha}}M\left(\alpha\right)\xi\left(d\alpha\right).\label{eq:M(xi)}
+\end{equation}
+
+\end_inset
+
+Для плана 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:xi"
+
+\end_inset
+
+ интеграл в 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:M(xi)"
+
+\end_inset
+
+ переходит в сумму, т.е.
+\begin_inset Formula 
+\begin{equation}
+M\left(\xi\right)=\sum_{i=1}^{q}p_{i}\, M\left(\alpha_{i}\right),\label{eq:sum_M(xi)}
+\end{equation}
+
+\end_inset
+
+ где 
+\begin_inset Formula $M\left(\alpha_{i}\right)$
+\end_inset
+
+ --- информационные матрицы точек спектра плана.
+ Планирование оптимальных экспериментов опирается на критерии оптимальности
+ планов.
+ 
+\end_layout
+
+\begin_layout Subsection
+Двойственный алгоритм синтеза оптимальных входных сигналов
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:Step1"
+
+\end_inset
+
+Зададим начальный невырожденный план 
+\begin_inset Formula $\xi_{0}$
+\end_inset
+
+ и по формуле 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:sum_M(xi)"
+
+\end_inset
+
+ вычислим нормированную матрицу 
+\begin_inset Formula $M\left(\xi_{0}\right)$
+\end_inset
+
+ плана.
+ Положим 
+\begin_inset Formula $l=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:Step2"
+
+\end_inset
+
+Найдём локальный максимум 
+\begin_inset Formula 
+\[
+\alpha^{l}=\arg\underset{\alpha\in\Omega_{\alpha}}{\max}\mu\left(\alpha,\,\xi_{l}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+методом проектирования градиента.
+ Если окажется, что 
+\begin_inset Formula 
+\[
+\left|\mu\left(\alpha^{l},\,\xi_{l}\right)-\eta\right|\leq\delta,
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+закончим процесс.
+\end_layout
+
+\begin_layout Standard
+Если
+\begin_inset Formula 
+\[
+\mu\left(\alpha^{l},\,\xi_{l}\right)>\eta,
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+перейдём к шагу 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:Step3"
+
+\end_inset
+
+.
+ В противном случае будем искать новый локальный максимум.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:Step3"
+
+\end_inset
+
+Вычислим 
+\begin_inset Formula $\tau_{l}$
+\end_inset
+
+ по формуле
+\begin_inset Formula 
+\begin{eqnarray*}
+\tau_{l} & = & \arg\underset{0\leq\tau\leq l}{\min}X\left[M\left(\xi_{l+1}^{\tau}\right)\right],\\
+\xi_{l+1}^{\tau} & = & \left(1-\tau\right)\xi_{l}+\tau_{l}\xi\left(\alpha^{l}\right),
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+где 
+\begin_inset Formula $\xi\left(\alpha^{l}\right)$
+\end_inset
+
+ одноточечный план, размещённый в точке 
+\begin_inset Formula $\alpha^{l}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:Step4"
+
+\end_inset
+
+Составим план
+\begin_inset Formula 
+\[
+\xi_{l+1}=\left(1-\tau_{l}\right)\xi_{l}+\tau_{l}\xi\left(\alpha^{l}\right),
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+произведём его 
+\begin_inset Quotes eld
+\end_inset
+
+очистку
+\begin_inset Quotes erd
+\end_inset
+
+, положим 
+\begin_inset Formula $l=l+1$
+\end_inset
+
+ и перейдём на шаг 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:Step2"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Приведённый алгоритм построения оптимальных сигналов требует вычисления
+ градиента 
+\begin_inset Formula $\nabla_{\alpha}\mu\left(\alpha,\,\xi\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Соответствие значений параметров 
+\begin_inset Formula $X\left[M\left(\xi\right)\right]$
+\end_inset
+
+, 
+\begin_inset Formula $\mu\left(\alpha,\,\xi\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\eta$
+\end_inset
+
+ прямой процедуры критерию 
+\begin_inset Formula $D$
+\end_inset
+
+-оптимальности указано в табл.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Парметры-критерий--оптимального"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Парметры-критерий--оптимального"
+
+\end_inset
+
+Параметры критерий 
+\begin_inset Formula $D$
+\end_inset
+
+-оптимального плана
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $X\left[M\left(\xi\right)\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mu\left(\alpha,\,\xi\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\eta$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $-\ln\det\left(M\left(\xi\right)\right)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $Sp\left[M^{-1}\left(\xi\right)\, M\left(\alpha\right)\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $s$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Алгоритм 
+\begin_inset Quotes eld
+\end_inset
+
+очистки
+\begin_inset Quotes erd
+\end_inset
+
+ плана
+\end_layout
+
+\begin_layout Standard
+Пусть в результате работы алгоритма построен план 
+\begin_inset Formula $\xi_{l}$
+\end_inset
+
+, который может быть сколь угодно близок к оптимальному плану 
+\begin_inset Formula $\xi^{*}$
+\end_inset
+
+, но все же отличаться от него (мы можем сделать большое, но конечное число
+ итераций).
+ Это отличие будет заключаться в том, что
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\left\Vert \alpha_{j}^{*}-\alpha_{j}^{l}\right\Vert ^{2}=\mu_{j},\ j=\overline{1,\, q}$
+\end_inset
+
+, где 
+\begin_inset Formula $\mu_{j}$
+\end_inset
+
+ --- малые положительные числа, 
+\begin_inset Formula $\left\Vert \bullet\right\Vert $
+\end_inset
+
+ --- евклидова норма;
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\left|p_{j}^{*}-p_{j}^{l}\right|=\pi_{j}$
+\end_inset
+
+, где 
+\begin_inset Formula $\pi$
+\end_inset
+
+ --- малые положительные числа;
+\end_layout
+
+\begin_layout Enumerate
+план 
+\begin_inset Formula $\xi_{l}$
+\end_inset
+
+ по сравнению с планом 
+\begin_inset Formula $\xi^{*}$
+\end_inset
+
+ имеет 
+\begin_inset Quotes eld
+\end_inset
+
+посторонние
+\begin_inset Quotes erd
+\end_inset
+
+ точки 
+\begin_inset Formula $\alpha_{n+1}^{l},\,\alpha_{n+2}^{l},\,\ldots,\,\alpha_{n+v}^{l}$
+\end_inset
+
+ с малыми весами 
+\begin_inset Formula $\tau\geq p_{n+1}^{l}\geq p_{n+2}^{l}\geq\ldots\geq p_{n+v}^{l}$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:NB_points"
+
+\end_inset
+
+вместо одной точки 
+\begin_inset Formula $\alpha_{j}^{l}$
+\end_inset
+
+, близкой к 
+\begin_inset Formula $\alpha_{j}^{*}$
+\end_inset
+
+, имеется набор точек 
+\begin_inset Formula $\alpha_{j_{1}}^{l},\,\alpha_{j_{2}}^{l},\,\ldots,\,\alpha_{j_{l}}^{l}$
+\end_inset
+
+ , каждая из которых близка к 
+\begin_inset Formula $\alpha_{j}^{*}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\left\Vert \alpha_{j}^{*}-\alpha_{j_{k}}^{l}\right\Vert ^{2}\leq\mu_{j},\ k=\overline{1,\, m},
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+и их суммарный вес близок к 
+\begin_inset Formula $p_{j}^{*}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\left|p_{j}^{*}-\sum_{k=1}^{m}p_{j_{k}}^{l}\right|=\pi_{j}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Так как планы с большим числом точек нежелательны, то необходимо производить
+ процедуру 
+\begin_inset Quotes eld
+\end_inset
+
+очистки
+\begin_inset Quotes erd
+\end_inset
+
+ плана, которая состоит из следующих шагов:
+\end_layout
+
+\begin_layout Enumerate
+Точки с малыми весами, не тяготеющие ни к одной из групп, указанных в п.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:NB_points"
+
+\end_inset
+
+, выбрасываются.
+ Их веса перераспределяются между оставшимися точками.
+\end_layout
+
+\begin_layout Enumerate
+Точки, тяготеющие к одной из групп, объединяются по правилу
+\begin_inset Formula 
+\[
+p_{j}^{l}=\sum_{k=1}^{m}p_{j_{k}}^{l},\ \ \ \alpha_{j}^{l}=1/p_{j}^{l}\sum_{k=1}^{m}x_{j_{k}}^{l}p_{j_{k}}^{l}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Алгоритм 
+\begin_inset Quotes eld
+\end_inset
+
+округления
+\begin_inset Quotes erd
+\end_inset
+
+ непрерывного плана до точного
+\end_layout
+
+\begin_layout Enumerate
+Вычислим числа 
+\begin_inset Formula $\sigma_{i}^{'}$
+\end_inset
+
+ и 
+\begin_inset Formula $\sigma_{i}^{''}$
+\end_inset
+
+ по формулам
+\begin_inset Formula 
+\[
+\sigma_{i}^{'}=\left\lceil \left(v-q\right)p_{i}^{*}\right\rceil ;\ \ \ \sigma_{i}^{''}=\left\lfloor vp_{i}^{*}\right\rfloor ,\ i=\overline{1,\, q}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Здесь
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left\lceil z\right\rceil $
+\end_inset
+
+ --- ближайшее к 
+\begin_inset Formula $z$
+\end_inset
+
+ целое число, большее 
+\begin_inset Formula $z$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left\lfloor z\right\rfloor $
+\end_inset
+
+ --- целая часть числа 
+\begin_inset Formula $z$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Вычислим 
+\begin_inset Formula $v'$
+\end_inset
+
+ и 
+\begin_inset Formula $v^{''}$
+\end_inset
+
+, воспользовавшись выражениями
+\begin_inset Formula 
+\[
+v^{'}=v-\sum_{i=1}^{q}\sigma_{i}^{'};\ \ \ v^{''}=v-\sum_{i=1}^{q}\sigma_{i}^{''}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+При этом если 
+\begin_inset Formula $v^{'}<v^{''}$
+\end_inset
+
+, то 
+\begin_inset Formula $\sigma_{i}=\sigma_{i}^{'}$
+\end_inset
+
+ для 
+\begin_inset Formula $i=\overline{1,\, q}$
+\end_inset
+
+ и 
+\begin_inset Formula $v_{l}=v^{'}$
+\end_inset
+
+.
+ В противном случае 
+\begin_inset Formula $\sigma_{i}=\sigma_{i}^{''}$
+\end_inset
+
+, 
+\begin_inset Formula $v_{l}=v^{''}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Величины 
+\begin_inset Formula $vp_{i}^{*}-\sigma_{i}\ \left(i=\overline{1,\, q}\right)$
+\end_inset
+
+ расположим в порядке убывания их значений.
+ Положим 
+\begin_inset Formula $j=1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:Step4O"
+
+\end_inset
+
+Если 
+\begin_inset Formula $vp_{j}^{*}-\sigma_{j}$
+\end_inset
+
+ стоит на одном из первых 
+\begin_inset Formula $v_{l}$
+\end_inset
+
+ мест в указанном упорядоченном наборе, то положим 
+\begin_inset Formula $s_{j}=1$
+\end_inset
+
+ в противном случае 
+\begin_inset Formula $s_{j}=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Если 
+\begin_inset Formula $j<q$
+\end_inset
+
+, увеличим 
+\begin_inset Formula $j$
+\end_inset
+
+ на единицу перейдём на шаг 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:Step4O"
+
+\end_inset
+
+.
+ В противном случае сформируем приближенный дискретный план
+\begin_inset Formula 
+\[
+\xi_{v}^{*}=\left(\begin{array}{cccc}
+\alpha_{1}^{*}, & \alpha_{2}^{*}, & \ldots, & \alpha_{q}^{*}\\
+\frac{\sigma_{1}+s_{1}}{v}, & \frac{\sigma_{2}+s_{2}}{v}, & \ldots, & \frac{\sigma_{q}+s_{q}}{v}
+\end{array}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Текст программы на языке Python
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize},breaklines=true,language=Python,numbers=left,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Результат работы программы
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "breaklines=true,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\noun on
+Тут приводили 
+\begin_inset Formula $X\left[M\left(\xi_{0}\right)\right]$
+\end_inset
+
+, 
+\begin_inset Formula $X\left[M\left(\xi_{0}\right)\right]$
+\end_inset
+
+, 
+\begin_inset Formula $l$
+\end_inset
+
+, 
+\begin_inset Formula $q$
+\end_inset
+
+, полученный план (
+\begin_inset Formula $\alpha_{1},\ \alpha_{2},\ p$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Section
+Вывод
+\end_layout
+
+\begin_layout Standard
+В ходе лабораторной работы было проведено исследование двойственной процедуры
+ планирования для непрерывного 
+\begin_inset Formula $D$
+\end_inset
+
+-оптимального плана.
+\end_layout
+
+\end_body
+\end_document
