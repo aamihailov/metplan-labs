@@ -22,12 +22,23 @@ class Plan(object):
         self.bnds = bounds
 
     def _remove_ith_point(self, i):
+        p = self.p[i, 0]
         self.p = np.delete(self.p, i, 0)
+        self.p[:, :] /= sum(self.p[:, :])
         self.A = np.delete(self.A, i, 1)
         self.q -= 1
 
+    def _add_point(self, a, p):
+        self.A = np.append(self.A, a, 1)
+        self.p[:, :] *= 1 - p
+        self.p = np.append(self.p, [[p]], 0)
+        self.q += 1
+
+    def move_point(self, i, a):
+        self.A[:, i] = a
+
     def reduce_plan(self):
-        epsilon = 1.0e-5
+        epsilon = 1.0e-2
         i = 0
         while i < self.q:
             if self.p[i, 0] < epsilon:
@@ -38,7 +49,7 @@ class Plan(object):
         while i < self.q:
             j = i + 1
             while j < self.q:
-                if la.norm( self.A[:, i] - self.A[:, j] ) < epsilon:
+                if la.norm(self.A[:, i] - self.A[:, j]) < epsilon:
                     self.p[i, 0] += self.p[j, 0]
                     self._remove_ith_point(j)
                 j += 1
@@ -89,7 +100,7 @@ def build_plan_dirgrad(f, xi, epsilon=1.0e-6):
         bnds = reduce(lambda a, b: a + b, [(xi.bnds[i], ) * xi.q for i in xrange(xi.s)])     # Границы для точек плана
         res = minimize(lambda A: xi.X(f, A=np.asmatrix(A).reshape((xi.s, xi.q))),
                        x0=np.squeeze(np.asarray(xi.A.reshape((1, xi.s * xi.q)))),
-                       method='L-BFGS-B',
+                       method='SLSQP',
                        bounds=bnds)
         A_new = np.matrix(res['x']).reshape((xi.s, xi.q))
         xi.A[:, :] = A_new
@@ -115,6 +126,70 @@ def build_plan_dirgrad(f, xi, epsilon=1.0e-6):
     mu   = xi.mu(f)
     print 'After reduction:\n%s\n\nlog(det(M(xi))) = %.3lf\nmu(alpha,xi) = %.3lf\n==================' % (
         xi, detM, mu)
+    return xi
+
+
+def build_plan_dualgrad(f, xi, epsilon=1.0e-6):
+    """Синтез оптимального плана с помощью двойственной градиентной процедуры. D критерий.
+    """
+    exit_cond = np.inf
+    iter = 0
+    while exit_cond > epsilon:
+        iter += 1
+        detM = np.log(la.det(xi.inf_matrix(f)))
+        mu   = xi.mu(f)
+        print 'On iter %d:\n%s\n\nlog(det(M(xi))) = %.3lf\nmu(alpha,xi) = %.3lf\n==================' % (
+            iter, xi, detM, mu)
+
+        a = np.matrix([[np.random.uniform(b[0], b[1])] for b in xi.bnds])
+        xi._add_point(a, 1.0 / (xi.q + 1.0))
+
+        def variate_point(f, xi, i, a):
+            xi.A[:, i] = a
+            # return xi.mu(f)
+            return -la.det(xi.inf_matrix(f))
+
+        bnds = xi.bnds
+        res = minimize(lambda A: variate_point(f, xi, -1, np.asmatrix(A).reshape((xi.s, 1))),
+                       x0=np.squeeze(np.asarray(xi.A[:, -1].reshape((1, xi.s)))),
+                       method='L-BFGS-B',
+                       bounds=bnds,
+                       options={'iter': 1})
+        xi.A[:, -1] = np.matrix(res['x']).reshape((xi.s, 1))
+
+        print 'Found:\n%s\n' % res['x']
+
+        def variate_weight(f, xi, i, p):
+            xi.p[:, :] *= (1 - p) / (sum(xi.p[:, :]) - xi.p[i, 0])
+            xi.p[i, 0] = p
+            return -la.det(xi.inf_matrix(f))
+
+        bnds = ((0.01, 1.0), )
+        res = minimize(lambda p: variate_weight(f, xi, -1, p),
+                       x0=(0.5,),
+                       method='L-BFGS-B',
+                       bounds=bnds,
+                       options={'iter': 1})
+        xi.p[-1, :] = np.matrix(res['x'])
+
+        print 'With weight:\n%s\n' % xi.p[-1, 0]
+        xi.reduce_plan()
+
+        exit_cond = xi.mu(f) - xi.eta(f)
+    detM = np.log(la.det(xi.inf_matrix(f)))
+    mu   = xi.mu(f)
+    print 'Finally:\n%s\n\nlog(det(M(xi))) = %.3lf\nmu(alpha,xi) = %.3lf\n==================' % (
+        xi, detM, mu)
+
+    bnds = ((0.0, 1.0), ) * xi.q                            # Границы для весов p: [0.0 .. 1.0]
+    cons = ({'type': 'eq', 'fun': lambda p: sum(p) - 1},)   # Нормированность суммы весов
+    res = minimize(lambda p: xi.X(f, p=np.asmatrix(p).reshape((xi.q, 1))),
+                   x0=np.squeeze(np.asarray(xi.p)),
+                   method='SLSQP',
+                   bounds=bnds,
+                   constraints=cons)
+    xi.p[:, :] = np.matrix(res['x']).reshape((xi.q, 1))
+
     return xi
 
 
@@ -153,25 +228,24 @@ def build_plan_dirscan(f, xi0):
     print 'Found plan: \n%s\nlog(det(M))=%.3lf\n=================\n' % (xi, np.log(la.det(xi.inf_matrix(f))))
 
     pl.show()
-
     return xi
 
 
 def main():
     s = 2
-    q = 8
-    f = lambda alpha: np.matrix([[(alpha[0,0])],
-                                 [(alpha[1,0])]])
+    q = 25
+    f = lambda alpha: np.matrix([[np.sin(alpha[0,0])],
+                                 [np.cos(alpha[1,0])]])
     x0 = -5; x1 = 5
     A = (x1 - x0) * np.random.random((s, q)) + x0      # starting with random plan
     # A = [[-5, 5], [-5, 5]]
     xi = Plan(s, q)
     xi.A[:, :] = A
     xi.set_bounds(((-5.0, 5.0), (-5.0, 5.0)))
-    build_plan_dirgrad(f, xi)
+    build_plan_dualgrad(f, xi)
     print 'Checking solution for being optimal (less is better): [%.2lf]' % np.abs(xi.mu(f) - xi.eta(f))
 
-    build_plan_dirscan(f, xi)
+    # build_plan_dirscan(f, xi)
 
 
 if __name__ == '__main__':
