@@ -52,7 +52,8 @@ class Plan(object):
                 if la.norm(self.A[:, i] - self.A[:, j]) < epsilon:
                     self.p[i, 0] += self.p[j, 0]
                     self._remove_ith_point(j)
-                j += 1
+                else:
+                    j += 1
             i += 1
 
     def partial_inf_matrix(self, i, f, A=None):
@@ -81,11 +82,22 @@ class Plan(object):
     def eta(self, f):
         return self.s
 
+    def jac_p(self, f, p):
+        return np.array([-np.trace(self.inf_matrix(f, p=p)**(-1) * self.partial_inf_matrix(i, f)) for i in xrange(self.q)])
+
+    def jac_A(self, f, dM):
+        M = self.inf_matrix(f)
+        return np.matrix([[-np.trace(M**(-1) * self.p[i, 0] * dM(self.A[:, i])[j]) for i in xrange(self.q)] for j in xrange(self.s)])
+
+    def jac_mu(self, f, dM, A):
+        M = self.inf_matrix(f)
+        return np.matrix([[-np.trace(M**(-1) * dM(A)[j])] for j in xrange(self.s)])
+
     def __str__(self):
         return '%s\n%s' % (self.A, self.p)
 
 
-def build_plan_dirgrad(f, xi, epsilon=1.0e-6):
+def build_plan_dirgrad(f, xi, dM, epsilon=1.0e-6):
     """Синтез оптимального плана с помощью прямой градиентной процедуры. D критерий.
     """
     exit_cond = np.inf
@@ -99,6 +111,7 @@ def build_plan_dirgrad(f, xi, epsilon=1.0e-6):
 
         bnds = reduce(lambda a, b: a + b, [(xi.bnds[i], ) * xi.q for i in xrange(xi.s)])     # Границы для точек плана
         res = minimize(lambda A: xi.X(f, A=np.asmatrix(A).reshape((xi.s, xi.q))),
+                       jac=lambda A: np.squeeze(np.asarray(xi.jac_A(f, dM).reshape((1, xi.s * xi.q)))),
                        x0=np.squeeze(np.asarray(xi.A.reshape((1, xi.s * xi.q)))),
                        method='SLSQP',
                        bounds=bnds)
@@ -108,6 +121,7 @@ def build_plan_dirgrad(f, xi, epsilon=1.0e-6):
         bnds = ((0.0, 1.0), ) * xi.q                            # Границы для весов p: [0.0 .. 1.0]
         cons = ({'type': 'eq', 'fun': lambda p: sum(p) - 1},)   # Нормированность суммы весов
         res = minimize(lambda p: xi.X(f, p=np.asmatrix(p).reshape((xi.q, 1))),
+                       jac=lambda p: xi.jac_p(f, p=np.asmatrix(p).reshape((xi.q, 1))),
                        x0=np.squeeze(np.asarray(xi.p)),
                        method='SLSQP',
                        bounds=bnds,
@@ -129,7 +143,7 @@ def build_plan_dirgrad(f, xi, epsilon=1.0e-6):
     return xi
 
 
-def build_plan_dualgrad(f, xi, epsilon=1.0e-6):
+def build_plan_dualgrad(f, xi, dM, epsilon=1.0e-6):
     """Синтез оптимального плана с помощью двойственной градиентной процедуры. D критерий.
     """
     exit_cond = np.inf
@@ -151,10 +165,10 @@ def build_plan_dualgrad(f, xi, epsilon=1.0e-6):
 
         bnds = xi.bnds
         res = minimize(lambda A: variate_point(f, xi, -1, np.asmatrix(A).reshape((xi.s, 1))),
+                       jac=lambda A: np.squeeze(np.asarray(xi.jac_mu(f, dM, np.asmatrix(A).reshape((xi.s, 1))).reshape((1, xi.s)))),
                        x0=np.squeeze(np.asarray(xi.A[:, -1].reshape((1, xi.s)))),
-                       method='L-BFGS-B',
-                       bounds=bnds,
-                       options={'iter': 1})
+                       method='SLSQP',
+                       bounds=bnds)
         xi.A[:, -1] = np.matrix(res['x']).reshape((xi.s, 1))
 
         print 'Found:\n%s\n' % res['x']
@@ -167,9 +181,8 @@ def build_plan_dualgrad(f, xi, epsilon=1.0e-6):
         bnds = ((0.01, 1.0), )
         res = minimize(lambda p: variate_weight(f, xi, -1, p),
                        x0=(0.5,),
-                       method='L-BFGS-B',
-                       bounds=bnds,
-                       options={'iter': 1})
+                       method='SLSQP',
+                       bounds=bnds)
         xi.p[-1, :] = np.matrix(res['x'])
 
         print 'With weight:\n%s\n' % xi.p[-1, 0]
@@ -234,15 +247,22 @@ def build_plan_dirscan(f, xi0):
 def main():
     s = 2
     q = 25
-    f = lambda alpha: np.matrix([[np.sin(alpha[0,0])],
-                                 [np.cos(alpha[1,0])]])
+    f = lambda alpha: np.matrix([[(alpha[0,0])],
+                                 [(alpha[1,0])]])
+    dM = lambda alpha: [
+        np.matrix([[2 * alpha[0,0], alpha[1,0]     ],
+                   [    alpha[1,0], 0              ]]),
+
+        np.matrix([[             0, alpha[0,0]     ],
+                   [    alpha[0,0], 2 * alpha[1,0] ]]),
+        ]
     x0 = -5; x1 = 5
     A = (x1 - x0) * np.random.random((s, q)) + x0      # starting with random plan
     # A = [[-5, 5], [-5, 5]]
     xi = Plan(s, q)
     xi.A[:, :] = A
     xi.set_bounds(((-5.0, 5.0), (-5.0, 5.0)))
-    build_plan_dualgrad(f, xi)
+    build_plan_dualgrad(f, xi, dM)
     print 'Checking solution for being optimal (less is better): [%.2lf]' % np.abs(xi.mu(f) - xi.eta(f))
 
     # build_plan_dirscan(f, xi)
