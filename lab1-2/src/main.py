@@ -148,6 +148,8 @@ def build_plan_dualgrad(f, xi, dM, epsilon=1.0e-6):
     """
     exit_cond = np.inf
     iter = 0
+
+    buf = xi.A[:, 0]
     while exit_cond > epsilon:
         iter += 1
         detM = np.log(la.det(xi.inf_matrix(f)))
@@ -160,7 +162,7 @@ def build_plan_dualgrad(f, xi, dM, epsilon=1.0e-6):
 
         def variate_point(f, xi, i, a):
             xi.A[:, i] = a
-            # return xi.mu(f)
+            return xi.mu(f)
             return -la.det(xi.inf_matrix(f))
 
         bnds = xi.bnds
@@ -178,7 +180,7 @@ def build_plan_dualgrad(f, xi, dM, epsilon=1.0e-6):
             xi.p[i, 0] = p
             return -la.det(xi.inf_matrix(f))
 
-        bnds = ((0.01, 1.0), )
+        bnds = ((0.0, 1.0), )
         res = minimize(lambda p: variate_weight(f, xi, -1, p),
                        x0=(0.5,),
                        method='SLSQP',
@@ -246,7 +248,19 @@ def build_plan_dirscan(f, xi0):
 
 def main():
     s = 2
-    q = 25
+    q = 2
+
+    f = lambda alpha: np.matrix([[np.sin(alpha[0,0])],
+                                 [np.cos(alpha[1,0])]])
+    dM = lambda alpha: [
+        np.matrix([[2 * np.sin(alpha[0,0]) * np.cos(alpha[0,0]), np.cos(alpha[0,0]) * np.cos(alpha[1,0])     ],
+                   [    np.cos(alpha[0,0]) * np.cos(alpha[1,0]), 0              ]]),
+
+        np.matrix([[             0,                              -np.sin(alpha[0,0]) * np.sin(alpha[1,0])      ],
+                   [    -np.sin(alpha[0,0]) * np.sin(alpha[1,0]),-2 * np.sin(alpha[1,0]) * np.cos(alpha[1,0]) ]]),
+        ]
+
+
     f = lambda alpha: np.matrix([[(alpha[0,0])],
                                  [(alpha[1,0])]])
     dM = lambda alpha: [
@@ -256,6 +270,7 @@ def main():
         np.matrix([[             0, alpha[0,0]     ],
                    [    alpha[0,0], 2 * alpha[1,0] ]]),
         ]
+
     x0 = -5; x1 = 5
     A = (x1 - x0) * np.random.random((s, q)) + x0      # starting with random plan
     # A = [[-5, 5], [-5, 5]]
