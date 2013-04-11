@@ -134,7 +134,7 @@ class IMFSolver(object):
     def set_u(self, A, t):
         self.data['u(%d)' % t][:, :] = A
 
-    def solve(self):
+    def  solve(self):
         d = self.data
         # Шаг 1. Сформировать матрицу Psi_A в соответствии с равенством (2.77)
         d['Psi_A'] = row_stack_it(d['Psi'], [d['diff(Psi, theta[%d])' % i] for i in xrange(self.s)])
@@ -234,8 +234,8 @@ class IMFSolver(object):
         Phi = d['Phi']
         Kt = d['Kt(%d)' % (t + 1)]
         H = d['H']
-        Remain_cols = [row_stack_it(np.eye(self.n), [Phi - np.dot(Kt, H) if i == j else np.zeros((self.n, self.n))
-                                                     for j in xrange(self.s)]) for i in xrange(self.n)]
+        Remain_cols = [row_stack_it(np.zeros((self.n, self.n)), [Phi - np.dot(Kt, H) if i == j else np.zeros((self.n, self.n))
+                                                                 for j in xrange(self.s)]) for i in xrange(self.s)]
         d['Phi_A(%d|%d)' % (t + 2, t + 1)] = col_stack_it(First_col, Remain_cols)
 
     def step7(self, d, t):
@@ -324,11 +324,11 @@ class IMFSolver(object):
         B = d['B(%d)' % (t + 1)]
         H = d['H']
         for i in xrange(self.s):
-            Ci = build_c(self.n, self.s, i)
+            Ci = build_c(self.n, self.s, i + 1)
             dHi = d['diff(H, theta[%d])' % i]
             dBi = d['diff(B(%d), theta[%d])' % (t + 1, i)]
             for j in xrange(self.s):
-                Cj = build_c(self.n, self.s, j)
+                Cj = build_c(self.n, self.s, j + 1)
                 dHj = d['diff(H, theta[%d])' % j]
                 dBj = d['diff(B(%d), theta[%d])' % (t + 1, j)]
 
@@ -383,8 +383,56 @@ def main():
     for i in xrange(N):
         solver.set_u([[1.0]], i)
 
-    print solver.solve()
+    M = solver.solve()
+    print M
+    print la.det(M)
 
+
+def main1():
+    N = 2
+
+    solver = IMFSolver(n=1, r=1, p=1, m=1, s=2, N=N)
+
+    theta = [1.0, 1.0]
+
+    solver.set_Phi([[theta[0]]])
+    solver.set_diff_Phi_theta([[1.0]], 0)
+    solver.set_diff_Phi_theta([[0.0]], 1)
+
+    solver.set_Psi([[theta[1]]])
+    solver.set_diff_Psi_theta([[0.0]], 0)
+    solver.set_diff_Psi_theta([[1.0]], 1)
+
+    solver.set_Gamma([[1.0]])
+    solver.set_diff_Gamma_theta([[0.0]], 0)
+    solver.set_diff_Gamma_theta([[0.0]], 1)
+
+    solver.set_H([[1.0]])
+    solver.set_diff_H_theta([[0.0]], 0)
+    solver.set_diff_H_theta([[0.0]], 1)
+
+    solver.set_Q([[0.1]])
+    solver.set_diff_Q_theta([[0.0]], 0)
+    solver.set_diff_Q_theta([[0.0]], 1)
+
+    solver.set_R([[0.3]])
+    solver.set_diff_R_theta([[0.0]], 0)
+    solver.set_diff_R_theta([[0.0]], 1)
+
+    solver.set_x0([[0.0]])
+    solver.set_diff_x0_theta([[0.0]], 0)
+    solver.set_diff_x0_theta([[0.0]], 1)
+
+    solver.set_P0([[0.1]])
+    solver.set_diff_P0_theta([[0.0]], 0)
+    solver.set_diff_P0_theta([[0.0]], 1)
+
+    for i in xrange(N):
+        solver.set_u([[2.0]], i)
+
+    M = solver.solve()
+    print M
+    print la.det(M)
 
 if __name__ == '__main__':
     main()
