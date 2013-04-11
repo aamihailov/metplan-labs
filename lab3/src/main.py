@@ -60,9 +60,9 @@ class IMFSolver(object):
         for i in xrange(self.s):
             data['diff(H, theta[%d])' % i] = np.ndarray((self.m, self.n))
 
-        data['Q'] = np.ndarray((self.n, self.n))
+        data['Q'] = np.ndarray((self.p, self.p))
         for i in xrange(self.s):
-            data['diff(Q, theta[%d])' % i] = np.ndarray((self.n, self.n))
+            data['diff(Q, theta[%d])' % i] = np.ndarray((self.p, self.p))
 
         data['R'] = np.ndarray((self.m, self.m))
         for i in xrange(self.s):
@@ -201,7 +201,7 @@ class IMFSolver(object):
         P = d['P(%d|%d)' % (t, t)]
         Gamma = d['Gamma']
         Q = d['Q']
-        d['P(%d|%d)' % (t + 1, t)] = np.dot(np.dot(Phi, P), Phi.transpose()) + np.dot(np.dot(Gamma.transpose(), Q), Gamma)
+        d['P(%d|%d)' % (t + 1, t)] = np.dot(np.dot(Phi, P), Phi.transpose()) + np.dot(np.dot(Gamma, Q), Gamma.transpose())
 
     def step5_B(self, d, t):
         H = d['H']
@@ -260,9 +260,9 @@ class IMFSolver(object):
                 np.dot(np.dot(dPhi, P), Phi.transpose()) + \
                 np.dot(np.dot(Phi, dP), Phi.transpose()) + \
                 np.dot(np.dot(Phi, P), dPhi.transpose()) + \
-                np.dot(np.dot(dGamma.transpose(), Q), Gamma) + \
-                np.dot(np.dot(Gamma.transpose(), dQ), Gamma) + \
-                np.dot(np.dot(Gamma.transpose(), Q), dGamma)
+                np.dot(np.dot(dGamma, Q), Gamma.transpose()) + \
+                np.dot(np.dot(Gamma, dQ), Gamma.transpose()) + \
+                np.dot(np.dot(Gamma, Q), dGamma.transpose())
 
     def step7_B(self, d, t):
         for i in xrange(self.s):
@@ -364,9 +364,9 @@ def main():
     solver.set_diff_H_theta([[0.0, 0.0]], 0)
     solver.set_diff_H_theta([[0.0, 0.0]], 1)
 
-    solver.set_Q([[1.0, 0.0], [0.0, 1.0]])
-    solver.set_diff_Q_theta([[0.0, 0.0], [0.0, 0.0]], 0)
-    solver.set_diff_Q_theta([[0.0, 0.0], [0.0, 0.0]], 1)
+    solver.set_Q([[1.0]])
+    solver.set_diff_Q_theta([[0.0]], 0)
+    solver.set_diff_Q_theta([[0.0]], 1)
 
     solver.set_R([[0.02]])
     solver.set_diff_R_theta([[0.0]], 0)
