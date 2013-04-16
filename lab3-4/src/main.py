@@ -344,7 +344,7 @@ class IMFSolver(object):
 def main():
     N = 20
 
-    solver = IMFSolver(n=2, r=1, p=1, m=1, s=2, N=N)
+    solver = IMFSolver(n=2, r=1, p=2, m=1, s=2, N=N)
 
     theta = [0.56, 0.48]
 
@@ -356,17 +356,17 @@ def main():
     solver.set_diff_Psi_theta([[1.0], [0.0]], 0)
     solver.set_diff_Psi_theta([[0.0], [1.0]], 1)
 
-    solver.set_Gamma([[1.0], [1.0]])
-    solver.set_diff_Gamma_theta([[0.0], [0.0]], 0)
-    solver.set_diff_Gamma_theta([[0.0], [0.0]], 1)
+    solver.set_Gamma([[1.0, 0.0], [0.0, 1.0]])
+    solver.set_diff_Gamma_theta([[0.0, 0.0], [0.0, 0.0]], 0)
+    solver.set_diff_Gamma_theta([[0.0, 0.0], [0.0, 0.0]], 1)
 
     solver.set_H([[1.0, 0.0]])
     solver.set_diff_H_theta([[0.0, 0.0]], 0)
     solver.set_diff_H_theta([[0.0, 0.0]], 1)
 
-    solver.set_Q([[1.0]])
-    solver.set_diff_Q_theta([[0.0]], 0)
-    solver.set_diff_Q_theta([[0.0]], 1)
+    solver.set_Q([[0.07, 0.0], [0.0, 0.07]])
+    solver.set_diff_Q_theta([[0.0, 0.0], [0.0, 0.0]], 0)
+    solver.set_diff_Q_theta([[0.0, 0.0], [0.0, 0.0]], 1)
 
     solver.set_R([[0.02]])
     solver.set_diff_R_theta([[0.0]], 0)
@@ -386,53 +386,8 @@ def main():
     M = solver.solve()
     print M
     print la.det(M)
+    print -np.log(la.det(M))
 
-
-def main1():
-    N = 2
-
-    solver = IMFSolver(n=1, r=1, p=1, m=1, s=2, N=N)
-
-    theta = [1.0, 1.0]
-
-    solver.set_Phi([[theta[0]]])
-    solver.set_diff_Phi_theta([[1.0]], 0)
-    solver.set_diff_Phi_theta([[0.0]], 1)
-
-    solver.set_Psi([[theta[1]]])
-    solver.set_diff_Psi_theta([[0.0]], 0)
-    solver.set_diff_Psi_theta([[1.0]], 1)
-
-    solver.set_Gamma([[1.0]])
-    solver.set_diff_Gamma_theta([[0.0]], 0)
-    solver.set_diff_Gamma_theta([[0.0]], 1)
-
-    solver.set_H([[1.0]])
-    solver.set_diff_H_theta([[0.0]], 0)
-    solver.set_diff_H_theta([[0.0]], 1)
-
-    solver.set_Q([[0.1]])
-    solver.set_diff_Q_theta([[0.0]], 0)
-    solver.set_diff_Q_theta([[0.0]], 1)
-
-    solver.set_R([[0.3]])
-    solver.set_diff_R_theta([[0.0]], 0)
-    solver.set_diff_R_theta([[0.0]], 1)
-
-    solver.set_x0([[0.0]])
-    solver.set_diff_x0_theta([[0.0]], 0)
-    solver.set_diff_x0_theta([[0.0]], 1)
-
-    solver.set_P0([[0.1]])
-    solver.set_diff_P0_theta([[0.0]], 0)
-    solver.set_diff_P0_theta([[0.0]], 1)
-
-    for i in xrange(N):
-        solver.set_u([[2.0]], i)
-
-    M = solver.solve()
-    print M
-    print la.det(M)
 
 if __name__ == '__main__':
     main()

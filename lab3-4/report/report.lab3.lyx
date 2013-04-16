@@ -1,0 +1,3140 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{cmap}	         % русские буквы при копировании 
+\usepackage{indentfirst}      % отступ после первого абзаца
+\usepackage{misccorr}	         % точки после номеров заголовков
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{lscape}	         % поворот страницы с сохранением нумерации
+\usepackage{multirow}
+
+\sloppy
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language russian
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Предметный указатель
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 1cm
+\rightmargin 1cm
+\bottommargin 2cm
+\footskip 1cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large Министерство образования и науки РФ
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large Новосибирский Государственный Технический Университет
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large Кафедра ПМт
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[8.5cm]  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+huge Лабораторная работа 
+\backslash
+No3
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[0.5cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large <<Вычисление ИМФ>>
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[0.5cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large по~курсу <<Математические методы планирования эксперимента>>
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[4.0cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+vfill % заполнить все доступное ниже пространство
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newbox{
+\backslash
+lbox}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+savebox{
+\backslash
+lbox}{
+\backslash
+hbox{Пупкин Иван Иванович}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newlength{
+\backslash
+maxl}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setlength{
+\backslash
+maxl}{
+\backslash
+wd
+\backslash
+lbox}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\backslash
+parbox{8cm}{
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Факультет:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{ПМИ
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Группа:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{ПММ-81
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Студенты:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Михайлов А.А.,
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace*{5cm}
+\backslash
+hspace*{-5cm}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Санина А.А.
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Преподаватели:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Черникова  О.С.,
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace*{5cm}
+\backslash
+hspace*{-5cm}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Чубич В.М.
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[3.0cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\backslash
+large Новосибирск 2013}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty} % не нумеровать страницу
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Условие задачи 
+\end_layout
+
+\begin_layout Standard
+Построить и исследовать процедуру вычисления ИМФ.
+\end_layout
+
+\begin_layout Section
+Ход работы:
+\end_layout
+
+\begin_layout Subsection
+Алгоритм вычисления информационной матрицы одноточечного плана
+\end_layout
+
+\begin_layout Enumerate
+Для данного 
+\begin_inset Formula $\theta_{i}$
+\end_inset
+
+ найти:
+\begin_inset Formula 
+\begin{eqnarray*}
+\Phi,\ \frac{\partial\Phi}{\partial\theta_{i}},\ i=\overline{1,\, s} & \ \ \ \ \ \ \ \ \ \ \  & Q,\ \frac{\partial Q}{\partial\theta_{i}},\ i=\overline{1,\, s}\\
+\Psi,\ \frac{\partial\Psi}{\partial\theta_{i}},\ i=\overline{1,\, s} & \ \ \ \ \ \ \ \ \ \ \  & R,\ \frac{\partial R}{\partial\theta_{i}},\ i=\overline{1,\, s}\\
+\Gamma,\ \frac{\partial\Gamma}{\partial\theta_{i}},\ i=\overline{1,\, s} & \ \ \ \ \ \ \ \ \ \ \  & \overline{x}\left(0\right),\ \frac{\partial\overline{x}\left(0\right)}{\partial\theta_{i}},\ i=\overline{1,\, s}\\
+H,\ \frac{\partial H}{\partial\theta_{i}},\ i=\overline{1,\, s} & \ \ \ \ \ \ \ \ \ \ \  & P\left(0\right),\ \frac{\partial P\left(0\right)}{\partial\theta_{i}},\ i=\overline{1,\, s}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Сформировать матрицу 
+\begin_inset Formula $\Psi_{A}$
+\end_inset
+
+ в соответствии с равенством: 
+\begin_inset Formula 
+\begin{equation}
+\Psi_{A}=\left[\begin{array}{c}
+\Psi\\
+\frac{\partial\Psi}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\Psi}{\partial\theta_{s}}
+\end{array}\right].
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Положить 
+\begin_inset Formula $M\left(\Theta\right)=0;\ P\left(0\,|\,0\right)=P\left(0\right);\ \frac{\partial P\left(0\,|\,0\right)}{\partial\theta_{i}}=\frac{\partial P\left(0\right)}{\partial\theta_{i}},\ i=\overline{1,\, s},\ t=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:step3"
+
+\end_inset
+
+Вычислить 
+\begin_inset Formula $\Sigma_{A}\left(t+1\,|\, t\right)$
+\end_inset
+
+ по формуле:
+\begin_inset Formula 
+\begin{equation}
+\Sigma_{A}\left(t+1\,|\, t\right)=\begin{cases}
+0, & t=0;\\
+\Phi_{A}\left(t+1\,|\, t\right)\Sigma_{A}\left(t\,|\, t-1\right)\Phi_{A}^{T}\left(t+1\,|\, t\right)+K_{A}\left(t\right)B\left(t\right)K_{A}^{T}\left(t\right), & t>0.
+\end{cases}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Определить:
+\size footnotesize
+
+\begin_inset Formula 
+\begin{equation}
+\overline{x}_{A}\left(t+1\,|\, t\right)=\begin{cases}
+\left[\begin{array}{cccc}
+\Phi & 0 & \ldots & 0\\
+\partial\Phi/\partial\theta_{1} & \Phi & \ldots & \ldots\\
+\ldots & \ldots & \ldots & \ldots\\
+\partial\Phi/\partial\theta_{s} & \ldots & \ldots & \Phi
+\end{array}\right]\left[\begin{array}{c}
+\overline{x}\left(0\right)\\
+\frac{\partial\overline{x}\left(0\right)}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\overline{x}\left(0\right)}{\partial\theta_{s}}
+\end{array}\right]+\left[\begin{array}{c}
+\Psi\\
+\frac{\partial\Psi}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\Psi}{\partial\theta_{s1}}
+\end{array}\right]u\left(0\right), & t=0;\\
+\underset{F}{\underbrace{\left[\begin{array}{cccc}
+\Phi & 0 & \ldots & 0\\
+\frac{\partial F}{\partial\theta_{1}}-\tilde{K}\left(t\right)\frac{\partial H}{\partial\theta_{1}} & \Phi-\tilde{K}\left(t\right)H & \ldots & \ldots\\
+\ldots & \ldots & \ldots & \ldots\\
+\frac{\partial F}{\partial\theta_{s}}-\tilde{K}\left(t\right)\frac{\partial H}{\partial\theta_{s}} & \ldots & \ldots & \Phi-\tilde{K}\left(t\right)H
+\end{array}\right]}}\left[\begin{array}{c}
+\overline{x}\left(0\right)\\
+\frac{\partial\overline{x}\left(0\right)}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\overline{x}\left(0\right)}{\partial\theta_{s}}
+\end{array}\right]+\left[\begin{array}{c}
+\Psi\\
+\frac{\partial\Psi}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\Psi}{\partial\theta_{s1}}
+\end{array}\right]u\left(t\right)+\left[\begin{array}{c}
+\tilde{K}\left(t\right)\\
+\frac{\partial\tilde{K}\left(t\right)}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\tilde{K}\left(t\right)}{\partial\theta_{s}}
+\end{array}\right]\varepsilon\left(t\right), & t>0.
+\end{cases}\label{eq:F}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Где 
+\begin_inset Formula $\tilde{K}\left(t\right)=\Phi K\left(t\right)$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Найти:
+\begin_inset Formula 
+\begin{eqnarray*}
+P\left(t+1\,|\, t\right) & = & \Phi P\left(t\,|\, t\right)\Phi^{T}+\Gamma Q\Gamma^{T},\\
+B\left(t+1\,|\, t\right) & = & HP\left(t+1\,|\, t\right)H^{T}+R,\\
+K\left(t+1\right) & = & P\left(t+1\,|\, t\right)H^{T}B^{-1}\left(t+1\right),\\
+P\left(t+1\,|\, t+1\right) & = & \left[I-K\left(t+1\right)H\right]P\left(t+1\,|\, t\right),\\
+\tilde{K}\left(t+1\right) & = & \Phi K\left(t+1\right).
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Сформировать матрицу 
+\begin_inset Formula $\Phi_{A}\left(t+2\,|\, t+1\right)$
+\end_inset
+
+ в соответствии с 
+\begin_inset Formula $F$
+\end_inset
+
+ в 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:F"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Вычислить:
+\size footnotesize
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial P\left(t+1\,|\, t\right)}{\partial\theta_{i}} & = & \frac{\partial\Phi}{\partial\theta_{i}}P\left(t\,|t\right)\Phi^{T}+\Phi\frac{\partial P\left(t\,|\, t\right)}{\partial\theta_{i}}\Phi^{T}+\Phi P\left(t\,|\, t\right)\frac{\partial\Phi^{T}}{\partial\theta_{i}}+\frac{\partial\Gamma}{\partial\theta_{i}}Q\Gamma^{T}+\Gamma\frac{\partial Q}{\partial\theta_{i}}\Gamma^{T}+\Gamma Q\frac{\partial\Gamma^{T}}{\partial\theta_{i}};\\
+\frac{\partial B\left(t+1\right)}{\partial\theta_{i}} & = & \frac{\partial H}{\partial\theta_{i}}P\left(t+1\,|\, t\right)H^{T}+H\frac{\partial P\left(t+1\,|\, t\right)}{\partial\theta_{i}}H^{T}+HP\left(t+1\,|\, t\right)\frac{\partial H^{T}}{\partial\theta_{i}}+\frac{\partial R}{\partial\theta_{i}};\\
+\frac{\partial K\left(t+1\right)}{\partial\theta_{i}} & = & \left[\frac{\partial P\left(t+1\,|\, t\right)}{\partial\theta_{i}}H^{T}+P\left(t+1\,|\, t\right)\frac{\partial H^{T}}{\partial\theta_{i}}-P\left(t+1\,|\, t\right)H^{T}B^{-1}\left(t+1\right)\frac{\partial B\left(t+1\right)}{\partial\theta_{i}}\right]B^{-1}\left(t+1\right);\\
+\frac{\partial P\left(t+1\,|\, t+1\right)}{\partial\theta_{i}} & = & \left[I-K\left(t+1\right)H\right]\frac{\partial P\left(t+1\,|\, t+1\right)}{\partial\theta_{i}}-\left[\frac{\partial K\left(t+1\right)}{\partial\theta_{i}}H+K\left(t+1\right)\frac{\partial H}{\partial\theta_{i}}P\left(t+1\,|\, t\right)\right];\\
+\frac{\partial\tilde{K}\left(t+1\right)}{\partial\theta_{i}} & = & \frac{\partial\Phi}{\partial\theta_{i}}K\left(t+1\right)+\Phi\frac{\partial K\left(t+1\right)}{\partial\theta_{i}}.
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Сформировать матрицу:
+\begin_inset Formula 
+\begin{equation}
+K_{A}\left(t+1\right)=\left[\begin{array}{c}
+\tilde{K}\left(t\right)\\
+\frac{\partial\tilde{K}\left(t\right)}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\tilde{K}\left(t\right)}{\partial\theta_{s}}
+\end{array}\right].
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Вычислить 
+\begin_inset Formula $\Delta M\left(\Theta\right)$
+\end_inset
+
+, используя формулу:
+\size footnotesize
+
+\begin_inset Formula 
+\begin{eqnarray*}
+M_{ij}\left(\Theta\right) & = & \sum_{t=0}^{N-1}\left\{ \mathrm{Sp}\left[C_{0}\left(\Sigma_{A}\left(t+1\,|\, t\right)+\overline{x}_{A}\left(t+1\,|\, t\right)\overline{x}_{A}^{T}\left(t+1\,|\, t\right)\right)C_{0}^{T}\frac{\partial H^{T}}{\partial\theta_{i}}B^{-1}\left(t+1\right)\frac{\partial H}{\partial\theta_{i}}\right]+\right.\\
+ & + & \mathrm{Sp}\left[C_{0}\left(\Sigma_{A}\left(t+1\,|\, t\right)+\overline{x}_{A}\left(t+1\,|\, t\right)\overline{x}_{A}^{T}\left(t+1\,|\, t\right)\right)C_{j}^{T}H^{T}B^{-1}\left(t+1\right)H\right]+\\
+ & + & \mathrm{Sp}\left[C_{i}\left(\Sigma_{A}\left(t+1\,|\, t\right)+\overline{x}_{A}\left(t+1\,|\, t\right)\overline{x}_{A}^{T}\left(t+1\,|\, t\right)\right)C_{0}^{T}\frac{\partial H^{T}}{\partial\theta_{j}}B^{-1}\left(t+1\right)H\right]+\\
+ & + & \mathrm{Sp}\left[C_{i}\left(\Sigma_{A}\left(t+1\,|\, t\right)+\overline{x}_{A}\left(t+1\,|\, t\right)\overline{x}_{A}^{T}\left(t+1\,|\, t\right)\right)C_{j}^{T}H^{T}B^{-1}\left(t+1\right)H\right]+\\
+ & + & \left.\frac{1}{2}\mathrm{Sp}\left[\frac{\partial B\left(t+1\right)}{\partial\theta_{i}}B^{-1}\left(t+1\right)\frac{\partial B\left(t+1\right)}{\partial\theta_{j}}B^{-1}\left(t+1\right)\right]\right\} ,\ i,\, j=\overline{1,\, s}.
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Положить 
+\begin_inset Formula $M\left(\Theta\right)=M\left(\Theta\right)+\Delta M\left(\Theta\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Увеличить 
+\begin_inset Formula $t$
+\end_inset
+
+ на единицу.
+ Если 
+\begin_inset Formula $t\leq N-1$
+\end_inset
+
+, перейти на шаг 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:step3"
+
+\end_inset
+
+).
+ В противном случае закончить процесс.
+\end_layout
+
+\begin_layout Subsection
+Текст программы на языке Python
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize},breaklines=true,language=Matlab,numbers=left,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# -*- coding: utf-8 -*-
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+from scipy import linalg as la
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Создать блочную матрицу - столбец [A, dA[0]..dA[N]]
+\end_layout
+
+\begin_layout Plain Layout
+
+def row_stack_it(A, dA):
+\end_layout
+
+\begin_layout Plain Layout
+
+    return np.row_stack([A, np.row_stack(dA)])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Создать блочную матрицу - строку [A, dA[0]..dA[N]]
+\end_layout
+
+\begin_layout Plain Layout
+
+def col_stack_it(A, dA):
+\end_layout
+
+\begin_layout Plain Layout
+
+    return np.column_stack([A, np.column_stack(dA)])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Создать блочную матрицу - строку [O..O, I, O..O], I на i+1 позиции.
+ Размер блока n*n, число блоков s+1
+\end_layout
+
+\begin_layout Plain Layout
+
+def build_c(n, s, i):
+\end_layout
+
+\begin_layout Plain Layout
+
+    return np.column_stack([np.eye(n) if i == j else np.zeros((n, n)) for j
+ in xrange(s + 1)])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+class IMFSolver(object):
+\end_layout
+
+\begin_layout Plain Layout
+
+    def __init__(self, n, r, p, m, s, N):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.n = n                  # Размерность вектора состояний x
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.r = r                  # Размерность вектора управления u
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.p = p                  # Размерность вектора возмущений w
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.m = m                  # Размерность вектора измерений y и вектора
+ ошибки измерения v
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.N = N                  # Число наблюдений: t=0..N
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.s = s                  # Число параметров theta
+\end_layout
+
+\begin_layout Plain Layout
+
+        self._init_structures()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def _init_structures(self):
+\end_layout
+
+\begin_layout Plain Layout
+
+        data = dict()
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['n'] = self.n
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['r'] = self.r
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['p'] = self.p
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['m'] = self.m
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['N'] = self.N
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['s'] = self.s
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Матрица состояния
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['Phi'] = np.ndarray((self.n, self.n))
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            data['diff(Phi, theta[%d])' % i] = np.ndarray((self.n, self.n))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Матрица управления
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['Psi'] = np.ndarray((self.n, self.r))
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            data['diff(Psi, theta[%d])' % i] = np.ndarray((self.n, self.r))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Матрица возмущения
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['Gamma'] = np.ndarray((self.n, self.p))
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            data['diff(Gamma, theta[%d])' % i] = np.ndarray((self.n, self.p))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Матрица измерений
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['H'] = np.ndarray((self.m, self.n))
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            data['diff(H, theta[%d])' % i] = np.ndarray((self.m, self.n))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['Q'] = np.ndarray((self.p, self.p))
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            data['diff(Q, theta[%d])' % i] = np.ndarray((self.p, self.p))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['R'] = np.ndarray((self.m, self.m))
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            data['diff(R, theta[%d])' % i] = np.ndarray((self.m, self.m))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['x(0)'] = np.ndarray((self.n, 1))
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            data['diff(x(0), theta[%d])' % i] = np.ndarray((self.n, 1))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['P(0)'] = np.ndarray((self.n, self.n))
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            data['diff(P(0), theta[%d])' % i] = np.ndarray((self.n, self.n))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        data['M'] = np.ndarray((self.s, self.s))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.N):
+\end_layout
+
+\begin_layout Plain Layout
+
+            data['u(%d)' % i] = np.ndarray((self.r, 1))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data = data
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_Phi(self, A):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['Phi'][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_diff_Phi_theta(self, A, i):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['diff(Phi, theta[%d])' % i][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_Psi(self, A):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['Psi'][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_diff_Psi_theta(self, A, i):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['diff(Psi, theta[%d])' % i][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_Gamma(self, A):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['Gamma'][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_diff_Gamma_theta(self, A, i):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['diff(Gamma, theta[%d])' % i][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_H(self, A):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['H'][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_diff_H_theta(self, A, i):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['diff(H, theta[%d])' % i][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_Q(self, A):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['Q'][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_diff_Q_theta(self, A, i):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['diff(Q, theta[%d])' % i][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_R(self, A):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['R'][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_diff_R_theta(self, A, i):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['diff(R, theta[%d])' % i][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_x0(self, A):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['x(0)'][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_diff_x0_theta(self, A, i):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['diff(x(0), theta[%d])' % i][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_P0(self, A):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['P(0)'][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_diff_P0_theta(self, A, i):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['diff(P(0), theta[%d])' % i][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def set_u(self, A, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.data['u(%d)' % t][:, :] = A
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def  solve(self):
+\end_layout
+
+\begin_layout Plain Layout
+
+        d = self.data
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Шаг 1.
+ Сформировать матрицу Psi_A в соответствии с равенством (2.77)
+\end_layout
+
+\begin_layout Plain Layout
+
+        d['Psi_A'] = row_stack_it(d['Psi'], [d['diff(Psi, theta[%d])' %
+ i] for i in xrange(self.s)])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Шаг 2.
+\end_layout
+
+\begin_layout Plain Layout
+
+        d['M(Theta)'] = np.ndarray((self.s, self.s))
+\end_layout
+
+\begin_layout Plain Layout
+
+        d['M(Theta)'][:, :] = 0.0
+\end_layout
+
+\begin_layout Plain Layout
+
+        d['P(0|0)'] = d['P(0)']
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            d['diff(P(0|0), theta[%d])' % i] = d['diff(P(0), theta[%d])'
+ % i]
+\end_layout
+
+\begin_layout Plain Layout
+
+        t = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        while t < self.N:
+\end_layout
+
+\begin_layout Plain Layout
+
+            self.step3(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+            self.step4(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+            self.step5(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+            self.step6(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+            self.step7(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+            self.step8(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+            self.step9(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+            # Шаг 10.
+ Положить M(Theta) = M(Theta) + delta M(Theta)
+\end_layout
+
+\begin_layout Plain Layout
+
+            d['M(Theta)'] += d['delta M(Theta)']
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+            # Шаг 11.
+ Увеличить t на единицу.
+ Если t <= N-1, перейти на шаг 3.
+ В противном случае закончить процесс
+\end_layout
+
+\begin_layout Plain Layout
+
+            t += 1
+\end_layout
+
+\begin_layout Plain Layout
+
+        return d['M(Theta)']
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step3(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Шаг 3.
+ Вычислить Sigma_A(t + 1|t) по формуле (2.82), если t = 0, иначе по формуле
+ (2.84)
+\end_layout
+
+\begin_layout Plain Layout
+
+        if t == 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+            d['Sigma_A(%d|%d)' % (t + 1, t)] = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+        else:
+\end_layout
+
+\begin_layout Plain Layout
+
+            Phi = d['Phi_A(%d|%d)' % (t + 1, t)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            Sigma = d['Sigma_A(%d|%d)' % (t, t - 1)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            K = d['K_A(%d)' % t]
+\end_layout
+
+\begin_layout Plain Layout
+
+            B = d['B(%d)' % t]
+\end_layout
+
+\begin_layout Plain Layout
+
+            d['Sigma_A(%d|%d)' % (t + 1, t)] = np.dot(np.dot(Phi, Sigma),
+ Phi.transpose()) + np.dot(np.dot(K, B), K.transpose())
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step4(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Шаг 4.
+ Определить x(t + 1|t) при помощи выражения (2.81)
+\end_layout
+
+\begin_layout Plain Layout
+
+        if t == 0:
+\end_layout
+
+\begin_layout Plain Layout
+
+            P1 = row_stack_it(d['Phi'], [d['diff(Phi, theta[%d])' % i] for
+ i in xrange(self.s)])
+\end_layout
+
+\begin_layout Plain Layout
+
+            x0 = d['x(0)']
+\end_layout
+
+\begin_layout Plain Layout
+
+            z0 = np.ndarray((self.n, 1))
+\end_layout
+
+\begin_layout Plain Layout
+
+            z0[:, :] = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+            P2 = row_stack_it(z0, [np.dot(d['Phi'], d['diff(x(0), theta[%d])'
+ % i]) for i in xrange(self.s)])
+\end_layout
+
+\begin_layout Plain Layout
+
+            d['x_A(%d|%d)' % (t + 1, t)] = np.dot(P1, x0) + P2 + np.dot(d['Psi_A']
+, d['u(0)'])
+\end_layout
+
+\begin_layout Plain Layout
+
+        else:
+\end_layout
+
+\begin_layout Plain Layout
+
+            d['x_A(%d|%d)' % (t + 1, t)] = 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(d['Phi_A(%d|%d)' % (t + 1, t)], d['x_A(%d|%d)' % (t,
+ t - 1)]) + 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(d['Psi_A'], d['u(%d)' % t])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step5(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Шаг 5.Найти P(t + 1|t), B(t + 1), K(t + 1), P(t + 1|t + 1), Kt(t
+ + 1),
+\end_layout
+
+\begin_layout Plain Layout
+
+        # используя соотношения (2.9), (2.11), (2.12), (2.14) и (2.73)
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.step5_P10(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.step5_B(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.step5_K(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.step5_P11(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.step5_Kt(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step5_P10(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        Phi = d['Phi']
+\end_layout
+
+\begin_layout Plain Layout
+
+        P = d['P(%d|%d)' % (t, t)]
+\end_layout
+
+\begin_layout Plain Layout
+
+        Gamma = d['Gamma']
+\end_layout
+
+\begin_layout Plain Layout
+
+        Q = d['Q']
+\end_layout
+
+\begin_layout Plain Layout
+
+        d['P(%d|%d)' % (t + 1, t)] = np.dot(np.dot(Phi, P), Phi.transpose())
+ + np.dot(np.dot(Gamma, Q), Gamma.transpose())
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step5_B(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        H = d['H']
+\end_layout
+
+\begin_layout Plain Layout
+
+        P = d['P(%d|%d)' % (t + 1, t)]
+\end_layout
+
+\begin_layout Plain Layout
+
+        R = d['R']
+\end_layout
+
+\begin_layout Plain Layout
+
+        d['B(%d)' % (t + 1)] = np.dot(np.dot(H, P), H.transpose()) + R
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step5_K(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        P = d['P(%d|%d)' % (t + 1, t)]
+\end_layout
+
+\begin_layout Plain Layout
+
+        H = d['H']
+\end_layout
+
+\begin_layout Plain Layout
+
+        B = d['B(%d)' % (t + 1)]
+\end_layout
+
+\begin_layout Plain Layout
+
+        d['K(%d)' % (t + 1)] = np.dot(np.dot(P, H.transpose()), la.inv(B))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step5_P11(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        I = np.eye(self.n)
+\end_layout
+
+\begin_layout Plain Layout
+
+        K = d['K(%d)' % (t + 1)]
+\end_layout
+
+\begin_layout Plain Layout
+
+        H = d['H']
+\end_layout
+
+\begin_layout Plain Layout
+
+        P = d['P(%d|%d)' % (t + 1, t)]
+\end_layout
+
+\begin_layout Plain Layout
+
+        d['P(%d|%d)' % (t + 1, t + 1)] = np.dot((I - np.dot(K, H)), P)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step5_Kt(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        Phi = d['Phi']
+\end_layout
+
+\begin_layout Plain Layout
+
+        K = d['K(%d)' % (t + 1)]
+\end_layout
+
+\begin_layout Plain Layout
+
+        d['Kt(%d)' % (t + 1)] = np.dot(Phi, K)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step6(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Шаг 6.
+ Сформировать матрицу Phi_A(t+2|t+1) в соответствии с (2.76)
+\end_layout
+
+\begin_layout Plain Layout
+
+        First_col = row_stack_it(d['Phi'], [d['diff(Phi, theta[%d])' % i]
+ -
+\end_layout
+
+\begin_layout Plain Layout
+
+                                            np.dot(d['Kt(%d)' % (t + 1)],
+ d['diff(H, theta[%d])' % i]) for i in xrange(self.s)])
+\end_layout
+
+\begin_layout Plain Layout
+
+        Phi = d['Phi']
+\end_layout
+
+\begin_layout Plain Layout
+
+        Kt = d['Kt(%d)' % (t + 1)]
+\end_layout
+
+\begin_layout Plain Layout
+
+        H = d['H']
+\end_layout
+
+\begin_layout Plain Layout
+
+        Remain_cols = [row_stack_it(np.zeros((self.n, self.n)), [Phi - np.dot(Kt,
+ H) if i == j else np.zeros((self.n, self.n))
+\end_layout
+
+\begin_layout Plain Layout
+
+                                                                 for j in
+ xrange(self.s)]) for i in xrange(self.s)]
+\end_layout
+
+\begin_layout Plain Layout
+
+        d['Phi_A(%d|%d)' % (t + 2, t + 1)] = col_stack_it(First_col, Remain_cols
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step7(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Шаг 7.
+ Вычислить производные для P(t+1|t), B(t+1), K(t+1), P(t+1|t+1), Kt(t+1)
+ по формулам (2.85) - (2.89)
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.step7_P10(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.step7_B(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.step7_K(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.step7_P11(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+        self.step7_Kt(d, t)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step7_P10(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            dPhi = d['diff(Phi, theta[%d])' % i]
+\end_layout
+
+\begin_layout Plain Layout
+
+            P = d['P(%d|%d)' % (t, t)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            Phi = d['Phi']
+\end_layout
+
+\begin_layout Plain Layout
+
+            dP = d['diff(P(%d|%d), theta[%d])' % (t, t, i)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            dGamma = d['diff(Gamma, theta[%d])' % i]
+\end_layout
+
+\begin_layout Plain Layout
+
+            Q = d['Q']
+\end_layout
+
+\begin_layout Plain Layout
+
+            Gamma = d['Gamma']
+\end_layout
+
+\begin_layout Plain Layout
+
+            dQ = d['diff(Q, theta[%d])' % i]
+\end_layout
+
+\begin_layout Plain Layout
+
+            d['diff(P(%d|%d), theta[%d])' % (t + 1, t, i)] = 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(np.dot(dPhi, P), Phi.transpose()) + 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(np.dot(Phi, dP), Phi.transpose()) + 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(np.dot(Phi, P), dPhi.transpose()) + 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(np.dot(dGamma, Q), Gamma.transpose()) + 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(np.dot(Gamma, dQ), Gamma.transpose()) + 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(np.dot(Gamma, Q), dGamma.transpose())
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step7_B(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            dH = d['diff(H, theta[%d])' % i]
+\end_layout
+
+\begin_layout Plain Layout
+
+            P = d['P(%d|%d)' % (t + 1, t)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            H = d['H']
+\end_layout
+
+\begin_layout Plain Layout
+
+            dP = d['diff(P(%d|%d), theta[%d])' % (t + 1, t, i)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            dR = d['diff(R, theta[%d])' % i]
+\end_layout
+
+\begin_layout Plain Layout
+
+            d['diff(B(%d), theta[%d])' % (t + 1, i)] = 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(np.dot(dH, P), H.transpose()) + 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(np.dot(H, dP), H.transpose()) + 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(np.dot(H, P), dH.transpose()) + dR
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step7_K(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            dP = d['diff(P(%d|%d), theta[%d])' % (t + 1, t, i)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            H = d['H']
+\end_layout
+
+\begin_layout Plain Layout
+
+            P = d['P(%d|%d)' % (t + 1, t)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            dH = d['diff(H, theta[%d])' % i]
+\end_layout
+
+\begin_layout Plain Layout
+
+            B = d['B(%d)' % (t + 1)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            dB = d['diff(B(%d), theta[%d])' % (t + 1, i)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            d['diff(K(%d), theta[%d])' % (t + 1, i)] = np.dot(
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(dP, H.transpose()) +
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(P, dH.transpose()) -
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(np.dot(np.dot(P, H.transpose()), la.inv(B)), dB), la.inv(B))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step7_P11(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            I = np.eye(self.n)
+\end_layout
+
+\begin_layout Plain Layout
+
+            K = d['K(%d)' % (t + 1)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            H = d['H']
+\end_layout
+
+\begin_layout Plain Layout
+
+            dP = d['diff(P(%d|%d), theta[%d])' % (t + 1, t, i)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            dK = d['diff(K(%d), theta[%d])' % (t + 1, i)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            dH = d['diff(H, theta[%d])' % i]
+\end_layout
+
+\begin_layout Plain Layout
+
+            P = d['P(%d|%d)' % (t + 1, t)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            d['diff(P(%d|%d), theta[%d])' % (t + 1, t + 1, i)] = 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot((I - np.dot(K, H)), dP) - 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                np.dot(np.dot(dK, H) + np.dot(K, dH), P)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step7_Kt(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            dPhi = d['diff(Phi, theta[%d])' % i]
+\end_layout
+
+\begin_layout Plain Layout
+
+            K = d['K(%d)' % (t + 1)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            Phi = d['Phi']
+\end_layout
+
+\begin_layout Plain Layout
+
+            dK = d['diff(K(%d), theta[%d])' % (t + 1, i)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            d['diff(Kt(%d), theta[%d])' % (t + 1, i)] = np.dot(dPhi, K) +
+ np.dot(Phi, dK)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step8(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Шаг 8.
+ Сформировать матрицу K_A(t+1) в соответствии с (2.78)
+\end_layout
+
+\begin_layout Plain Layout
+
+        d['K_A(%d)' % (t + 1)] = row_stack_it(d['Kt(%d)' % (t + 1)],
+\end_layout
+
+\begin_layout Plain Layout
+
+                                              [d['diff(Kt(%d), theta[%d])'
+ % (t + 1, i)] for i in xrange(self.s)])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    def step9(self, d, t):
+\end_layout
+
+\begin_layout Plain Layout
+
+        # Шаг 9.
+ Используя выражение (2.72), получить приращение deltaM(Theta), отвечающее
+ текущему значению t.
+\end_layout
+
+\begin_layout Plain Layout
+
+        deltaM = np.ndarray((self.s, self.s))
+\end_layout
+
+\begin_layout Plain Layout
+
+        C0 = build_c(self.n, self.s, 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+        Sigma_A = d['Sigma_A(%d|%d)' % (t + 1, t)]
+\end_layout
+
+\begin_layout Plain Layout
+
+        x_A = d['x_A(%d|%d)' % (t + 1, t)]
+\end_layout
+
+\begin_layout Plain Layout
+
+        B = d['B(%d)' % (t + 1)]
+\end_layout
+
+\begin_layout Plain Layout
+
+        H = d['H']
+\end_layout
+
+\begin_layout Plain Layout
+
+        for i in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+            Ci = build_c(self.n, self.s, i + 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+            dHi = d['diff(H, theta[%d])' % i]
+\end_layout
+
+\begin_layout Plain Layout
+
+            dBi = d['diff(B(%d), theta[%d])' % (t + 1, i)]
+\end_layout
+
+\begin_layout Plain Layout
+
+            for j in xrange(self.s):
+\end_layout
+
+\begin_layout Plain Layout
+
+                Cj = build_c(self.n, self.s, j + 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+                dHj = d['diff(H, theta[%d])' % j]
+\end_layout
+
+\begin_layout Plain Layout
+
+                dBj = d['diff(B(%d), theta[%d])' % (t + 1, j)]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                deltaM[i, j] = 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                    np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(C0, (Sigma_A +
+ np.dot(x_A, x_A.transpose()))), C0.transpose()), dHj.transpose()), la.inv(B)),
+ dHi)) + 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                    np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(C0, (Sigma_A +
+ np.dot(x_A, x_A.transpose()))), Cj.transpose()), H.transpose()), la.inv(B)),
+ dHi)) + 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                    np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(Ci, (Sigma_A +
+ np.dot(x_A, x_A.transpose()))), C0.transpose()), dHj.transpose()), la.inv(B)),
+ H)) + 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                    np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(Ci, (Sigma_A +
+ np.dot(x_A, x_A.transpose()))), Cj.transpose()), H.transpose()), la.inv(B)),
+ H)) + 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                    0.5 * np.trace(np.dot(np.dot(dBi, la.inv(B)), np.dot(dBj,
+ la.inv(B))))
+\end_layout
+
+\begin_layout Plain Layout
+
+        d['delta M(Theta)'] = deltaM
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def main():
+\end_layout
+
+\begin_layout Plain Layout
+
+    N = 20
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver = IMFSolver(n=2, r=1, p=2, m=1, s=2, N=N)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    theta = [0.56, 0.48]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_Phi([[1.0, 1.0], [-0.5, 0.0]])
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_Phi_theta([[0.0, 0.0], [0.0, 0.0]], 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_Phi_theta([[0.0, 0.0], [0.0, 0.0]], 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_Psi([[theta[0]], [theta[1]]])
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_Psi_theta([[1.0], [0.0]], 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_Psi_theta([[0.0], [1.0]], 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_Gamma([[1.0, 0.0], [0.0, 1.0]])
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_Gamma_theta([[0.0, 0.0], [0.0, 0.0]], 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_Gamma_theta([[0.0, 0.0], [0.0, 0.0]], 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_H([[1.0, 0.0]])
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_H_theta([[0.0, 0.0]], 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_H_theta([[0.0, 0.0]], 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_Q([[0.07, 0.0], [0.0, 0.07]])
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_Q_theta([[0.0, 0.0], [0.0, 0.0]], 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_Q_theta([[0.0, 0.0], [0.0, 0.0]], 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_R([[0.02]])
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_R_theta([[0.0]], 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_R_theta([[0.0]], 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_x0([[0.0], [0.0]])
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_x0_theta([[0.0], [0.0]], 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_x0_theta([[0.0], [0.0]], 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_P0([[0.1, 0.0], [0.0, 0.1]])
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_P0_theta([[0.0, 0.0], [0.0, 0.0]], 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+    solver.set_diff_P0_theta([[0.0, 0.0], [0.0, 0.0]], 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    for i in xrange(N):
+\end_layout
+
+\begin_layout Plain Layout
+
+        solver.set_u([[1.0]], i)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    M = solver.solve()
+\end_layout
+
+\begin_layout Plain Layout
+
+    print M
+\end_layout
+
+\begin_layout Plain Layout
+
+    print la.det(M)
+\end_layout
+
+\begin_layout Plain Layout
+
+    print -np.log(la.det(M))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+if __name__ == '__main__':
+\end_layout
+
+\begin_layout Plain Layout
+
+    main()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Результат работы программы
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left(\begin{array}{c}
+x_{1}\left(t+1\right)\\
+x_{2}\left(t+1\right)
+\end{array}\right)=\Phi\left(\begin{array}{c}
+x_{1}\left(t\right)\\
+x_{2}\left(t\right)
+\end{array}\right)+\Psi u\left(t\right)+\left(\begin{array}{c}
+w_{1}\left(t\right)\\
+w_{2}\left(t\right)
+\end{array}\right)$
+\end_inset
+
+,
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula $y\left(t+1\right)=x_{1}\left(t+1\right)+v\left(t+1\right)$
+\end_inset
+
+;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Formula $Q=\left(\begin{array}{cc}
+1 & 0\\
+0 & 1
+\end{array}\right),\ R=0.02$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $u\left(0\right)=u\left(1\right)=\ldots=u\left(N-1\right)=\left(\begin{array}{c}
+1\\
+1
+\end{array}\right)$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $P\left(0\right)=\left(\begin{array}{cc}
+0.1 & 0\\
+0 & 0.1
+\end{array}\right),\ \overline{x}\left(0\right)=\left(\begin{array}{c}
+0\\
+0
+\end{array}\right)$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $N=20$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\theta^{*}=\left(\begin{array}{c}
+\theta_{1}^{*}\\
+\theta_{2}^{*}
+\end{array}\right)=\left(\begin{array}{c}
+0.56\\
+0.48
+\end{array}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+В ходе выполнения программы, положим:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="3">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="0">
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Phi=\left(\begin{array}{cc}
+1 & 1\\
+-0.5 & 0
+\end{array}\right)$
+\end_inset
+
+,
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $Q=1$
+\end_inset
+
+,
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Psi=\left(\begin{array}{c}
+\theta_{1}\\
+\theta_{2}
+\end{array}\right)$
+\end_inset
+
+,
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $R=0.02$
+\end_inset
+
+,
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\Gamma=\left(\begin{array}{cc}
+1 & 0\\
+0 & 1
+\end{array}\right)$
+\end_inset
+
+,
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\overline{x}\left(0\right)=\left(\begin{array}{c}
+0\\
+0
+\end{array}\right)$
+\end_inset
+
+,
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $H=\left(\begin{array}{cc}
+1 & 0\end{array}\right)$
+\end_inset
+
+,
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $P\left(0\right)=\left(\begin{array}{cc}
+0.1 & 0\\
+0 & 0.1
+\end{array}\right)$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+В результате было получено:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\det\left(M\right)=7.77.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Вывод
+\end_layout
+
+\begin_layout Standard
+В ходе лабораторной работы была проведена разработка процедуры вычисления
+ ИМФ для дискретного плана.
+\end_layout
+
+\end_body
+\end_document
