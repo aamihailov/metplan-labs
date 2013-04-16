@@ -134,7 +134,7 @@ class IMFSolver(object):
     def set_u(self, A, t):
         self.data['u(%d)' % t][:, :] = A
 
-    def  solve(self):
+    def get_inf_matrix(self):
         d = self.data
         # Шаг 1. Сформировать матрицу Psi_A в соответствии с равенством (2.77)
         d['Psi_A'] = row_stack_it(d['Psi'], [d['diff(Psi, theta[%d])' % i] for i in xrange(self.s)])
@@ -161,6 +161,25 @@ class IMFSolver(object):
             # Шаг 11. Увеличить t на единицу. Если t <= N-1, перейти на шаг 3. В противном случае закончить процесс
             t += 1
         return d['M(Theta)']
+
+    def get_diff_inf_matrix(self, j, tau):
+        d = self.data
+
+        d['Phi_t_A'] = row_stack_it(d['Phi'], [d['diff(Phi, theta[%d])' % i] for i in xrange(self.s)])
+
+        d['diff(M(U, Theta), u(%d, %d))' % (j, tau)] = np.ndarray((self.s, self.s))
+        d['diff(M(U, Theta), u(%d, %d))' % (j, tau)][:, :] = 0.0
+
+        t = 0
+        while t < self.N:
+            self.diff_step3(d, t, j, tau)
+            self.diff_step6(d, t, j, tau)
+
+            d['diff(M(U, Theta), u(%d, %d))' % (j, tau)] += d['delta diff(M(U, Theta), u(%d, %d))' % (j, tau)]
+            # Шаг 8. Увеличить t на единицу. Если t <= N-1, перейти на шаг 3. В противном случае закончить процесс
+            t += 1
+
+        return d['diff(M(U, Theta), u(%d, %d))' % (j, tau)]
 
     def step3(self, d, t):
         # Шаг 3. Вычислить Sigma_A(t + 1|t) по формуле (2.82), если t = 0, иначе по формуле (2.84)
@@ -340,6 +359,50 @@ class IMFSolver(object):
                     0.5 * np.trace(np.dot(np.dot(dBi, la.inv(B)), np.dot(dBj, la.inv(B))))
         d['delta M(Theta)'] = deltaM
 
+    def diff_step3(self, d, t, j, tau):
+        # Шаг 3. Вычислить производную x_A
+        dx = 'diff(x_A(%d|%d), u(%d, %d))' % (t + 1, t, j, tau)
+        dxprev = 'diff(x_A(%d|%d), u(%d, %d))' % (t, t - 1, j, tau)
+        if t == 0:
+            if tau == 0:
+                d[dx] = np.ndarray((self.n * (self.s + 1), 1))
+            else:
+                d[dx] = np.array([d['Psi_A'][:, j]]).transpose()
+        else:
+            Phi = d['Phi_A(%d|%d)' % (t + 1, t)]
+            dx_A = d['diff(x_A(%d|%d), u(%d, %d))' % (t, t - 1, j, tau)]
+            Psi = d['Psi_A']
+
+            du = np.zeros((self.r, 1))
+            if t == tau:
+                du[j, 0] = 1.0
+
+            d[dx] = np.dot(Phi, dx_A) + np.dot(Psi, du)
+
+    def diff_step6(self, d, t, j, tau):
+        deltaM = np.ndarray((self.s, self.s))
+        C0 = build_c(self.n, self.s, 0)
+        x_A = d['x_A(%d|%d)' % (t + 1, t)]
+        dx_A = d['diff(x_A(%d|%d), u(%d, %d))' % (t + 1, t, j, tau)]
+        B = d['B(%d)' % (t + 1)]
+        H = d['H']
+        for alpha in xrange(self.s):
+            Ci = build_c(self.n, self.s, alpha + 1)
+            dHi = d['diff(H, theta[%d])' % alpha]
+            dBi = d['diff(B(%d), theta[%d])' % (t + 1, alpha)]
+            for beta in xrange(self.s):
+                Cj = build_c(self.n, self.s, beta + 1)
+                dHj = d['diff(H, theta[%d])' % j]
+                dBj = d['diff(B(%d), theta[%d])' % (t + 1, beta)]
+
+                x_dx_p_dx_x = np.dot(x_A, dx_A.transpose()) + np.dot(dx_A, x_A.transpose())
+                deltaM[alpha, beta] = \
+                    np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(C0, x_dx_p_dx_x), C0.transpose()), dHj.transpose()), la.inv(B)), dHi)) + \
+                    np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(C0, x_dx_p_dx_x), Cj.transpose()), H.transpose()), la.inv(B)), dHi)) + \
+                    np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(Ci, x_dx_p_dx_x), C0.transpose()), dHj.transpose()), la.inv(B)), H)) + \
+                    np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(Ci, x_dx_p_dx_x), Cj.transpose()), H.transpose()), la.inv(B)), H))
+        d['delta diff(M(U, Theta), u(%d, %d))' % (j, tau)] = deltaM
+
 
 def main():
     N = 20
@@ -383,11 +446,14 @@ def main():
     for i in xrange(N):
         solver.set_u([[1.0]], i)
 
-    M = solver.solve()
+    M = solver.get_inf_matrix()
     print M
     print la.det(M)
     print -np.log(la.det(M))
 
+    dM = solver.get_diff_inf_matrix(0, 10)
+    print dM
+    print np.trace(np.dot(la.inv(M), dM))
 
 if __name__ == '__main__':
     main()
