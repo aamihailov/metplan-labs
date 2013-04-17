@@ -365,9 +365,9 @@ class IMFSolver(object):
         dxprev = 'diff(x_A(%d|%d), u(%d, %d))' % (t, t - 1, j, tau)
         if t == 0:
             if tau == 0:
-                d[dx] = np.ndarray((self.n * (self.s + 1), 1))
-            else:
                 d[dx] = np.array([d['Psi_A'][:, j]]).transpose()
+            else:
+                d[dx] = np.zeros((self.n * (self.s + 1), 1))
         else:
             Phi = d['Phi_A(%d|%d)' % (t + 1, t)]
             dx_A = d['diff(x_A(%d|%d), u(%d, %d))' % (t, t - 1, j, tau)]
@@ -455,5 +455,57 @@ def main():
     print dM
     print np.trace(np.dot(la.inv(M), dM))
 
+
+def main1():
+    N = 1
+
+    solver = IMFSolver(n=1, r=1, p=1, m=1, s=2, N=N)
+
+    theta = [0.56, 0.48]
+
+    solver.set_Phi([[theta[0]]])
+    solver.set_diff_Phi_theta([[1.0]], 0)
+    solver.set_diff_Phi_theta([[0.0]], 1)
+
+    solver.set_Psi([[theta[1]]])
+    solver.set_diff_Psi_theta([[0.0]], 0)
+    solver.set_diff_Psi_theta([[1.0]], 1)
+
+    solver.set_Gamma([[0.0]])
+    solver.set_diff_Gamma_theta([[0.0]], 0)
+    solver.set_diff_Gamma_theta([[0.0]], 1)
+
+    solver.set_H([[1.0]])
+    solver.set_diff_H_theta([[0.0]], 0)
+    solver.set_diff_H_theta([[0.0]], 1)
+
+    solver.set_Q([[1.0]])
+    solver.set_diff_Q_theta([[0.0]], 0)
+    solver.set_diff_Q_theta([[0.0]], 1)
+
+    solver.set_R([[0.0]])
+    solver.set_diff_R_theta([[0.0]], 0)
+    solver.set_diff_R_theta([[0.0]], 1)
+
+    solver.set_x0([[1.0]])
+    solver.set_diff_x0_theta([[0.0]], 0)
+    solver.set_diff_x0_theta([[0.0]], 1)
+
+    solver.set_P0([[1.0]])
+    solver.set_diff_P0_theta([[0.0]], 0)
+    solver.set_diff_P0_theta([[0.0]], 1)
+
+    for i in xrange(N):
+        solver.set_u([[1.0]], i)
+
+    M = solver.get_inf_matrix()
+    print M
+    print la.det(M)
+    print -np.log(la.det(M))
+
+    dM = solver.get_diff_inf_matrix(0, 1)
+    print dM
+    print np.trace(np.dot(la.inv(M), dM))
+
 if __name__ == '__main__':
-    main()
+    main1()
