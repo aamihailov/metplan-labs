@@ -5,6 +5,7 @@ from numpy import linalg as la
 from scipy.optimize import minimize
 
 import pylab as pl
+import IMF
 from IMF import IMFSolver
 
 class Plan(object):
@@ -114,7 +115,7 @@ def build_plan_dirgrad(xi, dM, epsilon=1.0e-6):
 
         bnds = reduce(lambda a, b: a + b, [(xi.bnds[i], ) * xi.q for i in xrange(xi.s)])     # Границы для точек плана
         res = minimize(lambda A: xi.X(A=np.asmatrix(A).reshape((xi.s, xi.q))),
-                       jac=lambda A: np.squeeze(np.asarray(xi.jac_A(dM).reshape((1, xi.s * xi.q)))),
+                       ##jac=lambda A: np.squeeze(np.asarray(xi.jac_A(dM).reshape((1, xi.s * xi.q)))),
                        x0=np.squeeze(np.asarray(xi.A.reshape((1, xi.s * xi.q)))),
                        method='SLSQP',
                        bounds=bnds)
@@ -124,7 +125,7 @@ def build_plan_dirgrad(xi, dM, epsilon=1.0e-6):
         bnds = ((0.0, 1.0), ) * xi.q                            # Границы для весов p: [0.0 .. 1.0]
         cons = ({'type': 'eq', 'fun': lambda p: sum(p) - 1},)   # Нормированность суммы весов
         res = minimize(lambda p: xi.X(p=np.asmatrix(p).reshape((xi.q, 1))),
-                       jac=lambda p: xi.jac_p(p=np.asmatrix(p).reshape((xi.q, 1))),
+                       ##jac=lambda p: xi.jac_p(p=np.asmatrix(p).reshape((xi.q, 1))),
                        x0=np.squeeze(np.asarray(xi.p)),
                        method='SLSQP',
                        bounds=bnds,
@@ -229,8 +230,8 @@ def build_plan_dirscan(xi0):
         return la.det(xi.inf_matrix())
 
     func = lambda x, y: variate_point(xi, -1, x, y) - base
-    dx = (xi.bnds[0][1] - xi.bnds[1][0]) / 100
-    dy = (xi.bnds[1][1] - xi.bnds[1][0]) / 100
+    dx = (xi.bnds[0][1] - xi.bnds[1][0]) / 10
+    dy = (xi.bnds[1][1] - xi.bnds[1][0]) / 10
     x = np.arange(xi.bnds[0][0], xi.bnds[0][1] + dx, dx)
     y = np.arange(xi.bnds[1][0], xi.bnds[1][1] + dy, dy)
     X, Y = pl.meshgrid(x, y)
@@ -251,8 +252,14 @@ def build_plan_dirscan(xi0):
 
 
 def main():
-    s = 2
-    q = 2
+    N = 4       # Число срезов во времени
+    n = 2
+    r = 1
+    p = 2
+    m = 1
+    s = 4
+
+    q = 10      # Число точек плана
 
     f = lambda alpha: np.matrix([[np.sin(alpha[0,0])],
                                  [np.cos(alpha[1,0])]])
@@ -275,72 +282,88 @@ def main():
 ##                   [    alpha[0,0], 2 * alpha[1,0] ]]),
 ##        ]
 
-    def build_solver(theta):
-        N = 2
+    def build_solver(alpha):
+        solver = IMFSolver(n=n, r=r, p=p, m=m, s=s, N=N)
 
-        solver = IMFSolver(n=1, r=1, p=1, m=1, s=2, N=N)
+        theta = [0.58, 0.57, 0.52, -0.01]
 
-        solver.set_Phi([[theta[0]]])
-        solver.set_diff_Phi_theta([[1.0]], 0)
-        solver.set_diff_Phi_theta([[0.0]], 1)
+        solver.set_Phi([[theta[2], 1.0], [theta[3], 0.0]])
+        solver.set_diff_Phi_theta(np.zeros((n, n)), 0)
+        solver.set_diff_Phi_theta(np.zeros((n, n)), 1)
+        solver.set_diff_Phi_theta([[1.0, 0.0], [0.0, 0.0]], 2)
+        solver.set_diff_Phi_theta([[0.0, 0.0], [1.0, 0.0]], 3)
 
-        solver.set_Psi([[theta[1]]])
-        solver.set_diff_Psi_theta([[0.0]], 0)
-        solver.set_diff_Psi_theta([[1.0]], 1)
+        solver.set_Psi([[theta[0]], [theta[1]]])
+        solver.set_diff_Psi_theta([[1.0], [0.0]], 0)
+        solver.set_diff_Psi_theta([[0.0], [1.0]], 1)
+        solver.set_diff_Psi_theta(np.zeros((n, r)), 2)
+        solver.set_diff_Psi_theta(np.zeros((n, r)), 3)
 
-        solver.set_Gamma([[0.0]])
-        solver.set_diff_Gamma_theta([[0.0]], 0)
-        solver.set_diff_Gamma_theta([[0.0]], 1)
+        solver.set_Gamma(np.eye(p))
+        solver.set_diff_Gamma_theta(np.zeros((p, p)), 0)
+        solver.set_diff_Gamma_theta(np.zeros((p, p)), 1)
+        solver.set_diff_Gamma_theta(np.zeros((p, p)), 2)
+        solver.set_diff_Gamma_theta(np.zeros((p, p)), 3)
 
-        solver.set_H([[2.0]])
-        solver.set_diff_H_theta([[0.0]], 0)
-        solver.set_diff_H_theta([[0.0]], 1)
+        solver.set_H([[1.0, 0.0]])
+        solver.set_diff_H_theta(np.zeros((m, n)), 0)
+        solver.set_diff_H_theta(np.zeros((m, n)), 1)
+        solver.set_diff_H_theta(np.zeros((m, n)), 2)
+        solver.set_diff_H_theta(np.zeros((m, n)), 3)
 
-        solver.set_Q([[1.0]])
-        solver.set_diff_Q_theta([[0.0]], 0)
-        solver.set_diff_Q_theta([[0.0]], 1)
+        solver.set_Q(np.eye(p))
+        solver.set_diff_Q_theta(np.zeros((p, p)), 0)
+        solver.set_diff_Q_theta(np.zeros((p, p)), 1)
+        solver.set_diff_Q_theta(np.zeros((p, p)), 2)
+        solver.set_diff_Q_theta(np.zeros((p, p)), 3)
 
-        solver.set_R([[1.0e-6]])
-        solver.set_diff_R_theta([[0.0]], 0)
-        solver.set_diff_R_theta([[0.0]], 1)
+        solver.set_R(0.02 * np.eye(m))
+        solver.set_diff_R_theta(np.zeros((m, m)), 0)
+        solver.set_diff_R_theta(np.zeros((m, m)), 1)
+        solver.set_diff_R_theta(np.zeros((m, m)), 2)
+        solver.set_diff_R_theta(np.zeros((m, m)), 3)
 
-        solver.set_x0([[1.0]])
-        solver.set_diff_x0_theta([[0.0]], 0)
-        solver.set_diff_x0_theta([[0.0]], 1)
+        solver.set_x0(np.zeros((n, 1)))
+        solver.set_diff_x0_theta(np.zeros((n, 1)), 0)
+        solver.set_diff_x0_theta(np.zeros((n, 1)), 1)
+        solver.set_diff_x0_theta(np.zeros((n, 1)), 2)
+        solver.set_diff_x0_theta(np.zeros((n, 1)), 3)
 
-        solver.set_P0([[1.0]])
-        solver.set_diff_P0_theta([[0.0]], 0)
-        solver.set_diff_P0_theta([[0.0]], 1)
+        solver.set_P0(0.1 * np.eye(n))
+        solver.set_diff_P0_theta(np.zeros((n, n)), 0)
+        solver.set_diff_P0_theta(np.zeros((n, n)), 1)
+        solver.set_diff_P0_theta(np.zeros((n, n)), 2)
+        solver.set_diff_P0_theta(np.zeros((n, n)), 3)
 
         for i in xrange(N):
-            solver.set_u([[1.0]], i)
+            solver.set_u([[alpha[i]]], i)
 
         return solver
 
-    def calc_imf(theta):
-        solver = build_solver(theta)
+    def calc_imf(alpha):
+        solver = build_solver(alpha)
         return solver.get_inf_matrix()
 
-    def calc_grad_imf(theta):
-        solver = build_solver(theta)
+    def calc_grad_imf(alpha):
+        solver = build_solver(alpha)
         solver.get_inf_matrix()
-        return solver.get_diff_inf_matrix(0, 0)
+        return solver.get_diff_inf_matrix(0, 1)
 
     solver_M  = lambda alpha: calc_imf(alpha)
     solver_dM = lambda alpha: calc_grad_imf(alpha)
 
-    x0 = -5; x1 = 5
-    A = (x1 - x0) * np.random.random((s, q)) + x0      # starting with random plan
-    A = [[-5, 5], [-5, 5]]
-    xi = Plan(s, q)
+    x0 = -1.0; x1 = 1.0
+    A = (x1 - x0) * np.random.random((N, q)) + x0      # starting with random plan
+    ##A = [[-5, 5], [-5, 5]]
+    xi = Plan(N, q)
     xi.A[:, :] = A
-    xi.set_bounds(((-5.0, 5.0), (-5.0, 5.0)))
+    xi.set_bounds(((x0, x1), ) * N)
     xi.set_inf_matrix_solver(solver_M)
 
     build_plan_dirgrad(xi, solver_dM)
     print 'Checking solution for being optimal (less is better): [%.2lf]' % np.abs(xi.mu() - xi.eta())
 
-    build_plan_dirscan(xi)
+    ##build_plan_dirscan(xi)
 
 
 if __name__ == '__main__':
