@@ -5,7 +5,7 @@ from numpy import linalg as la
 from scipy.optimize import minimize
 
 import pylab as pl
-
+from IMF import IMFSolver
 
 class Plan(object):
     def __init__(self, s, q=None):
@@ -216,6 +216,7 @@ def build_plan_dirscan(xi0):
     print 'Base plan: \n%s\nlog(det(M))=%.3lf\n=================\n' % (xi0, base)
 
     xi = Plan(xi0.s, xi0.q + 1)
+    xi.set_inf_matrix_solver(xi0.solver)
     xi.set_bounds(xi0.bnds)
     xi.A[:, :-1] = xi0.A[:, :]
     xi.A[:,  -1] = 0
@@ -243,7 +244,7 @@ def build_plan_dirscan(xi0):
     ij = np.unravel_index(Z.argmax(), Z.shape)
     xi.A[0, -1] = X.item(ij)
     xi.A[1, -1] = Y.item(ij)
-    print 'Found plan: \n%s\nlog(det(M))=%.3lf\n=================\n' % (xi, np.log(la.det(xi.inf_matrix(f))))
+    print 'Found plan: \n%s\nlog(det(M))=%.3lf\n=================\n' % (xi, np.log(la.det(xi.inf_matrix())))
 
     pl.show()
     return xi
@@ -274,7 +275,59 @@ def main():
 ##                   [    alpha[0,0], 2 * alpha[1,0] ]]),
 ##        ]
 
-    solver = lambda alpha: f(alpha) * f(alpha).transpose()
+    def build_solver(theta):
+        N = 2
+
+        solver = IMFSolver(n=1, r=1, p=1, m=1, s=2, N=N)
+
+        solver.set_Phi([[theta[0]]])
+        solver.set_diff_Phi_theta([[1.0]], 0)
+        solver.set_diff_Phi_theta([[0.0]], 1)
+
+        solver.set_Psi([[theta[1]]])
+        solver.set_diff_Psi_theta([[0.0]], 0)
+        solver.set_diff_Psi_theta([[1.0]], 1)
+
+        solver.set_Gamma([[0.0]])
+        solver.set_diff_Gamma_theta([[0.0]], 0)
+        solver.set_diff_Gamma_theta([[0.0]], 1)
+
+        solver.set_H([[2.0]])
+        solver.set_diff_H_theta([[0.0]], 0)
+        solver.set_diff_H_theta([[0.0]], 1)
+
+        solver.set_Q([[1.0]])
+        solver.set_diff_Q_theta([[0.0]], 0)
+        solver.set_diff_Q_theta([[0.0]], 1)
+
+        solver.set_R([[1.0e-6]])
+        solver.set_diff_R_theta([[0.0]], 0)
+        solver.set_diff_R_theta([[0.0]], 1)
+
+        solver.set_x0([[1.0]])
+        solver.set_diff_x0_theta([[0.0]], 0)
+        solver.set_diff_x0_theta([[0.0]], 1)
+
+        solver.set_P0([[1.0]])
+        solver.set_diff_P0_theta([[0.0]], 0)
+        solver.set_diff_P0_theta([[0.0]], 1)
+
+        for i in xrange(N):
+            solver.set_u([[1.0]], i)
+
+        return solver
+
+    def calc_imf(theta):
+        solver = build_solver(theta)
+        return solver.get_inf_matrix()
+
+    def calc_grad_imf(theta):
+        solver = build_solver(theta)
+        solver.get_inf_matrix()
+        return solver.get_diff_inf_matrix(0, 0)
+
+    solver_M  = lambda alpha: calc_imf(alpha)
+    solver_dM = lambda alpha: calc_grad_imf(alpha)
 
     x0 = -5; x1 = 5
     A = (x1 - x0) * np.random.random((s, q)) + x0      # starting with random plan
@@ -282,12 +335,12 @@ def main():
     xi = Plan(s, q)
     xi.A[:, :] = A
     xi.set_bounds(((-5.0, 5.0), (-5.0, 5.0)))
-    xi.set_inf_matrix_solver(solver)
+    xi.set_inf_matrix_solver(solver_M)
 
-    build_plan_dirgrad(xi, dM)
+    build_plan_dirgrad(xi, solver_dM)
     print 'Checking solution for being optimal (less is better): [%.2lf]' % np.abs(xi.mu() - xi.eta())
 
-    # build_plan_dirscan(f, xi)
+    build_plan_dirscan(xi)
 
 
 if __name__ == '__main__':
