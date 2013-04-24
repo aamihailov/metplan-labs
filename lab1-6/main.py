@@ -9,8 +9,9 @@ import IMF
 from IMF import IMFSolver
 
 class Plan(object):
-    def __init__(self, s, q=None):
-        self.s = s                                          # Число регрессоров
+    def __init__(self, N, s, q=None):
+        self.N = N                                          # Число варьируемых переменных
+        self.s = s                                          # Число параметров
         if q is None:
             self.q = int(0.5 * s * (s + 1) + 1)                 # Число точек
         else:
@@ -115,7 +116,7 @@ def build_plan_dirgrad(xi, dM, epsilon=1.0e-6):
 
         bnds = reduce(lambda a, b: a + b, [(xi.bnds[i], ) * xi.q for i in xrange(xi.s)])     # Границы для точек плана
         res = minimize(lambda A: xi.X(A=np.asmatrix(A).reshape((xi.s, xi.q))),
-                       ##jac=lambda A: np.squeeze(np.asarray(xi.jac_A(dM).reshape((1, xi.s * xi.q)))),
+                       # jac=lambda A: np.squeeze(np.asarray(xi.jac_A(dM).reshape((1, xi.s * xi.q)))),
                        x0=np.squeeze(np.asarray(xi.A.reshape((1, xi.s * xi.q)))),
                        method='SLSQP',
                        bounds=bnds)
@@ -125,7 +126,7 @@ def build_plan_dirgrad(xi, dM, epsilon=1.0e-6):
         bnds = ((0.0, 1.0), ) * xi.q                            # Границы для весов p: [0.0 .. 1.0]
         cons = ({'type': 'eq', 'fun': lambda p: sum(p) - 1},)   # Нормированность суммы весов
         res = minimize(lambda p: xi.X(p=np.asmatrix(p).reshape((xi.q, 1))),
-                       ##jac=lambda p: xi.jac_p(p=np.asmatrix(p).reshape((xi.q, 1))),
+                       # jac=lambda p: xi.jac_p(p=np.asmatrix(p).reshape((xi.q, 1))),
                        x0=np.squeeze(np.asarray(xi.p)),
                        method='SLSQP',
                        bounds=bnds,
@@ -147,7 +148,7 @@ def build_plan_dirgrad(xi, dM, epsilon=1.0e-6):
     return xi
 
 
-def build_plan_dualgrad(f, xi, dM, epsilon=1.0e-6):
+def build_plan_dualgrad(xi, dM, epsilon=1.0e-6):
     """Синтез оптимального плана с помощью двойственной градиентной процедуры. D критерий.
     """
     exit_cond = np.inf
@@ -171,7 +172,7 @@ def build_plan_dualgrad(f, xi, dM, epsilon=1.0e-6):
 
         bnds = xi.bnds
         res = minimize(lambda A: variate_point(xi, -1, np.asmatrix(A).reshape((xi.s, 1))),
-                       jac=lambda A: np.squeeze(np.asarray(xi.jac_mu(dM, np.asmatrix(A).reshape((xi.s, 1))).reshape((1, xi.s)))),
+                       # jac=lambda A: np.squeeze(np.asarray(xi.jac_mu(dM, np.asmatrix(A).reshape((xi.s, 1))).reshape((1, xi.s)))),
                        x0=np.squeeze(np.asarray(xi.A[:, -1].reshape((1, xi.s)))),
                        method='SLSQP',
                        bounds=bnds)
@@ -230,8 +231,8 @@ def build_plan_dirscan(xi0):
         return la.det(xi.inf_matrix())
 
     func = lambda x, y: variate_point(xi, -1, x, y) - base
-    dx = (xi.bnds[0][1] - xi.bnds[1][0]) / 10
-    dy = (xi.bnds[1][1] - xi.bnds[1][0]) / 10
+    dx = (xi.bnds[0][1] - xi.bnds[1][0]) / 50
+    dy = (xi.bnds[1][1] - xi.bnds[1][0]) / 50
     x = np.arange(xi.bnds[0][0], xi.bnds[0][1] + dx, dx)
     y = np.arange(xi.bnds[1][0], xi.bnds[1][1] + dy, dy)
     X, Y = pl.meshgrid(x, y)
@@ -252,14 +253,14 @@ def build_plan_dirscan(xi0):
 
 
 def main():
-    N = 4       # Число срезов во времени
+    N = 30       # Число срезов во времени
     n = 2
     r = 1
     p = 2
     m = 1
     s = 4
 
-    q = 10      # Число точек плана
+    q = 4      # Число точек плана
 
     f = lambda alpha: np.matrix([[np.sin(alpha[0,0])],
                                  [np.cos(alpha[1,0])]])
@@ -355,13 +356,13 @@ def main():
     x0 = -1.0; x1 = 1.0
     A = (x1 - x0) * np.random.random((N, q)) + x0      # starting with random plan
     ##A = [[-5, 5], [-5, 5]]
-    xi = Plan(N, q)
+    xi = Plan(N, N, q)
     xi.A[:, :] = A
     xi.set_bounds(((x0, x1), ) * N)
     xi.set_inf_matrix_solver(solver_M)
 
     build_plan_dirgrad(xi, solver_dM)
-    print 'Checking solution for being optimal (less is better): [%.2lf]' % np.abs(xi.mu() - xi.eta())
+    print 'Checking solution for being optimal (less is better): [%.2lf]' % np.abs(xi.mu() - s)
 
     ##build_plan_dirscan(xi)
 
