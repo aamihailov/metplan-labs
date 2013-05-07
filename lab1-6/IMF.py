@@ -158,6 +158,9 @@ class IMFSolver(object):
             # Шаг 10. Положить M(Theta) = M(Theta) + delta M(Theta)
             d['M(Theta)'] += d['delta M(Theta)']
 
+            print 'on t = %d:' % t
+            print 'delta M(Theta)'
+            print d['delta M(Theta)']
             # Шаг 11. Увеличить t на единицу. Если t <= N-1, перейти на шаг 3. В противном случае закончить процесс
             t += 1
         return d['M(Theta)']
@@ -177,6 +180,7 @@ class IMFSolver(object):
 
             d['diff(M(U, Theta), u(%d, %d))' % (j, tau)] += d['delta diff(M(U, Theta), u(%d, %d))' % (j, tau)]
             print 'on t = %d:' % t
+            print 'delta diff(M(U, Theta), u(%d, %d))' % (j, tau)
             print d['delta diff(M(U, Theta), u(%d, %d))' % (j, tau)]
             # Шаг 8. Увеличить t на единицу. Если t <= N-1, перейти на шаг 3. В противном случае закончить процесс
             t += 1
