@@ -8,15 +8,16 @@ import pylab as pl
 import IMF
 from IMF import IMFSolver
 
+
 class Plan(object):
     def __init__(self, N, s, q=None):
-        self.N = N                                          # Число варьируемых переменных
-        self.s = s                                          # Число параметров
+        self.N = N                                          # Число точек плана
+        self.s = s                                          # Число искомых параметров
         if q is None:
             self.q = int(0.5 * s * (s + 1) + 1)                 # Число точек
         else:
             self.q = q
-        self.A = np.matrix(np.ndarray((self.s, self.q)))    # Матрица плана: [s,q]
+        self.A = np.matrix(np.ndarray((self.N, self.q)))    # Матрица плана: [s,q]
         self.p = np.matrix(np.ndarray((self.q, 1)))
         self.p[:, :] = 1.0 / self.q                         # Веса точек: вектор, или матрица [q,1]
 
@@ -91,8 +92,8 @@ class Plan(object):
         return np.array([-np.trace(self.inf_matrix(p=p)**(-1) * self.partial_inf_matrix(i)) for i in xrange(self.q)])
 
     def jac_A(self, dM):
-        M = self.inf_matrix()
-        return np.matrix([[-np.trace(M**(-1) * self.p[i, 0] * dM(self.A[:, i])[j]) for i in xrange(self.q)] for j in xrange(self.s)])
+        M = self.inf_matrix()       # FIX 0 : need to change it to something more adequate
+        return np.matrix([[-self.p[i, 0] * np.trace(M**(-1) * dM(self.A[:, i], 0, tau)) for i in xrange(self.q)] for tau in xrange(self.N)])
 
     def jac_mu(self, dM, A):
         M = self.inf_matrix()
@@ -114,19 +115,19 @@ def build_plan_dirgrad(xi, dM, epsilon=1.0e-6):
         print 'On iter %d:\n%s\n\nlog(det(M(xi))) = %.3lf\nmu(alpha,xi) = %.3lf\n==================' % (
             iter, xi, detM, mu)
 
-        bnds = reduce(lambda a, b: a + b, [(xi.bnds[i], ) * xi.q for i in xrange(xi.s)])     # Границы для точек плана
-        res = minimize(lambda A: xi.X(A=np.asmatrix(A).reshape((xi.s, xi.q))),
-                       # jac=lambda A: np.squeeze(np.asarray(xi.jac_A(dM).reshape((1, xi.s * xi.q)))),
-                       x0=np.squeeze(np.asarray(xi.A.reshape((1, xi.s * xi.q)))),
+        bnds = reduce(lambda a, b: a + b, [(xi.bnds[i], ) * xi.q for i in xrange(xi.N)])     # Границы для точек плана
+        res = minimize(lambda A: xi.X(A=np.asmatrix(A).reshape((xi.N, xi.q))),
+                       jac=lambda A: np.squeeze(np.asarray(xi.jac_A(dM).reshape((1, xi.N * xi.q)))),
+                       x0=np.squeeze(np.asarray(xi.A.reshape((1, xi.N * xi.q)))),
                        method='SLSQP',
                        bounds=bnds)
-        A_new = np.matrix(res['x']).reshape((xi.s, xi.q))
+        A_new = np.matrix(res['x']).reshape((xi.N, xi.q))
         xi.A[:, :] = A_new
 
         bnds = ((0.0, 1.0), ) * xi.q                            # Границы для весов p: [0.0 .. 1.0]
         cons = ({'type': 'eq', 'fun': lambda p: sum(p) - 1},)   # Нормированность суммы весов
         res = minimize(lambda p: xi.X(p=np.asmatrix(p).reshape((xi.q, 1))),
-                       # jac=lambda p: xi.jac_p(p=np.asmatrix(p).reshape((xi.q, 1))),
+                       jac=lambda p: xi.jac_p(p=np.asmatrix(p).reshape((xi.q, 1))),
                        x0=np.squeeze(np.asarray(xi.p)),
                        method='SLSQP',
                        bounds=bnds,
@@ -148,7 +149,7 @@ def build_plan_dirgrad(xi, dM, epsilon=1.0e-6):
     return xi
 
 
-def build_plan_dualgrad(xi, dM, epsilon=1.0e-6):
+def build_plan_dualgrad(f, xi, dM, epsilon=1.0e-6):
     """Синтез оптимального плана с помощью двойственной градиентной процедуры. D критерий.
     """
     exit_cond = np.inf
@@ -171,8 +172,8 @@ def build_plan_dualgrad(xi, dM, epsilon=1.0e-6):
             return -la.det(xi.inf_matrix())
 
         bnds = xi.bnds
-        res = minimize(lambda A: variate_point(xi, -1, np.asmatrix(A).reshape((xi.s, 1))),
-                       # jac=lambda A: np.squeeze(np.asarray(xi.jac_mu(dM, np.asmatrix(A).reshape((xi.s, 1))).reshape((1, xi.s)))),
+        res = minimize(lambda A: variate_point(xi, -1, np.asmatrix(A).reshape((xi.N, 1))),
+                       jac=lambda A: np.squeeze(np.asarray(xi.jac_mu(dM, np.asmatrix(A).reshape((xi.s, 1))).reshape((1, xi.s)))),
                        x0=np.squeeze(np.asarray(xi.A[:, -1].reshape((1, xi.s)))),
                        method='SLSQP',
                        bounds=bnds)
@@ -231,8 +232,8 @@ def build_plan_dirscan(xi0):
         return la.det(xi.inf_matrix())
 
     func = lambda x, y: variate_point(xi, -1, x, y) - base
-    dx = (xi.bnds[0][1] - xi.bnds[1][0]) / 50
-    dy = (xi.bnds[1][1] - xi.bnds[1][0]) / 50
+    dx = (xi.bnds[0][1] - xi.bnds[1][0]) / 10
+    dy = (xi.bnds[1][1] - xi.bnds[1][0]) / 10
     x = np.arange(xi.bnds[0][0], xi.bnds[0][1] + dx, dx)
     y = np.arange(xi.bnds[1][0], xi.bnds[1][1] + dy, dy)
     X, Y = pl.meshgrid(x, y)
@@ -253,35 +254,14 @@ def build_plan_dirscan(xi0):
 
 
 def main():
-    N = 30       # Число срезов во времени
+    N = 2       # Число срезов во времени
     n = 2
     r = 1
     p = 2
     m = 1
     s = 4
 
-    q = 4      # Число точек плана
-
-    f = lambda alpha: np.matrix([[np.sin(alpha[0,0])],
-                                 [np.cos(alpha[1,0])]])
-    dM = lambda alpha: [
-        np.matrix([[2 * np.sin(alpha[0,0]) * np.cos(alpha[0,0]), np.cos(alpha[0,0]) * np.cos(alpha[1,0])     ],
-                   [    np.cos(alpha[0,0]) * np.cos(alpha[1,0]), 0              ]]),
-
-        np.matrix([[             0,                              -np.sin(alpha[0,0]) * np.sin(alpha[1,0])      ],
-                   [    -np.sin(alpha[0,0]) * np.sin(alpha[1,0]),-2 * np.sin(alpha[1,0]) * np.cos(alpha[1,0]) ]]),
-        ]
-
-
-##    f = lambda alpha: np.matrix([[(alpha[0,0])],
-##                                 [(alpha[1,0])]])
-##    dM = lambda alpha: [
-##        np.matrix([[2 * alpha[0,0], alpha[1,0]     ],
-##                   [    alpha[1,0], 0              ]]),
-##
-##        np.matrix([[             0, alpha[0,0]     ],
-##                   [    alpha[0,0], 2 * alpha[1,0] ]]),
-##        ]
+    q = 2      # Число точек плана
 
     def build_solver(alpha):
         solver = IMFSolver(n=n, r=r, p=p, m=m, s=s, N=N)
@@ -345,19 +325,25 @@ def main():
         solver = build_solver(alpha)
         return solver.get_inf_matrix()
 
-    def calc_grad_imf(alpha):
+    def calc_grad_imf(alpha, j=0, tau=1):
         solver = build_solver(alpha)
         solver.get_inf_matrix()
-        return solver.get_diff_inf_matrix(0, 1)
+        return solver.get_diff_inf_matrix(j, tau)
 
     solver_M  = lambda alpha: calc_imf(alpha)
-    solver_dM = lambda alpha: calc_grad_imf(alpha)
+    solver_dM = lambda alpha, j, tau: calc_grad_imf(alpha, j, tau)
 
     x0 = -1.0; x1 = 1.0
     A = (x1 - x0) * np.random.random((N, q)) + x0      # starting with random plan
+    #A = np.transpose([[-1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0]])
+    #A = np.transpose([[-1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0]])
+    #A = np.transpose([[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+    #                  [-1.0, -1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0]])
     ##A = [[-5, 5], [-5, 5]]
-    xi = Plan(N, N, q)
+    xi = Plan(N, s, q)
     xi.A[:, :] = A
+    #xi.p[:, :] = [[0.1591], [0.8409]]
+    x0 = -1.0; x1 = 1.0
     xi.set_bounds(((x0, x1), ) * N)
     xi.set_inf_matrix_solver(solver_M)
 

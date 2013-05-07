@@ -176,6 +176,8 @@ class IMFSolver(object):
             self.diff_step6(d, t, j, tau)
 
             d['diff(M(U, Theta), u(%d, %d))' % (j, tau)] += d['delta diff(M(U, Theta), u(%d, %d))' % (j, tau)]
+            print 'on t = %d:' % t
+            print d['delta diff(M(U, Theta), u(%d, %d))' % (j, tau)]
             # Шаг 8. Увеличить t на единицу. Если t <= N-1, перейти на шаг 3. В противном случае закончить процесс
             t += 1
 
