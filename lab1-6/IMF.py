@@ -158,9 +158,10 @@ class IMFSolver(object):
             # Шаг 10. Положить M(Theta) = M(Theta) + delta M(Theta)
             d['M(Theta)'] += d['delta M(Theta)']
 
-            print 'on t = %d:' % t
-            print 'delta M(Theta)'
-            print d['delta M(Theta)']
+            # print 'on t = %d:' % t
+            # print 'delta M(Theta)'
+            # print d['delta M(Theta)']
+            # print 'det = ', la.det(d['delta M(Theta)'])
             # Шаг 11. Увеличить t на единицу. Если t <= N-1, перейти на шаг 3. В противном случае закончить процесс
             t += 1
         return d['M(Theta)']
@@ -179,9 +180,9 @@ class IMFSolver(object):
             self.diff_step6(d, t, j, tau)
 
             d['diff(M(U, Theta), u(%d, %d))' % (j, tau)] += d['delta diff(M(U, Theta), u(%d, %d))' % (j, tau)]
-            print 'on t = %d:' % t
-            print 'delta diff(M(U, Theta), u(%d, %d))' % (j, tau)
-            print d['delta diff(M(U, Theta), u(%d, %d))' % (j, tau)]
+            # print 'on t = %d:' % t
+            # print 'delta diff(M(U, Theta), u(%d, %d))' % (j, tau)
+            # print d['delta diff(M(U, Theta), u(%d, %d))' % (j, tau)]
             # Шаг 8. Увеличить t на единицу. Если t <= N-1, перейти на шаг 3. В противном случае закончить процесс
             t += 1
 
@@ -463,11 +464,18 @@ def main():
 
 
 def main1():
-    N = 2
+    N = 4       # Число срезов во времени
+    n = 1
+    r = 1
+    p = 1
+    m = 1
+    s = 2
 
-    solver = IMFSolver(n=1, r=1, p=1, m=1, s=2, N=N)
+    q = 1      # Число точек плана
 
-    theta = [0.5, 0.48]
+    solver = IMFSolver(n=n, r=r, p=p, m=m, s=s, N=N)
+
+    theta = [1.0, 1.0]
 
     solver.set_Phi([[theta[0]]])
     solver.set_diff_Phi_theta([[1.0]], 0)
@@ -477,42 +485,40 @@ def main1():
     solver.set_diff_Psi_theta([[0.0]], 0)
     solver.set_diff_Psi_theta([[1.0]], 1)
 
-    solver.set_Gamma([[0.0]])
+    solver.set_Gamma([[1.0]])
     solver.set_diff_Gamma_theta([[0.0]], 0)
     solver.set_diff_Gamma_theta([[0.0]], 1)
 
-    solver.set_H([[2.0]])
+    solver.set_H([[1.0]])
     solver.set_diff_H_theta([[0.0]], 0)
     solver.set_diff_H_theta([[0.0]], 1)
 
-    solver.set_Q([[1.0]])
+    solver.set_Q([[0.1]])
     solver.set_diff_Q_theta([[0.0]], 0)
     solver.set_diff_Q_theta([[0.0]], 1)
 
-    solver.set_R([[1.0e-6]])
+    solver.set_R([[0.3]])
     solver.set_diff_R_theta([[0.0]], 0)
     solver.set_diff_R_theta([[0.0]], 1)
 
-    solver.set_x0([[1.0]])
+    solver.set_x0([[0.0]])
     solver.set_diff_x0_theta([[0.0]], 0)
     solver.set_diff_x0_theta([[0.0]], 1)
 
-    solver.set_P0([[1.0]])
+    solver.set_P0([[0.1]])
     solver.set_diff_P0_theta([[0.0]], 0)
     solver.set_diff_P0_theta([[0.0]], 1)
 
-    for i in xrange(N):
-        solver.set_u([[1.0]], i)
+    solver.set_u([[1.0]], 0)
+    solver.set_u([[1.0]], 1)
+    solver.set_u([[1.0]], 2)
+    solver.set_u([[2.0]], 3)
 
     M = solver.get_inf_matrix()
+    print "M"
     print M
-    print la.inv(M)
-    print la.det(M)
-    print -np.log(la.det(M))
-
-    dM = solver.get_diff_inf_matrix(0, 0)
-    print dM
-    print np.trace(np.dot(la.inv(M), dM))
+    print "la.det(M) = ", la.det(M)
+    print "-np.log(la.det(M)) = ", -np.log(la.det(M))
 
 if __name__ == '__main__':
     main1()

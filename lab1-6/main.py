@@ -149,7 +149,7 @@ def build_plan_dirgrad(xi, dM, epsilon=1.0e-6):
     return xi
 
 
-def build_plan_dualgrad(f, xi, dM, epsilon=1.0e-6):
+def build_plan_dualgrad(xi, dM, epsilon=1.0e-6):
     """Синтез оптимального плана с помощью двойственной градиентной процедуры. D критерий.
     """
     exit_cond = np.inf
@@ -173,11 +173,11 @@ def build_plan_dualgrad(f, xi, dM, epsilon=1.0e-6):
 
         bnds = xi.bnds
         res = minimize(lambda A: variate_point(xi, -1, np.asmatrix(A).reshape((xi.N, 1))),
-                       jac=lambda A: np.squeeze(np.asarray(xi.jac_mu(dM, np.asmatrix(A).reshape((xi.s, 1))).reshape((1, xi.s)))),
-                       x0=np.squeeze(np.asarray(xi.A[:, -1].reshape((1, xi.s)))),
+                       # jac=lambda A: np.squeeze(np.asarray(xi.jac_mu(dM, np.asmatrix(A).reshape((xi.N, 1))).reshape((1, xi.N)))),
+                       x0=np.squeeze(np.asarray(xi.A[:, -1].reshape((1, xi.N)))),
                        method='SLSQP',
                        bounds=bnds)
-        xi.A[:, -1] = np.matrix(res['x']).reshape((xi.s, 1))
+        xi.A[:, -1] = np.matrix(res['x']).reshape((xi.N, 1))
 
         print 'Found:\n%s\n' % res['x']
 
@@ -204,7 +204,7 @@ def build_plan_dualgrad(f, xi, dM, epsilon=1.0e-6):
 
     bnds = ((0.0, 1.0), ) * xi.q                            # Границы для весов p: [0.0 .. 1.0]
     cons = ({'type': 'eq', 'fun': lambda p: sum(p) - 1},)   # Нормированность суммы весов
-    res = minimize(lambda p: xi.X(f, p=np.asmatrix(p).reshape((xi.q, 1))),
+    res = minimize(lambda p: xi.X(p=np.asmatrix(p).reshape((xi.q, 1))),
                    x0=np.squeeze(np.asarray(xi.p)),
                    method='SLSQP',
                    bounds=bnds,
@@ -353,6 +353,90 @@ def main():
     ##build_plan_dirscan(xi)
 
 
+def main_():
+    N = 4       # Число срезов во времени
+    n = 1
+    r = 1
+    p = 1
+    m = 1
+    s = 2
+
+    q = 1      # Число точек плана
+
+    def build_solver(alpha):
+        solver = IMFSolver(n=n, r=r, p=p, m=m, s=s, N=N)
+
+        theta = [1.0, 1.0]
+
+        solver.set_Phi([[theta[0]]])
+        solver.set_diff_Phi_theta([[1.0]], 0)
+        solver.set_diff_Phi_theta([[0.0]], 1)
+
+        solver.set_Psi([[theta[1]]])
+        solver.set_diff_Psi_theta([[0.0]], 0)
+        solver.set_diff_Psi_theta([[1.0]], 1)
+
+        solver.set_Gamma([[1.0]])
+        solver.set_diff_Gamma_theta([[0.0]], 0)
+        solver.set_diff_Gamma_theta([[0.0]], 1)
+
+        solver.set_H([[1.0]])
+        solver.set_diff_H_theta([[0.0]], 0)
+        solver.set_diff_H_theta([[0.0]], 1)
+
+        solver.set_Q([[0.1]])
+        solver.set_diff_Q_theta([[0.0]], 0)
+        solver.set_diff_Q_theta([[0.0]], 1)
+
+        solver.set_R([[0.3]])
+        solver.set_diff_R_theta([[0.0]], 0)
+        solver.set_diff_R_theta([[0.0]], 1)
+
+        solver.set_x0([[0.0]])
+        solver.set_diff_x0_theta([[0.0]], 0)
+        solver.set_diff_x0_theta([[0.0]], 1)
+
+        solver.set_P0([[0.1]])
+        solver.set_diff_P0_theta([[0.0]], 0)
+        solver.set_diff_P0_theta([[0.0]], 1)
+
+
+        for i in xrange(N):
+            solver.set_u([[alpha[i]]], i)
+
+        return solver
+
+    def calc_imf(alpha):
+        solver = build_solver(alpha)
+        return solver.get_inf_matrix()
+
+    def calc_grad_imf(alpha, j=0, tau=1):
+        solver = build_solver(alpha)
+        solver.get_inf_matrix()
+        return solver.get_diff_inf_matrix(j, tau)
+
+    solver_M  = lambda alpha: calc_imf(alpha)
+    solver_dM = lambda alpha, j, tau: calc_grad_imf(alpha, j, tau)
+
+    x0 = 1.0; x1 = 2.0
+    #A = (x1 - x0) * np.random.random((N, q)) + x0      # starting with random plan
+    #A = np.transpose([[-1.0, -1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0]])
+    A = np.transpose([[1.0, 2.0, 2.0, 2.0]])
+    #A = np.transpose([[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+    #                  [-1.0, -1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0]])
+    ##A = [[-5, 5], [-5, 5]]
+    xi = Plan(N, s, q)
+    xi.A[:, :] = A
+    #xi.p[:, :] = [[0.1591], [0.8409]]
+    x0 = 1.0; x1 = 2.0
+    xi.set_bounds(((x0, x1), ) * N)
+    xi.set_inf_matrix_solver(solver_M)
+
+    build_plan_dualgrad(xi, solver_dM)
+    print 'Checking solution for being optimal (less is better): [%.2lf]' % np.abs(xi.mu() - s)
+
+    ##build_plan_dirscan(xi)
+
 if __name__ == '__main__':
     np.set_printoptions(precision=3)
-    main()
+    main_()
