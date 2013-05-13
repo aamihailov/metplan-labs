@@ -354,7 +354,7 @@ def main():
 
 
 def main_():
-    N = 4       # Число срезов во времени
+    N = 7       # Число срезов во времени
     n = 1
     r = 1
     p = 1
@@ -384,7 +384,7 @@ def main_():
         solver.set_diff_H_theta([[0.0]], 0)
         solver.set_diff_H_theta([[0.0]], 1)
 
-        solver.set_Q([[0.1]])
+        solver.set_Q([[10]])
         solver.set_diff_Q_theta([[0.0]], 0)
         solver.set_diff_Q_theta([[0.0]], 1)
 
@@ -418,21 +418,16 @@ def main_():
     solver_M  = lambda alpha: calc_imf(alpha)
     solver_dM = lambda alpha, j, tau: calc_grad_imf(alpha, j, tau)
 
-    x0 = 1.0; x1 = 2.0
-    #A = (x1 - x0) * np.random.random((N, q)) + x0      # starting with random plan
-    #A = np.transpose([[-1.0, -1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0]])
-    A = np.transpose([[1.0, 2.0, 2.0, 2.0]])
-    #A = np.transpose([[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-    #                  [-1.0, -1.0, 1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0]])
-    ##A = [[-5, 5], [-5, 5]]
+    A = np.transpose([[1.0, 2.0, 2.0, 2.0, 2.0, 1.0, 1.0]])
+
     xi = Plan(N, s, q)
     xi.A[:, :] = A
-    #xi.p[:, :] = [[0.1591], [0.8409]]
     x0 = 1.0; x1 = 2.0
     xi.set_bounds(((x0, x1), ) * N)
     xi.set_inf_matrix_solver(solver_M)
 
-    build_plan_dualgrad(xi, solver_dM)
+    xi = build_plan_dirgrad(xi, solver_dM)
+    xi = build_plan_dualgrad(xi, solver_dM)
     print 'Checking solution for being optimal (less is better): [%.2lf]' % np.abs(xi.mu() - s)
 
     ##build_plan_dirscan(xi)
