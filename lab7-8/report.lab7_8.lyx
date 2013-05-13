@@ -1,0 +1,1062 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{cmap}	         % русские буквы при копировании 
+\usepackage{indentfirst}      % отступ после первого абзаца
+\usepackage{misccorr}	         % точки после номеров заголовков
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{lscape}	         % поворот страницы с сохранением нумерации
+\usepackage{multirow}
+
+\sloppy
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language russian
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Предметный указатель
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 1cm
+\rightmargin 1cm
+\bottommargin 2cm
+\footskip 1cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large Министерство образования и науки РФ
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large Новосибирский Государственный Технический Университет
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large Кафедра ПМт
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[8.5cm]  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+huge Лабораторная работа 
+\backslash
+No
+\backslash
+No 7,8
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[0.5cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large <<Вычисление производной ИМФ и градиента критерия оптимальности
+\backslash
+
+\backslash
+ по компонентам вектора начаьных условий>>
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[0.5cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+large по~курсу <<Математические методы планирования эксперимента>>
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[4.0cm] 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+vfill % заполнить все доступное ниже пространство
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newbox{
+\backslash
+lbox}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+savebox{
+\backslash
+lbox}{
+\backslash
+hbox{Пупкин Иван Иванович}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newlength{
+\backslash
+maxl}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setlength{
+\backslash
+maxl}{
+\backslash
+wd
+\backslash
+lbox}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\backslash
+parbox{8cm}{
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Факультет:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{ПМИ
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Группа:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{ПММ-81
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Студенты:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Михайлов А.А.,
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace*{5cm}
+\backslash
+hspace*{-5cm}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Санина А.А.
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Преподаватели:}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Черникова  О.С.,
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace*{5cm}
+\backslash
+hspace*{-5cm}
+\backslash
+hfill
+\backslash
+hbox to
+\backslash
+maxl{Чубич В.М.
+\backslash
+hfill}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[3.0cm]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\backslash
+large Новосибирск 2013}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty} % не нумеровать страницу
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Условие задачи 
+\end_layout
+
+\begin_layout Standard
+Построить и исследовать процедуру вычисления производной ИМФ и градиента
+ критерия оптимальности по компонентам вектора начальных условий.
+\end_layout
+
+\begin_layout Section
+Ход работы:
+\end_layout
+
+\begin_layout Subsection
+Вычисления производной ИМФ 
+\begin_inset Formula $\left(\frac{\partial M\left(U;\,\Theta\right)}{\partial\overline{x}_{j}\left(0\right)}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Известна формуля для вычисления элементов матрицы ИМФ:
+\size footnotesize
+
+\begin_inset Formula 
+\begin{eqnarray*}
+M_{ij}\left(\Theta\right) & = & \sum_{t=0}^{N-1}\left\{ \mathrm{Sp}\left[C_{0}\left(\Sigma_{A}\left(t+1\,|\, t\right)+\overline{x}_{A}\left(t+1\,|\, t\right)\overline{x}_{A}^{T}\left(t+1\,|\, t\right)\right)C_{0}^{T}\frac{\partial H^{T}}{\partial\theta_{i}}B^{-1}\left(t+1\right)\frac{\partial H}{\partial\theta_{i}}\right]+\right.\\
+ & + & \mathrm{Sp}\left[C_{0}\left(\Sigma_{A}\left(t+1\,|\, t\right)+\overline{x}_{A}\left(t+1\,|\, t\right)\overline{x}_{A}^{T}\left(t+1\,|\, t\right)\right)C_{j}^{T}H^{T}B^{-1}\left(t+1\right)H\right]+\\
+ & + & \mathrm{Sp}\left[C_{i}\left(\Sigma_{A}\left(t+1\,|\, t\right)+\overline{x}_{A}\left(t+1\,|\, t\right)\overline{x}_{A}^{T}\left(t+1\,|\, t\right)\right)C_{0}^{T}\frac{\partial H^{T}}{\partial\theta_{j}}B^{-1}\left(t+1\right)H\right]+\\
+ & + & \mathrm{Sp}\left[C_{i}\left(\Sigma_{A}\left(t+1\,|\, t\right)+\overline{x}_{A}\left(t+1\,|\, t\right)\overline{x}_{A}^{T}\left(t+1\,|\, t\right)\right)C_{j}^{T}H^{T}B^{-1}\left(t+1\right)H\right]+\\
+ & + & \left.\frac{1}{2}\mathrm{Sp}\left[\frac{\partial B\left(t+1\right)}{\partial\theta_{i}}B^{-1}\left(t+1\right)\frac{\partial B\left(t+1\right)}{\partial\theta_{j}}B^{-1}\left(t+1\right)\right]\right\} ,\ i,\, j=\overline{1,\, s}.
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Используя формулу для вычисления 
+\begin_inset Formula $\overline{x}_{A}\left(t+1\,|\, t\right)$
+\end_inset
+
+ :
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+\begin_inset Formula 
+\begin{equation}
+\overline{x}_{A}\left(t+1\,|\, t\right)=\begin{cases}
+\left[\begin{array}{cccc}
+\Phi & 0 & \ldots & 0\\
+\partial\Phi/\partial\theta_{1} & \Phi & \ldots & \ldots\\
+\ldots & \ldots & \ldots & \ldots\\
+\partial\Phi/\partial\theta_{s} & \ldots & \ldots & \Phi
+\end{array}\right]\left[\begin{array}{c}
+\overline{x}\left(0\right)\\
+\frac{\partial\overline{x}\left(0\right)}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\overline{x}\left(0\right)}{\partial\theta_{s}}
+\end{array}\right]+\left[\begin{array}{c}
+\Psi\\
+\frac{\partial\Psi}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\Psi}{\partial\theta_{s1}}
+\end{array}\right]u\left(0\right), & t=0;\\
+\Phi_{A}\left(t+1,\, t\right)\overline{x}_{A}\left(t\,|\, t-1\right)+\Psi_{A}u\left(t\right), & t>0.
+\end{cases}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Выразим 
+\begin_inset Formula $\overline{x}_{A}\left(t+1\,|\, t\right)$
+\end_inset
+
+ через ветор начальных условий:
+\end_layout
+
+\begin_layout Itemize
+
+\size footnotesize
+\begin_inset Formula $t=0:$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\size footnotesize
+\begin_inset Formula $\overline{x}_{A}\left(1\,|\,0\right)=\left[\begin{array}{cccc}
+\Phi & 0 & \ldots & 0\\
+\partial\Phi/\partial\theta_{1} & \Phi & \ldots & \ldots\\
+\ldots & \ldots & \ldots & \ldots\\
+\partial\Phi/\partial\theta_{s} & \ldots & \ldots & \Phi
+\end{array}\right]\left[\begin{array}{c}
+\overline{x}\left(0\right)\\
+\frac{\partial\overline{x}\left(0\right)}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\overline{x}\left(0\right)}{\partial\theta_{s}}
+\end{array}\right]+\left[\begin{array}{c}
+\Psi\\
+\frac{\partial\Psi}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\Psi}{\partial\theta_{s}}
+\end{array}\right]u\left(0\right)$
+\end_inset
+
+ --- выражение уже записано через вектор начальных условий;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\size footnotesize
+\begin_inset Formula $t=1:$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+
+\size footnotesize
+\begin_inset Formula $\overline{x}_{A}\left(2\,|\,1\right)=\Phi_{A}\left(2,\,1\right)\overline{x}_{A}\left(1\,|\,0\right)+\Psi_{A}u\left(1\right)$
+\end_inset
+
+;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\size footnotesize
+\begin_inset Formula $t=2:$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+
+\size footnotesize
+\begin_inset Formula $\overline{x}_{A}\left(3\,|\,2\right)=\Phi_{A}\left(3,\,2\right)\overline{x}_{A}\left(2\,|\,1\right)+\Psi_{A}u\left(2\right)=\Phi_{A}\left(3,\,2\right)\left\{ \Phi_{A}\left(2,\,1\right)\overline{x}_{A}\left(1\,|\,0\right)+\Psi_{A}u\left(1\right)\right\} +\Psi_{A}u\left(2\right)=$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\size footnotesize
+\begin_inset Formula $=\Phi_{A}\left(3,\,2\right)\Phi_{A}\left(2,\,1\right)\overline{x}_{A}\left(1\,|\,0\right)+\Phi_{A}\left(3,\,2\right)\Psi_{A}u\left(1\right)+\Psi_{A}u\left(2\right)$
+\end_inset
+
+;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\size footnotesize
+\begin_inset Formula $t=3:$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+
+\size footnotesize
+\begin_inset Formula $\overline{x}_{A}\left(4\,|\,3\right)=\Phi_{A}\left(4,\,3\right)\overline{x}_{A}\left(3\,|\,2\right)+\Psi_{A}u\left(3\right)=\Phi_{A}\left(4,\,3\right)\left\{ \Phi_{A}\left(3,\,2\right)\Phi_{A}\left(2,\,1\right)\overline{x}_{A}\left(1\,|\,0\right)+\Phi_{A}\left(3,\,2\right)\Psi_{A}u\left(1\right)+\Psi_{A}u\left(2\right)\right\} +$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\size footnotesize
+\begin_inset Formula $+\Psi_{A}u\left(3\right)=\Phi_{A}\left(4,\,3\right)\Phi_{A}\left(3,\,2\right)\Phi_{A}\left(2,\,1\right)\overline{x}_{A}\left(1\,|\,0\right)+\Phi_{A}\left(4,\,3\right)\Phi_{A}\left(3,\,2\right)\Psi_{A}u\left(1\right)+\Phi_{A}\left(4,\,3\right)\Psi_{A}u\left(2\right)+\Psi_{A}u\left(3\right)$
+\end_inset
+
+;
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Тогда:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\overline{x}_{A}\left(t+1\,|\, t\right)=\left[\prod_{k=2}^{t+1}\Phi_{A}\left(k,\, k-1\right)\right]\overline{x}_{A}\left(1\,|\,0\right)+\sum_{k=1}^{t}\left[\prod_{m=k+1}^{t}\Phi_{A}\left(m+1,\, m\right)\right]\Psi_{A}u\left(k\right).
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+В итоге получим:
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial M\left(\Theta\right)}{\partial\overline{x}_{j}\left(0\right)} & = & \sum_{t=0}^{N-1}\left\{ \mathrm{Sp}\left[C_{0}\left(\frac{\partial\overline{x}_{A}\left(t+1\,|\, t\right)}{\partial\overline{x}_{j}\left(0\right)}\overline{x}_{A}^{T}\left(t+1\,|\, t\right)+\overline{x}_{A}\left(t+1\,|\, t\right)\frac{\partial\overline{x}_{A}^{T}\left(t+1\,|\, t\right)}{\partial\overline{x}_{j}\left(0\right)}\right)C_{0}^{T}\frac{\partial H^{T}}{\partial\theta_{i}}B^{-1}\left(t+1\right)\frac{\partial H}{\partial\theta_{i}}\right]+\right.\\
+ & + & \mathrm{Sp}\left[C_{0}\left(\frac{\partial\overline{x}_{A}\left(t+1\,|\, t\right)}{\partial\overline{x}_{j}\left(0\right)}\overline{x}_{A}^{T}\left(t+1\,|\, t\right)+\overline{x}_{A}\left(t+1\,|\, t\right)\frac{\partial\overline{x}_{A}^{T}\left(t+1\,|\, t\right)}{\partial\overline{x}_{j}\left(0\right)}\right)C_{j}^{T}H^{T}B^{-1}\left(t+1\right)H\right]+\\
+ & + & \mathrm{Sp}\left[C_{i}\left(\frac{\partial\overline{x}_{A}\left(t+1\,|\, t\right)}{\partial\overline{x}_{j}\left(0\right)}\overline{x}_{A}^{T}\left(t+1\,|\, t\right)+\overline{x}_{A}\left(t+1\,|\, t\right)\frac{\partial\overline{x}_{A}^{T}\left(t+1\,|\, t\right)}{\partial\overline{x}_{j}\left(0\right)}\right)C_{0}^{T}\frac{\partial H^{T}}{\partial\theta_{j}}B^{-1}\left(t+1\right)H\right]+\\
+ & + & \left.\mathrm{Sp}\left[C_{i}\left(\frac{\partial\overline{x}_{A}\left(t+1\,|\, t\right)}{\partial\overline{x}_{j}\left(0\right)}\overline{x}_{A}^{T}\left(t+1\,|\, t\right)+\overline{x}_{A}\left(t+1\,|\, t\right)\frac{\partial\overline{x}_{A}^{T}\left(t+1\,|\, t\right)}{\partial\overline{x}_{j}\left(0\right)}\right)C_{j}^{T}H^{T}B^{-1}\left(t+1\right)H\right]\right\} ,\ i,\, j=\overline{1,\, s},
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+где
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\overline{x}_{A}\left(t+1\,|\, t\right)}{\partial\overline{x}_{j}\left(0\right)}=\left[\prod_{k=2}^{t+1}\Phi_{A}\left(k,\, k-1\right)\right]\left[\begin{array}{cccc}
+\Phi & 0 & \ldots & 0\\
+\partial\Phi/\partial\theta_{1} & \Phi & \ldots & \ldots\\
+\ldots & \ldots & \ldots & \ldots\\
+\partial\Phi/\partial\theta_{s} & \ldots & \ldots & \Phi
+\end{array}\right]\left\{ \frac{\partial}{\partial\overline{x}_{j}\left(0\right)}\left[\begin{array}{c}
+\overline{x}\left(0\right)\\
+\frac{\partial\overline{x}\left(0\right)}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\overline{x}\left(0\right)}{\partial\theta_{s}}
+\end{array}\right]\right\} 
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Алгоритм вычисления производной ИМФ 
+\begin_inset Formula $\left(\frac{\partial M\left(U;\,\Theta\right)}{\partial\overline{x}_{j}\left(0\right)}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Для данного 
+\begin_inset Formula $\theta$
+\end_inset
+
+ найти:
+\begin_inset Formula 
+\begin{eqnarray*}
+\Phi,\ \frac{\partial\Phi}{\partial\theta_{i}},\ i=\overline{1,\, s} & \ \ \ \ \ \ \ \ \ \ \  & \Gamma,\ H,\ \frac{\partial H}{\partial\theta_{i}},\ i=\overline{1,\, s}\\
+\Psi,\ \frac{\partial\Psi}{\partial\theta_{i}},\ i=\overline{1,\, s} & \ \ \ \ \ \ \ \ \ \ \  & Q,\ R,\ P\left(0\right),\ \overline{x}\left(0\right),\ \frac{\partial\overline{x}\left(0\right)}{\partial\theta_{i}},\ i=\overline{1,\, s}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Сформировать матрицы: 
+\begin_inset Formula 
+\begin{equation}
+\tilde{\Phi}_{A}=\left[\begin{array}{c}
+\Phi\\
+\frac{\partial\Phi}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\Phi}{\partial\theta_{s}}
+\end{array}\right],\ \Psi_{A}=\left[\begin{array}{c}
+\Psi\\
+\frac{\partial\Psi}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\Psi}{\partial\theta_{s}}
+\end{array}\right].
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Положить 
+\begin_inset Formula $\frac{\partial M\left(U;\,\Theta\right)}{\partial\overline{x}_{j}\left(0\right)}=0,\ P\left(0\,|\,0\right)=P\left(0\right);\ t=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:step3"
+
+\end_inset
+
+Вычислить 
+\begin_inset Formula $\frac{\partial\overline{x}_{A}\left(t+1\,|\, t\right)}{\partial\overline{x}_{j}\left(0\right)}$
+\end_inset
+
+ и 
+\begin_inset Formula $\overline{x}_{A}\left(t+1\,|\, t\right)$
+\end_inset
+
+ по формуле:
+\size footnotesize
+
+\begin_inset Formula 
+\begin{equation}
+\overline{x}_{A}\left(t+1\,|\, t\right)=\begin{cases}
+\left[\begin{array}{cccc}
+\Phi & 0 & \ldots & 0\\
+\partial\Phi/\partial\theta_{1} & \Phi & \ldots & \ldots\\
+\ldots & \ldots & \ldots & \ldots\\
+\partial\Phi/\partial\theta_{s} & \ldots & \ldots & \Phi
+\end{array}\right]\left[\begin{array}{c}
+\overline{x}\left(0\right)\\
+\frac{\partial\overline{x}\left(0\right)}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\overline{x}\left(0\right)}{\partial\theta_{s}}
+\end{array}\right]+\left[\begin{array}{c}
+\Psi\\
+\frac{\partial\Psi}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\Psi}{\partial\theta_{s}}
+\end{array}\right]u\left(0\right), & t=0;\\
+\Phi_{A}\left(t+1,\, t\right)\overline{x}_{A}\left(t\,|\, t-1\right)+\Psi_{A}u\left(t\right), & t>0.
+\end{cases}\label{eq:F}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Используя выражения фильтра Калмана, найти:
+\begin_inset Formula 
+\begin{eqnarray*}
+P\left(t+1\,|\, t\right) & = & \Phi P\left(t\,|\, t\right)\Phi^{T}+\Gamma Q\Gamma^{T},\\
+B\left(t+1\,|\, t\right) & = & HP\left(t+1\,|\, t\right)H^{T}+R,\\
+K\left(t+1\right) & = & P\left(t+1\,|\, t\right)H^{T}B^{-1}\left(t+1\right),\\
+P\left(t+1\,|\, t+1\right) & = & \left[I-K\left(t+1\right)H\right]P\left(t+1\,|\, t\right),\\
+\tilde{K}\left(t+1\right) & = & \Phi K\left(t+1\right).
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Сформировать матрицу:
+\begin_inset Formula 
+\begin{equation}
+\Phi_{A}\left(t+2\,|\, t+1\right)=\left[\begin{array}{cccc}
+\Phi & 0 & \ldots & 0\\
+\partial\Phi/\partial\theta_{1}-\tilde{K}\left(t+1\right)\frac{\partial H}{\partial\theta_{1}} & \Phi-\tilde{K}\left(t+1\right)H & \ldots & 0\\
+\ldots & \ldots & \ldots & \ldots\\
+\partial\Phi/\partial\theta_{s}-\tilde{K}\left(t+1\right)\frac{\partial H}{\partial\theta_{s}} & 0 & \ldots & \Phi-\tilde{K}\left(t+1\right)H
+\end{array}\right].
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Получить 
+\begin_inset Formula $\triangle\frac{\partial M\left(U;\,\Theta\right)}{\partial\overline{x}_{j}\left(0\right)}$
+\end_inset
+
+, отвечающее текущему значению 
+\begin_inset Formula $t$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Положить 
+\begin_inset Formula $\frac{\partial M\left(U;\,\Theta\right)}{\partial\overline{x}_{j}\left(0\right)}=\frac{\partial M\left(U;\,\Theta\right)}{\partial\overline{x}_{j}\left(0\right)}+\triangle\frac{\partial M\left(U;\,\Theta\right)}{\partial\overline{x}_{j}\left(0\right)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Увеличить 
+\begin_inset Formula $t$
+\end_inset
+
+ на единицу.
+ Если 
+\begin_inset Formula $t\leq N-1$
+\end_inset
+
+, перейти на шаг 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:step3"
+
+\end_inset
+
+).
+ В противном случае закончить процесс.
+\end_layout
+
+\begin_layout Standard
+Выражение для градиента по весам для D-критерия оптимальности получаем по
+ формуле:
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\mu\left(U,\,\xi\right)}{\partial\overline{x}_{j}\left(0\right)}=\frac{\partial\mathrm{Sp}\left[M^{-1}\left(\xi\right)M\left(U\right)\right]}{\partial\partial\overline{x}_{j}\left(0\right)}=\mathrm{Sp}\left[M^{-1}\left(\xi\right)\frac{\partial M\left(U\right)}{\partial\overline{x}_{j}\left(0\right)}\right],\ t=\overline{0,\, N-1},\ j=\overline{1,\, r}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Текст программы на языке Python
+\end_layout
+
+\begin_layout Subsubsection
+IMP.py
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize},breaklines=true,language=Python,numbers=left,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+main.py
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize},breaklines=true,language=Python,numbers=left,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Результат работы программы
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\Phi=\left(\begin{array}{cc}
+\theta_{3} & 1\\
+\theta_{4} & 0
+\end{array}\right);\ \Psi=\left(\begin{array}{c}
+\theta_{1}\\
+\theta_{2}
+\end{array}\right);\ H=\left(\begin{array}{cc}
+1 & 0\end{array}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $Q=\left(\begin{array}{cc}
+1 & 0\\
+0 & 1
+\end{array}\right),\ R=0.02$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $P\left(0\right)=\left(\begin{array}{cc}
+0.1 & 0\\
+0 & 0.1
+\end{array}\right),\ \overline{x}\left(0\right)=\left(\begin{array}{c}
+0\\
+0
+\end{array}\right)$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $N=20$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $u\left(0\right)=u\left(1\right)=\ldots=u\left(N-1\right)=1$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\theta^{*}=\left(\begin{array}{c}
+0.58\\
+0.57\\
+0.52\\
+-0.01
+\end{array}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+В результате было получено:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},breaklines=true,language=bash,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Вывод
+\end_layout
+
+\begin_layout Standard
+В ходе лабораторной работы была проведена разработка процедуры вычисления
+ производной ИМФ и градиента критерия оптимальности по компонентам вектора
+ начальных условий для дискретного D-оптимального плана.
+\end_layout
+
+\end_body
+\end_document
