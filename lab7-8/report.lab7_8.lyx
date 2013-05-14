@@ -706,7 +706,59 @@ M_{ij}\left(\Theta\right) & = & \sum_{t=0}^{N-1}\left\{ \mathrm{Sp}\left[C_{0}\l
 \frac{\partial\overline{x}\left(0\right)}{\partial\theta_{1}}\\
 \ldots\\
 \frac{\partial\overline{x}\left(0\right)}{\partial\theta_{s}}
-\end{array}\right]\right\} 
+\end{array}\right]\right\} \label{eq:diff_xA_x0}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Зная, что 
+\begin_inset Formula 
+\begin{equation}
+\overline{x}_{A}\left(t+1\,|\, t\right)=\begin{cases}
+\left[\begin{array}{c}
+\Phi\\
+\frac{\partial\Phi}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\Phi}{\partial\theta_{s}}
+\end{array}\right]\overline{x}_{A}\left(0\right)+\left[\begin{array}{c}
+0\\
+\Phi\frac{\partial\Phi}{\partial\theta_{1}}\\
+\ldots\\
+\Phi\frac{\partial\Phi}{\partial\theta_{s}}
+\end{array}\right]+\Psi_{A}u\left(0\right), & t=0;\\
+\Phi_{A}\left(t+1,\, t\right)\overline{x}_{A}\left(t\,|\, t-1\right)+\Psi_{A}u\left(t\right), & t>0.
+\end{cases}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+В рекурентном виде выражение 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:diff_xA_x0"
+
+\end_inset
+
+ можно представить, как:
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\overline{x}_{A}\left(t+1\,|\, t\right)}{\partial\overline{x}_{j}\left(0\right)}=\begin{cases}
+\left[\begin{array}{c}
+\Phi\\
+\frac{\partial\Phi}{\partial\theta_{1}}\\
+\ldots\\
+\frac{\partial\Phi}{\partial\theta_{s}}
+\end{array}\right]\frac{\partial\overline{x}_{A}\left(0\right)}{\partial\overline{x}_{j}\left(0\right)}, & t=0;\\
+\Phi_{A}\left(t+1,\, t\right)\frac{\partial\overline{x}_{A}\left(t\,|\, t-1\right)}{\partial\overline{x}_{j}\left(0\right)}, & t>0.
+\end{cases}
 \end{equation}
 
 \end_inset

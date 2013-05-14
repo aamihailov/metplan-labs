@@ -328,7 +328,7 @@ def main():
     def calc_grad_imf(alpha, j=0, tau=1):
         solver = build_solver(alpha)
         solver.get_inf_matrix()
-        return solver.get_diff_inf_matrix(j, tau)
+        return solver.get_diff_inf_matrix_u(j, tau)
 
     solver_M  = lambda alpha: calc_imf(alpha)
     solver_dM = lambda alpha, j, tau: calc_grad_imf(alpha, j, tau)
@@ -413,7 +413,7 @@ def main_():
     def calc_grad_imf(alpha, j=0, tau=1):
         solver = build_solver(alpha)
         solver.get_inf_matrix()
-        return solver.get_diff_inf_matrix(j, tau)
+        return solver.get_diff_inf_matrix_u(j, tau)
 
     solver_M  = lambda alpha: calc_imf(alpha)
     solver_dM = lambda alpha, j, tau: calc_grad_imf(alpha, j, tau)

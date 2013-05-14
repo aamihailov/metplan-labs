@@ -166,7 +166,7 @@ class IMFSolver(object):
             t += 1
         return d['M(Theta)']
 
-    def get_diff_inf_matrix(self, j, tau):
+    def get_diff_inf_matrix_u(self, j, tau):
         d = self.data
 
         d['Phi_t_A'] = row_stack_it(d['Phi'], [d['diff(Phi, theta[%d])' % i] for i in xrange(self.s)])
@@ -187,6 +187,24 @@ class IMFSolver(object):
             t += 1
 
         return d['diff(M(U, Theta), u(%d, %d))' % (j, tau)]
+
+    def get_diff_inf_matrix_f(self, j):
+        d = self.data
+
+        d['Phi_t_A'] = row_stack_it(d['Phi'], [d['diff(Phi, theta[%d])' % i] for i in xrange(self.s)])
+
+        d['diff(M(U, Theta), x[%d](0))' % (j, )] = np.ndarray((self.s, self.s))
+        d['diff(M(U, Theta), x[%d](0))' % (j, )][:, :] = 0.0
+
+        t = 0
+        while t < self.N:
+            self.diff_x_step3(d, t, j)
+            self.diff_x_step6(d, t, j)
+
+            d['diff(M(U, Theta), x[%d](0))' % (j, )] += d['delta diff(M(U, Theta), x[%d](0))' % (j, )]
+            t += 1
+
+        return d['diff(M(U, Theta), x[%d](0))' % (j, )]
 
     def step3(self, d, t):
         # Шаг 3. Вычислить Sigma_A(t + 1|t) по формуле (2.82), если t = 0, иначе по формуле (2.84)
@@ -410,6 +428,40 @@ class IMFSolver(object):
                     np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(Ci, x_dx_p_dx_x), Cj.transpose()), H.transpose()), la.inv(B)), H))
         d['delta diff(M(U, Theta), u(%d, %d))' % (j, tau)] = deltaM
 
+    def diff_x_step3(self, d, t, j):
+        if t == 0:
+            dxA0_dx0j = np.ndarray((self.n * (self.s + 1), 1))
+            dxA0_dx0j[:, :] = 0.0
+            dxA0_dx0j[j, 0] = 1.0
+            d['diff(x_A(%d|%d), x[%d](0))' % (t + 1, t, j)] = la.dot(d['Phi_t_A'], dxA0_dx0j)
+        else:
+            d['diff(x_A(%d|%d), x[%d](0))' % (t + 1, t, j)] = la.dot(d['Phi_A(%d|%d)' % (t + 1, t)],
+                                                                     d['diff(x_A(%d|%d), x[%d](0))' % (t, t - 1, j)])
+
+    def diff_x_step6(self, d, t, j):
+        deltaM = np.ndarray((self.s, self.s))
+        C0 = build_c(self.n, self.s, 0)
+        x_A = d['x_A(%d|%d)' % (t + 1, t)]
+        dx_A = d['diff(x_A(%d|%d), x[%d](0))' % (t + 1, t, j)]
+        B = d['B(%d)' % (t + 1)]
+        H = d['H']
+        for alpha in xrange(self.s):
+            Ci = build_c(self.n, self.s, alpha + 1)
+            dHi = d['diff(H, theta[%d])' % alpha]
+            dBi = d['diff(B(%d), theta[%d])' % (t + 1, alpha)]
+            for beta in xrange(self.s):
+                Cj = build_c(self.n, self.s, beta + 1)
+                dHj = d['diff(H, theta[%d])' % j]
+                dBj = d['diff(B(%d), theta[%d])' % (t + 1, beta)]
+
+                x_dx_p_dx_x = np.dot(x_A, dx_A.transpose()) + np.dot(dx_A, x_A.transpose())
+                deltaM[alpha, beta] = \
+                    np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(C0, x_dx_p_dx_x), C0.transpose()), dHj.transpose()), la.inv(B)), dHi)) + \
+                    np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(C0, x_dx_p_dx_x), Cj.transpose()), H.transpose()), la.inv(B)), dHi)) + \
+                    np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(Ci, x_dx_p_dx_x), C0.transpose()), dHj.transpose()), la.inv(B)), H)) + \
+                    np.trace(np.dot(np.dot(np.dot(np.dot(np.dot(Ci, x_dx_p_dx_x), Cj.transpose()), H.transpose()), la.inv(B)), H))
+        d['delta diff(M(U, Theta), u(%d, %d))' % (j, tau)] = deltaM
+
 
 def main():
     N = 20
@@ -458,7 +510,7 @@ def main():
     print la.det(M)
     print -np.log(la.det(M))
 
-    dM = solver.get_diff_inf_matrix(0, 10)
+    dM = solver.get_diff_inf_matrix_u(0, 10)
     print dM
     print np.trace(np.dot(la.inv(M), dM))
 
